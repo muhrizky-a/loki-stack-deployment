@@ -1,0 +1,24 @@
+# 1.  Initialize Master (Stop swap first)
+swapon -s
+sudo swapoff -a
+sudo kubeadm init --pod-network-cidr=10.244.XX.0/16
+
+# kubeadm join 192.168.100.114:6443 --token i3ue09.2d9tgbdlaot248mm --discovery-token-ca-cert-hash sha256:70b7eb6fd5ac0e15848fe26f83a9d386fe2902fc9705577feb1f56a0799e0821
+
+# 2.  Copy admin configuration
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# 3. Install POD Network Flannel (kube-flannel.yml)
+wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f kube-flannel.yml
+kubectl get pods --all-namespaces --watch
+
+# 4. Verify config & cluster
+kubectl config view
+kubectl cluster-info
+
+# 5. Show Token and token-ca-cert-hash
+sudo kubeadm token list
+sudo openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'

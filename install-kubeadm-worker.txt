@@ -1,0 +1,5 @@
+# 1.  Join to Master (Stop swap first)
+swapon -s
+sudo swapoff -a
+sudo apt install socat -y
+sudo kubeadm join [MASTER_IP]:6443 --token [MASTER_TOKEN] --discovery-token-ca-cert-hash sha256:[TOKEN-CA-CERT-HASH]
