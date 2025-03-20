@@ -1,0 +1,89 @@
+heat_template_version: 2021-04-16
+
+#heat_template_version: 2013-05-23
+parameters:
+  code:
+    type: string
+    description: Lorem Ipsum
+    default: kube
+
+resources:
+  my_instance:
+    type: OS::Nova::Server
+    properties:
+      image: "cirros-0.5.2-loki"
+      flavor: "m1.tiny"
+      security_groups:
+      - security-group-allow-ssh-icmp
+      key_name: controller-key
+      networks:
+      - network: "46eaf126-0c9d-4015-bafd-87f6ca04b463" #internal-net-loki
+#      user_data:
+#        get_file: create-txt-file.sh
+#        get_file: https://pastebin.com/raw/fqDx1k1U
+      user_data_format: SOFTWARE_CONFIG
+#      user_data: |
+#        #!/bin/bash
+#        cat /proc/cpuinfo > /tmp/cpuinfo.log
+#        echo "message" > /home/cirros/message.txt
+#      user_data: {get_resource: root_config_02}
+#      user_data: { get_file: /tmp/create-txt-file.sh }
+  ps_script:
+    type: OS::Heat::SoftwareConfig
+    properties:
+#     group: ungrouped
+#      config:
+#        str_replace:
+#          params:
+#             $MESSAGE: {get_param: code}
+#          template: |
+#            #!/bin/bash
+#            cat /proc/cpuinfo > /tmp/cpuinfo.log
+#            echo $MESSAGE > /home/cirros/message.txt
+      config: |
+        #!/bin/bash
+        cat /proc/cpuinfo > /tmp/cpuinfo.log
+        echo $MESSAGE > /home/cirros/message.txt
+
+
+
+  deployment:
+    type: OS::Heat::SoftwareDeployment
+    properties:
+      config: {get_resource: ps_script}
+      server: {get_resource: my_instance }
+#  services-cloud-init:
+#    type: OS::Heat::CloudConfig
+#    properties:
+#        cloud_config:
+#            write_files:
+#              - path: /tmp/create_file.sh
+#                owner: root:root
+#                permissions: '0777'
+#                content: |
+#                          #!/bin/bash
+#                          echo "hello" > /tmp/message-init.txt
+#
+#            runcmd:
+#              - echo "Executing create_file"
+#              - /tmp/create_file.sh
+#              - reboot
+#            bootcmd:
+#              - echo "Boot Completed"
+
+outputs:
+  instance_name:
+    description: "Name of the instance"
+    value: { get_attr: [ my_instance, name ] }
+  result:
+    description: Checkoutput
+    value: { get_attr: [deployment, name] }
+  result2:
+    description: Checkoutput
+    value: { get_attr: [deployment, metadata] }
+#  instance_metadata:
+#    description: "The metadata of the created instance"
+#    value: { get_param: [ my_instance, metadata ] }
+#  instance_address:
+#    description: "The hostname of the created instance"
+#    value: { get_attr: [ my_instance, first_address ] }

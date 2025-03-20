@@ -1,0 +1,90 @@
+[OpenStack Port]
+Keystone (Identity Service):
+5000 (public API)
+35357 (admin API)
+
+Glance (Image Service):
+9292 (API service)
+
+Nova (Compute Service):
+8774 (API service)
+8775 (metadata service)
+
+Neutron (Networking Service):
+9696 (API service)
+9697 (metadata proxy)
+
+Cinder (Block Storage Service):
+8776 (API service)
+
+Swift (Object Storage):
+8080 (proxy server)
+
+Horizon (Dashboard):
+80 or 443 (HTTP/HTTPS)
+
+Heat (Orchestration):
+8004 (API service)
+
+Ceilometer (Telemetry):
+8777 (API service)
+
+Mistral (Workflow Service):
+8989 (API service)
+
+Aodh (Alarming Service):
+8042 (API service)
+
+Placement Service:
+8778 (API service)
+
+[Kubernetes Port]
+API Server
+6443: The main API server port, used for communication with the Kubernetes API.
+
+etcd (Key-Value Store)
+2379: Client communication to etcd.
+2380: Server-to-server communication for etcd cluster members.
+
+Kubelet
+10250: Kubelet API for communication between the API server and nodes.
+10255: Read-only Kubelet API (deprecated).
+
+Kube-Proxy
+10256: Default port for kube-proxy (used for load balancing).
+
+Scheduler
+10251: Default port for the Kubernetes scheduler.
+
+Controller Manager
+10252: Default port for the Kubernetes controller manager.
+
+NodePort Services
+30000-32767: The default range for NodePort services, allowing external traffic to reach the service.
+
+Ingress Controller
+80: HTTP traffic.
+443: HTTPS traffic.
+
+[Flannel CNI Port]
+UDP Port 8472: This is used for the VXLAN backend, which encapsulates packets in a VXLAN tunnel for communication between hosts.
+
+TCP Port 5050: This is used for the Flannel API server, which manages the configuration and network state.
+
+Ports for etcd (if used):
+2379: Client communication to etcd.
+2380: Server-to-server communication for etcd cluster members
+
+[Calico CNI Port]
+BGP (Border Gateway Protocol):
+179: This port is used for BGP peering between Calico nodes to exchange routing information.
+
+Felix (Calico agent):
+9090: This is used for the Felix metrics endpoint.
+
+Calico API (if using Typha):
+5473: Used for the Calico API service when Typha is deployed.
+
+Ports for etcd (if used):
+2379: Client communication to etcd.
+2380: Server-to-server communication for etcd cluster members.

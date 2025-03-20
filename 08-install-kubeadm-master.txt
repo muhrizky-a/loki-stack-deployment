@@ -3,7 +3,7 @@ swapon -s
 sudo swapoff -a
 sudo kubeadm init --pod-network-cidr=10.244.XX.0/16
 
-# kubeadm join 192.168.100.114:6443 --token i3ue09.2d9tgbdlaot248mm --discovery-token-ca-cert-hash sha256:70b7eb6fd5ac0e15848fe26f83a9d386fe2902fc9705577feb1f56a0799e0821
+# kubeadm join 192.168.100.114:6443 --token i3ue09.2d9tgbdlaot248mm --discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # 2.  Copy admin configuration
 mkdir -p $HOME/.kube
