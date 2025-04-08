@@ -1,0 +1,954 @@
+Deploying Playbooks : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  --limit openstack2 -e kolla_action=deploy /home/loki/kolla-venv/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [openstack2]
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack2]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [openstack2]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+
+TASK [Gather facts] ************************************************************
+skipping: [openstack2] => (item=openstack2) 
+ok: [openstack2 -> openstack1] => (item=openstack1)
+ok: [openstack2 -> localhost] => (item=localhost)
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack2] => (item=openstack2) 
+skipping: [openstack2] => (item=openstack1) 
+skipping: [openstack2] => (item=localhost) 
+skipping: [openstack2]
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [openstack2]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [openstack2] => (item=enable_aodh_False)
+ok: [openstack2] => (item=enable_barbican_False)
+ok: [openstack2] => (item=enable_blazar_False)
+ok: [openstack2] => (item=enable_ceilometer_False)
+ok: [openstack2] => (item=enable_ceph_rgw_False)
+ok: [openstack2] => (item=enable_cinder_False)
+ok: [openstack2] => (item=enable_cloudkitty_False)
+ok: [openstack2] => (item=enable_collectd_False)
+ok: [openstack2] => (item=enable_cyborg_False)
+ok: [openstack2] => (item=enable_designate_False)
+ok: [openstack2] => (item=enable_etcd_False)
+ok: [openstack2] => (item=enable_glance_True)
+ok: [openstack2] => (item=enable_gnocchi_False)
+ok: [openstack2] => (item=enable_grafana_False)
+ok: [openstack2] => (item=enable_hacluster_False)
+ok: [openstack2] => (item=enable_heat_True)
+ok: [openstack2] => (item=enable_horizon_False)
+ok: [openstack2] => (item=enable_influxdb_False)
+ok: [openstack2] => (item=enable_ironic_False)
+ok: [openstack2] => (item=enable_iscsid_False)
+ok: [openstack2] => (item=enable_keystone_True)
+ok: [openstack2] => (item=enable_kuryr_False)
+ok: [openstack2] => (item=enable_letsencrypt_False)
+ok: [openstack2] => (item=enable_loadbalancer_True)
+ok: [openstack2] => (item=enable_magnum_False)
+ok: [openstack2] => (item=enable_manila_False)
+ok: [openstack2] => (item=enable_mariadb_True)
+ok: [openstack2] => (item=enable_masakari_False)
+ok: [openstack2] => (item=enable_memcached_True)
+ok: [openstack2] => (item=enable_mistral_False)
+ok: [openstack2] => (item=enable_multipathd_False)
+ok: [openstack2] => (item=enable_neutron_True)
+ok: [openstack2] => (item=enable_nova_True)
+ok: [openstack2] => (item=enable_octavia_False)
+ok: [openstack2] => (item=enable_opensearch_False)
+ok: [openstack2] => (item=enable_opensearch_dashboards_False)
+ok: [openstack2] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack2] => (item=enable_ovn_False)
+ok: [openstack2] => (item=enable_placement_True)
+ok: [openstack2] => (item=enable_prometheus_False)
+ok: [openstack2] => (item=enable_rabbitmq_True)
+ok: [openstack2] => (item=enable_redis_False)
+ok: [openstack2] => (item=enable_skyline_False)
+ok: [openstack2] => (item=enable_swift_False)
+ok: [openstack2] => (item=enable_tacker_False)
+ok: [openstack2] => (item=enable_telegraf_False)
+ok: [openstack2] => (item=enable_trove_False)
+ok: [openstack2] => (item=enable_venus_False)
+ok: [openstack2] => (item=enable_watcher_False)
+ok: [openstack2] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role common] *******************************************************
+
+TASK [common : include_tasks] **************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/tasks/deploy.yml for openstack2
+
+TASK [common : Ensuring config directories exist] ******************************
+changed: [openstack2] => (item=[{'service_name': 'cron'}, 'cron'])
+changed: [openstack2] => (item=[{'service_name': 'fluentd'}, 'fluentd'])
+changed: [openstack2] => (item=[{'service_name': 'kolla-toolbox'}, 'kolla-toolbox'])
+
+TASK [common : include_tasks] **************************************************
+skipping: [openstack2]
+
+TASK [common : Copying over /run subdirectories conf] **************************
+skipping: [openstack2]
+
+TASK [common : Restart systemd-tmpfiles] ***************************************
+skipping: [openstack2]
+
+TASK [common : Ensure fluentd image is present for label check] ****************
+ok: [openstack2]
+
+TASK [common : Fetch fluentd Docker image labels] ******************************
+ok: [openstack2]
+
+TASK [common : Set fluentd facts] **********************************************
+ok: [openstack2]
+
+TASK [common : Fetch fluentd Podman image labels] ******************************
+skipping: [openstack2]
+
+TASK [common : Set fluentd facts] **********************************************
+skipping: [openstack2]
+
+TASK [common : Copying over config.json files for services] ********************
+changed: [openstack2] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+changed: [openstack2] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible'}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+changed: [openstack2] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Find custom fluentd input config files] *************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Find custom fluentd filter config files] ************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Find custom fluentd format config files] ************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Find custom fluentd output config files] ************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Copying over td-agent.conf] *************************************
+changed: [openstack2]
+
+TASK [common : Copying over cron logrotate config file] ************************
+changed: [openstack2]
+
+TASK [common : Ensure RabbitMQ Erlang cookie exists] ***************************
+changed: [openstack2]
+
+TASK [common : Ensuring config directories have correct owner and permission] ***
+ok: [openstack2] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+skipping: [openstack2] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible'}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+ok: [openstack2] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Copy rabbitmq-env.conf to kolla toolbox] ************************
+changed: [openstack2] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/templates/rabbitmq-env.conf.j2)
+
+TASK [common : Copy rabbitmq erl_inetrc to kolla toolbox] **********************
+changed: [openstack2] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/templates/erl_inetrc.j2)
+
+TASK [common : Check common containers] ****************************************
+changed: [openstack2] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+changed: [openstack2] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible'}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+changed: [openstack2] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Creating log volume] ********************************************
+changed: [openstack2]
+
+TASK [common : Link kolla_logs volume to /var/log/kolla] ***********************
+changed: [openstack2]
+
+TASK [common : Flush handlers] *************************************************
+
+RUNNING HANDLER [common : Restart fluentd container] ***************************
+changed: [openstack2]
+
+RUNNING HANDLER [common : Restart kolla-toolbox container] *********************
+changed: [openstack2]
+
+RUNNING HANDLER [common : Initializing toolbox container using normal user] ****
+ok: [openstack2]
+
+RUNNING HANDLER [common : Restart cron container] ******************************
+changed: [openstack2]
+
+PLAY [Apply role loadbalancer] *************************************************
+skipping: no hosts matched
+
+PLAY [Apply role letsencrypt] **************************************************
+skipping: no hosts matched
+
+PLAY [Apply role collectd] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role influxdb] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role telegraf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role redis] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mariadb] ******************************************************
+skipping: no hosts matched
+
+PLAY [Restart mariadb services] ************************************************
+skipping: no hosts matched
+
+PLAY [Start mariadb services] **************************************************
+skipping: no hosts matched
+
+PLAY [Restart bootstrap mariadb service] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply mariadb post-configuration] ****************************************
+skipping: no hosts matched
+
+PLAY [Apply role memcached] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role prometheus] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role iscsi] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role multipathd] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role rabbitmq] *****************************************************
+skipping: no hosts matched
+
+PLAY [Restart rabbitmq services] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply rabbitmq post-configuration] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply role etcd] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role keystone] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role opensearch] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role swift] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceph-rgw] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role glance] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ironic] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cinder] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role placement] ****************************************************
+skipping: no hosts matched
+
+PLAY [Bootstrap nova API databases] ********************************************
+skipping: no hosts matched
+
+PLAY [Bootstrap nova cell databases] *******************************************
+skipping: no hosts matched
+
+PLAY [Apply role nova] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role nova-cell] ****************************************************
+
+TASK [nova-cell : include_tasks] ***********************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/nova-cell/tasks/deploy.yml for openstack2
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [Load and persist br_netfilter module] ************************************
+
+TASK [module-load : Load modules] **********************************************
+ok: [openstack2] => (item=br_netfilter)
+
+TASK [module-load : Persist modules via modules-load.d] ************************
+ok: [openstack2] => (item=br_netfilter)
+
+TASK [module-load : Drop module persistence] ***********************************
+skipping: [openstack2] => (item=br_netfilter) 
+skipping: [openstack2]
+
+TASK [nova-cell : Enable bridge-nf-call sysctl variables] **********************
+ok: [openstack2] => (item=net.bridge.bridge-nf-call-iptables)
+ok: [openstack2] => (item=net.bridge.bridge-nf-call-ip6tables)
+
+TASK [nova-cell : Install udev kolla kvm rules] ********************************
+skipping: [openstack2]
+
+TASK [nova-cell : Mask qemu-kvm service] ***************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Ensuring config directories exist] ***************************
+changed: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}})
+changed: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+changed: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Check if policies shall be overwritten] **********************
+skipping: [openstack2]
+
+TASK [nova-cell : Set nova policy file] ****************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Check for vendordata file] ***********************************
+ok: [openstack2 -> localhost]
+
+TASK [nova-cell : Set vendordata file path] ************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over config.json files for services] *****************
+changed: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}})
+changed: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+changed: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : Copying over nova.conf] **************************************
+skipping: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+changed: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : Copying over Nova compute provider config] *******************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over libvirt configuration] **************************
+changed: [openstack2] => (item={'src': 'qemu.conf.j2', 'dest': 'qemu.conf'})
+changed: [openstack2] => (item={'src': 'libvirtd.conf.j2', 'dest': 'libvirtd.conf'})
+
+TASK [nova-cell : Copying over libvirt TLS keys] *******************************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over libvirt SASL configuration] *********************
+changed: [openstack2] => (item={'src': 'auth.conf.j2', 'dest': 'auth.conf', 'service': 'nova-compute'})
+changed: [openstack2] => (item={'src': 'auth.conf.j2', 'dest': 'auth.conf', 'service': 'nova-libvirt'})
+changed: [openstack2] => (item={'src': 'sasl.conf.j2', 'dest': 'sasl.conf', 'service': 'nova-libvirt'})
+
+TASK [nova-cell : Copying files for nova-ssh] **********************************
+changed: [openstack2] => (item={'src': 'sshd_config.j2', 'dest': 'sshd_config'})
+changed: [openstack2] => (item={'src': 'id_rsa', 'dest': 'id_rsa'})
+changed: [openstack2] => (item={'src': 'id_rsa.pub', 'dest': 'id_rsa.pub'})
+changed: [openstack2] => (item={'src': 'ssh_config.j2', 'dest': 'ssh_config'})
+
+TASK [nova-cell : Copying VMware vCenter CA file] ******************************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying 'release' file for nova_compute] *********************
+skipping: [openstack2]
+
+TASK [nova-cell : Generating 'hostnqn' file for nova_compute] ******************
+changed: [openstack2]
+
+TASK [nova-cell : Copying over existing policy file] ***************************
+skipping: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over vendordata file to containers] ******************
+skipping: [openstack2] => (item=nova-compute) 
+skipping: [openstack2] => (item=nova-compute-ironic) 
+skipping: [openstack2]
+
+TASK [nova-cell : Check nova-cell containers] **********************************
+changed: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}})
+changed: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+changed: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Flush handlers] **********************************************
+
+RUNNING HANDLER [nova-cell : Restart nova-ssh container] ***********************
+changed: [openstack2]
+
+RUNNING HANDLER [nova-cell : Restart nova-libvirt container] *******************
+changed: [openstack2]
+
+RUNNING HANDLER [nova-cell : Checking libvirt container is ready] **************
+changed: [openstack2]
+
+RUNNING HANDLER [nova-cell : Create libvirt SASL user] *************************
+changed: [openstack2]
+
+RUNNING HANDLER [nova-cell : Restart nova-compute container] *******************
+changed: [openstack2]
+
+RUNNING HANDLER [nova-cell : Wait for nova-compute services to update service versions] ***
+skipping: [openstack2]
+
+TASK [nova-cell : Waiting for nova-compute services to register themselves] ****
+FAILED - RETRYING: [openstack2 -> openstack1]: Waiting for nova-compute services to register themselves (20 retries left).
+ok: [openstack2 -> openstack1]
+
+TASK [nova-cell : Fail if nova-compute service failed to register] *************
+skipping: [openstack2]
+
+TASK [nova-cell : Include discover_computes.yml] *******************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/nova-cell/tasks/discover_computes.yml for openstack2
+
+TASK [nova-cell : Get a list of existing cells] ********************************
+ok: [openstack2 -> openstack1]
+
+TASK [nova-cell : Extract current cell settings from list] *********************
+ok: [openstack2 -> openstack1]
+
+TASK [nova-cell : Fail if cell settings not found] *****************************
+skipping: [openstack2]
+
+TASK [nova-cell : Discover nova hosts] *****************************************
+ok: [openstack2 -> openstack1]
+
+PLAY [Refresh nova scheduler cell cache] ***************************************
+skipping: no hosts matched
+
+PLAY [Reload global Nova super conductor services] *****************************
+skipping: no hosts matched
+
+PLAY [Reload Nova cell services] ***********************************************
+
+TASK [nova-cell : Reload nova cell services to remove RPC version cap] *********
+skipping: [openstack2] => (item=nova-conductor) 
+skipping: [openstack2] => (item=nova-compute) 
+skipping: [openstack2] => (item=nova-compute-ironic) 
+skipping: [openstack2] => (item=nova-novncproxy) 
+skipping: [openstack2] => (item=nova-serialproxy) 
+skipping: [openstack2] => (item=nova-spicehtml5proxy) 
+skipping: [openstack2]
+
+PLAY [Reload global Nova API services] *****************************************
+skipping: no hosts matched
+
+PLAY [Run Nova API online data migrations] *************************************
+skipping: no hosts matched
+
+PLAY [Run Nova cell online data migrations] ************************************
+skipping: no hosts matched
+
+PLAY [Apply role openvswitch] **************************************************
+
+TASK [openvswitch : include_tasks] *********************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/openvswitch/tasks/deploy.yml for openstack2
+
+TASK [module-load : Load modules] **********************************************
+ok: [openstack2] => (item=openvswitch)
+
+TASK [module-load : Persist modules via modules-load.d] ************************
+ok: [openstack2] => (item=openvswitch)
+
+TASK [module-load : Drop module persistence] ***********************************
+skipping: [openstack2] => (item=openvswitch) 
+skipping: [openstack2]
+
+TASK [openvswitch : Create /run/openvswitch directory on host] *****************
+skipping: [openstack2]
+
+TASK [openvswitch : Ensuring config directories exist] *************************
+changed: [openstack2] => (item={'key': 'openvswitch-db-server', 'value': {'container_name': 'openvswitch_db', 'image': 'quay.io/openstack.kolla/openvswitch-db-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'openvswitch', 'host_in_groups': True, 'volumes': ['/etc/kolla/openvswitch-db-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', 'openvswitch_db:/var/lib/openvswitch/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'ovsdb-client list-dbs'], 'timeout': '30'}}})
+changed: [openstack2] => (item={'key': 'openvswitch-vswitchd', 'value': {'container_name': 'openvswitch_vswitchd', 'image': 'quay.io/openstack.kolla/openvswitch-vswitchd:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'openvswitch', 'host_in_groups': True, 'privileged': True, 'volumes': ['/etc/kolla/openvswitch-vswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'ovs-appctl version'], 'timeout': '30'}}})
+
+TASK [openvswitch : Copying over config.json files for services] ***************
+changed: [openstack2] => (item={'key': 'openvswitch-db-server', 'value': {'container_name': 'openvswitch_db', 'image': 'quay.io/openstack.kolla/openvswitch-db-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'openvswitch', 'host_in_groups': True, 'volumes': ['/etc/kolla/openvswitch-db-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', 'openvswitch_db:/var/lib/openvswitch/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'ovsdb-client list-dbs'], 'timeout': '30'}}})
+changed: [openstack2] => (item={'key': 'openvswitch-vswitchd', 'value': {'container_name': 'openvswitch_vswitchd', 'image': 'quay.io/openstack.kolla/openvswitch-vswitchd:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'openvswitch', 'host_in_groups': True, 'privileged': True, 'volumes': ['/etc/kolla/openvswitch-vswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'ovs-appctl version'], 'timeout': '30'}}})
+
+TASK [openvswitch : Copying over start-ovs file for openvswitch-vswitchd] ******
+changed: [openstack2]
+
+TASK [openvswitch : Copying over start-ovsdb-server files for openvswitch-db-server] ***
+changed: [openstack2]
+
+TASK [openvswitch : Copying over ovs-vsctl wrapper] ****************************
+skipping: [openstack2]
+
+TASK [openvswitch : Check openvswitch containers] ******************************
+changed: [openstack2] => (item={'key': 'openvswitch-db-server', 'value': {'container_name': 'openvswitch_db', 'image': 'quay.io/openstack.kolla/openvswitch-db-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'openvswitch', 'host_in_groups': True, 'volumes': ['/etc/kolla/openvswitch-db-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', 'openvswitch_db:/var/lib/openvswitch/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'ovsdb-client list-dbs'], 'timeout': '30'}}})
+changed: [openstack2] => (item={'key': 'openvswitch-vswitchd', 'value': {'container_name': 'openvswitch_vswitchd', 'image': 'quay.io/openstack.kolla/openvswitch-vswitchd:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'openvswitch', 'host_in_groups': True, 'privileged': True, 'volumes': ['/etc/kolla/openvswitch-vswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'ovs-appctl version'], 'timeout': '30'}}})
+
+TASK [openvswitch : Flush Handlers] ********************************************
+
+RUNNING HANDLER [openvswitch : Restart openvswitch-db-server container] ********
+changed: [openstack2]
+
+RUNNING HANDLER [openvswitch : Waiting for openvswitch_db service to be ready] ***
+ok: [openstack2]
+
+RUNNING HANDLER [openvswitch : Restart openvswitch-vswitchd container] *********
+changed: [openstack2]
+
+TASK [openvswitch : Set system-id and hw-offload] ******************************
+changed: [openstack2] => (item={'col': 'external_ids', 'name': 'system-id', 'value': 'openstack2'})
+changed: [openstack2] => (item={'col': 'external_ids', 'name': 'hostname', 'value': 'openstack2'})
+ok: [openstack2] => (item={'col': 'other_config', 'name': 'hw-offload', 'value': True, 'state': 'absent'})
+
+TASK [openvswitch : Ensuring OVS bridge is properly setup] *********************
+changed: [openstack2] => (item=br-ex)
+
+TASK [openvswitch : Ensuring OVS ports are properly setup] *********************
+changed: [openstack2] => (item=['br-ex', 'ens18'])
+
+PLAY [Apply role ovs-dpdk] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-controller] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-db] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role neutron] ******************************************************
+
+TASK [neutron : include_tasks] *************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/neutron/tasks/deploy.yml for openstack2
+
+TASK [neutron : Get container facts] *******************************************
+ok: [openstack2]
+
+TASK [neutron : Get container volume facts] ************************************
+ok: [openstack2]
+
+TASK [neutron : Check for ML2/OVN presence] ************************************
+skipping: [openstack2]
+
+TASK [neutron : Check for ML2/OVS presence] ************************************
+skipping: [openstack2]
+
+TASK [service-ks-register : neutron | Creating services] ***********************
+ok: [openstack2] => (item=neutron (network))
+
+TASK [service-ks-register : neutron | Creating endpoints] **********************
+ok: [openstack2] => (item=neutron -> http://192.168.99.200:9696 -> internal)
+ok: [openstack2] => (item=neutron -> http://192.168.99.200:9696 -> public)
+
+TASK [service-ks-register : neutron | Creating projects] ***********************
+ok: [openstack2] => (item=service)
+
+TASK [service-ks-register : neutron | Creating users] **************************
+changed: [openstack2] => (item=neutron -> service)
+
+TASK [service-ks-register : neutron | Creating roles] **************************
+ok: [openstack2] => (item=admin)
+
+TASK [service-ks-register : neutron | Granting user roles] *********************
+ok: [openstack2] => (item=neutron -> service -> admin)
+ok: [openstack2] => (item=neutron -> service -> service)
+
+TASK [neutron : include_tasks] *************************************************
+skipping: [openstack2]
+
+TASK [Load and persist kernel modules] *****************************************
+
+TASK [module-load : Load modules] **********************************************
+ok: [openstack2] => (item=ip6_tables)
+
+TASK [module-load : Persist modules via modules-load.d] ************************
+ok: [openstack2] => (item=ip6_tables)
+
+TASK [module-load : Drop module persistence] ***********************************
+skipping: [openstack2] => (item=ip6_tables) 
+skipping: [openstack2]
+
+TASK [neutron : Check IPv6 support] ********************************************
+ok: [openstack2]
+
+TASK [Setting sysctl values] ***************************************************
+skipping: [openstack2]
+
+TASK [neutron : Ensuring config directories exist] *****************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+changed: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+
+TASK [neutron : Check if extra ml2 plugins exists] *****************************
+ok: [openstack2 -> localhost]
+
+TASK [neutron : include_tasks] *************************************************
+skipping: [openstack2]
+
+TASK [neutron : Creating TLS backend PEM File] *********************************
+skipping: [openstack2]
+
+TASK [neutron : Check if policies shall be overwritten] ************************
+skipping: [openstack2]
+
+TASK [neutron : Set neutron policy file] ***************************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over existing policy file] *****************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over config.json files for services] *******************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+changed: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+
+TASK [neutron : Copying over neutron.conf] *************************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+changed: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+
+TASK [neutron : Copying over neutron_vpnaas.conf] ******************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over ssh key] ******************************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over ml2_conf.ini] *************************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over linuxbridge_agent.ini] ****************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over openvswitch_agent.ini] ****************************
+changed: [openstack2]
+
+TASK [neutron : Copying over sriov_agent.ini] **********************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over mlnx_agent.ini] ***********************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over eswitchd.conf] ************************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over dhcp_agent.ini] ***********************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over dnsmasq.conf] *************************************
+skipping: [openstack2] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/neutron/templates/dnsmasq.conf.j2) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over l3_agent.ini] *************************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over fwaas_driver.ini] *********************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over metadata_agent.ini] *******************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over neutron_ovn_metadata_agent.ini] *******************
+skipping: [openstack2]
+
+TASK [neutron : Copying over metering_agent.ini] *******************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over ironic_neutron_agent.ini] *************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over bgp_dragent.ini] **********************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over ovn_agent.ini] ************************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over nsx.ini] ******************************************
+skipping: [openstack2]
+
+TASK [neutron : Copy neutron-l3-agent-wrapper script] **************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over extra ml2 plugins] ********************************
+skipping: [openstack2]
+
+TASK [neutron : Copying over neutron-tls-proxy.cfg] ****************************
+skipping: [openstack2] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/neutron/templates/neutron-tls-proxy.cfg.j2) 
+skipping: [openstack2]
+
+TASK [neutron : Copying over neutron_taas.conf] ********************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [neutron : Check neutron containers] **************************************
+skipping: [openstack2] => (item={'key': 'neutron-server', 'value': {'container_name': 'neutron_server', 'image': 'quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy', 'enabled': True, 'group': 'neutron-server', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-server/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:9696'], 'timeout': '30'}, 'haproxy': {'neutron_server': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696'}, 'neutron_server_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696'}}}}) 
+changed: [openstack2] => (item={'key': 'neutron-openvswitch-agent', 'value': {'container_name': 'neutron_openvswitch_agent', 'image': 'quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy', 'enabled': True, 'privileged': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-openvswitch-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run/openvswitch:/run/openvswitch:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-openvswitch-agent 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'neutron-linuxbridge-agent', 'value': {'container_name': 'neutron_linuxbridge_agent', 'image': 'quay.io/openstack.kolla/neutron-linuxbridge-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-linuxbridge-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-linuxbridge-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-dhcp-agent', 'value': {'container_name': 'neutron_dhcp_agent', 'image': 'quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'group': 'neutron-dhcp-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-dhcp-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-dhcp-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-l3-agent', 'value': {'container_name': 'neutron_l3_agent', 'image': 'quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'environment': {'KOLLA_LEGACY_IPTABLES': 'false'}, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-l3-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', "healthcheck_port 'neutron-l3-agent ' 5672"], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-sriov-agent', 'value': {'container_name': 'neutron_sriov_agent', 'image': 'quay.io/openstack.kolla/neutron-sriov-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-sriov-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-sriov-nic-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-mlnx-agent', 'value': {'container_name': 'neutron_mlnx_agent', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-mlnx-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-eswitchd', 'value': {'container_name': 'neutron_eswitchd', 'image': 'quay.io/openstack.kolla/neutron-mlnx-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-eswitchd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/run/libvirt:/run/libvirt:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metadata-agent', 'value': {'container_name': 'neutron_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': True, 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-metadata-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-metadata-agent', 'value': {'container_name': 'neutron_ovn_metadata_agent', 'image': 'quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'host_in_groups': True, 'volumes': ['/etc/kolla/neutron-ovn-metadata-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', 'neutron_metadata_socket:/var/lib/neutron/kolla/', '/run/openvswitch:/run/openvswitch:shared', '/run/netns:/run/netns:shared', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-bgp-dragent', 'value': {'container_name': 'neutron_bgp_dragent', 'image': 'quay.io/openstack.kolla/neutron-bgp-dragent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-bgp-dragent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-bgp-dragent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port neutron-bgp-dragent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-infoblox-ipam-agent', 'value': {'container_name': 'neutron_infoblox_ipam_agent', 'image': 'quay.io/openstack.kolla/neutron-infoblox-ipam-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-infoblox-ipam-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-infoblox-ipam-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-metering-agent', 'value': {'container_name': 'neutron_metering_agent', 'image': 'quay.io/openstack.kolla/neutron-metering-agent:2024.1-ubuntu-jammy', 'privileged': True, 'enabled': False, 'group': 'neutron-metering-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/neutron-metering-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'ironic-neutron-agent', 'value': {'container_name': 'ironic_neutron_agent', 'image': 'quay.io/openstack.kolla/ironic-neutron-agent:2024.1-ubuntu-jammy', 'privileged': False, 'enabled': False, 'group': 'ironic-neutron-agent', 'host_in_groups': False, 'volumes': ['/etc/kolla/ironic-neutron-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ironic-neutron-agent 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-tls-proxy', 'value': {'container_name': 'neutron_tls_proxy', 'group': 'neutron-server', 'host_in_groups': False, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.92:9697'], 'timeout': '30'}, 'haproxy': {'neutron_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}, 'neutron_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9696', 'listen_port': '9696', 'tls_backend': 'yes'}}}}) 
+skipping: [openstack2] => (item={'key': 'neutron-ovn-agent', 'value': {'container_name': 'neutron_ovn_agent', 'group': 'neutron-ovn-agent', 'host_in_groups': True, 'enabled': False, 'image': 'quay.io/openstack.kolla/neutron-ovn-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/neutron-ovn-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port python 6642'], 'timeout': '30'}}}) 
+
+TASK [neutron : include_tasks] *************************************************
+skipping: [openstack2]
+
+TASK [neutron : Creating Neutron database] *************************************
+ok: [openstack2 -> openstack1]
+
+TASK [neutron : Creating Neutron database user and setting permissions] ********
+ok: [openstack2 -> openstack1]
+
+TASK [neutron : Running Neutron bootstrap container] ***************************
+changed: [openstack2 -> openstack1]
+
+TASK [neutron : Flush Handlers] ************************************************
+
+RUNNING HANDLER [neutron : Restart neutron-openvswitch-agent container] ********
+changed: [openstack2]
+
+PLAY [Apply role kuryr] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role hacluster] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role heat] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role horizon] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role magnum] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mistral] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role manila] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role gnocchi] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceilometer] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role aodh] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role barbican] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cyborg] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role designate] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role trove] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role watcher] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role grafana] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cloudkitty] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role tacker] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role octavia] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role zun] **********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role blazar] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role masakari] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role venus] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role skyline] ******************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+openstack2                 : ok=87   changed=44   unreachable=0    failed=0    skipped=63   rescued=0    ignored=0   
+

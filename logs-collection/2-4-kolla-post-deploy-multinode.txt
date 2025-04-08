@@ -1,0 +1,33 @@
+Post-Deploying Playbooks : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  /home/loki/kolla-venv/share/kolla-ansible/ansible/post-deploy.yml  --inventory ./multinode
+
+PLAY [Creating clouds.yaml file on the deploy node] ****************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Create /etc/openstack directory] *****************************************
+ok: [localhost]
+
+TASK [Template out clouds.yaml] ************************************************
+changed: [localhost]
+
+PLAY [Creating admin openrc file on the deploy node] ***************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Template out admin-openrc.sh] ********************************************
+changed: [localhost]
+
+TASK [Template out admin-openrc-system.sh] *************************************
+changed: [localhost]
+
+TASK [Template out public-openrc.sh] *******************************************
+changed: [localhost]
+
+TASK [octavia : Template out octavia-openrc.sh] ********************************
+skipping: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=4    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+

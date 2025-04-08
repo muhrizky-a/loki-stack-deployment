@@ -1,0 +1,578 @@
+Deploying Playbooks : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  --tags octavia -e kolla_action=deploy /home/loki/kolla-venv/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [localhost]
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack2]
+skipping: [openstack1]
+skipping: [localhost]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [openstack2]
+ok: [openstack1]
+ok: [localhost]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+skipping: no hosts matched
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [openstack2]
+ok: [openstack1]
+ok: [localhost]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [openstack2] => (item=enable_aodh_False)
+ok: [openstack2] => (item=enable_barbican_False)
+ok: [openstack2] => (item=enable_blazar_False)
+ok: [openstack2] => (item=enable_ceilometer_True)
+ok: [openstack2] => (item=enable_ceph_rgw_False)
+ok: [openstack2] => (item=enable_cinder_False)
+ok: [openstack2] => (item=enable_cloudkitty_False)
+ok: [openstack2] => (item=enable_collectd_False)
+ok: [openstack2] => (item=enable_cyborg_False)
+ok: [openstack2] => (item=enable_designate_False)
+ok: [openstack2] => (item=enable_etcd_False)
+ok: [openstack2] => (item=enable_glance_True)
+ok: [openstack2] => (item=enable_gnocchi_False)
+ok: [openstack2] => (item=enable_grafana_False)
+ok: [openstack2] => (item=enable_hacluster_False)
+ok: [openstack2] => (item=enable_heat_True)
+ok: [openstack2] => (item=enable_horizon_False)
+ok: [openstack2] => (item=enable_influxdb_False)
+ok: [openstack2] => (item=enable_ironic_False)
+ok: [openstack2] => (item=enable_iscsid_False)
+ok: [openstack2] => (item=enable_keystone_True)
+ok: [openstack2] => (item=enable_kuryr_False)
+ok: [openstack2] => (item=enable_letsencrypt_False)
+ok: [openstack2] => (item=enable_loadbalancer_True)
+ok: [openstack2] => (item=enable_magnum_False)
+ok: [openstack2] => (item=enable_manila_False)
+ok: [openstack2] => (item=enable_mariadb_True)
+ok: [openstack2] => (item=enable_masakari_False)
+ok: [openstack2] => (item=enable_memcached_True)
+ok: [openstack2] => (item=enable_mistral_False)
+ok: [openstack2] => (item=enable_multipathd_False)
+ok: [openstack2] => (item=enable_neutron_True)
+ok: [openstack2] => (item=enable_nova_True)
+ok: [openstack2] => (item=enable_octavia_True)
+ok: [openstack2] => (item=enable_opensearch_False)
+ok: [openstack2] => (item=enable_opensearch_dashboards_False)
+ok: [openstack2] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack2] => (item=enable_ovn_False)
+ok: [openstack2] => (item=enable_placement_True)
+ok: [openstack2] => (item=enable_prometheus_False)
+ok: [openstack2] => (item=enable_rabbitmq_True)
+ok: [openstack2] => (item=enable_redis_False)
+ok: [openstack2] => (item=enable_skyline_False)
+ok: [openstack2] => (item=enable_swift_False)
+ok: [openstack2] => (item=enable_tacker_False)
+ok: [openstack2] => (item=enable_telegraf_False)
+ok: [openstack2] => (item=enable_trove_False)
+ok: [openstack2] => (item=enable_venus_False)
+ok: [openstack2] => (item=enable_watcher_False)
+ok: [openstack2] => (item=enable_zun_False)
+ok: [openstack1] => (item=enable_aodh_False)
+ok: [openstack1] => (item=enable_barbican_False)
+ok: [openstack1] => (item=enable_blazar_False)
+ok: [openstack1] => (item=enable_ceilometer_True)
+ok: [openstack1] => (item=enable_ceph_rgw_False)
+ok: [openstack1] => (item=enable_cinder_False)
+ok: [openstack1] => (item=enable_cloudkitty_False)
+ok: [openstack1] => (item=enable_collectd_False)
+ok: [openstack1] => (item=enable_cyborg_False)
+ok: [openstack1] => (item=enable_designate_False)
+ok: [openstack1] => (item=enable_etcd_False)
+ok: [openstack1] => (item=enable_glance_True)
+ok: [openstack1] => (item=enable_gnocchi_False)
+ok: [openstack1] => (item=enable_grafana_False)
+ok: [openstack1] => (item=enable_hacluster_False)
+ok: [openstack1] => (item=enable_heat_True)
+ok: [openstack1] => (item=enable_horizon_False)
+ok: [openstack1] => (item=enable_influxdb_False)
+ok: [openstack1] => (item=enable_ironic_False)
+ok: [openstack1] => (item=enable_iscsid_False)
+ok: [openstack1] => (item=enable_keystone_True)
+ok: [openstack1] => (item=enable_kuryr_False)
+ok: [openstack1] => (item=enable_letsencrypt_False)
+ok: [openstack1] => (item=enable_loadbalancer_True)
+ok: [openstack1] => (item=enable_magnum_False)
+ok: [openstack1] => (item=enable_manila_False)
+ok: [openstack1] => (item=enable_mariadb_True)
+ok: [openstack1] => (item=enable_masakari_False)
+ok: [openstack1] => (item=enable_memcached_True)
+ok: [openstack1] => (item=enable_mistral_False)
+ok: [openstack1] => (item=enable_multipathd_False)
+ok: [openstack1] => (item=enable_neutron_True)
+ok: [openstack1] => (item=enable_nova_True)
+ok: [openstack1] => (item=enable_octavia_True)
+ok: [openstack1] => (item=enable_opensearch_False)
+ok: [openstack1] => (item=enable_opensearch_dashboards_False)
+ok: [openstack1] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack1] => (item=enable_ovn_False)
+ok: [openstack1] => (item=enable_placement_True)
+ok: [openstack1] => (item=enable_prometheus_False)
+ok: [openstack1] => (item=enable_rabbitmq_True)
+ok: [openstack1] => (item=enable_redis_False)
+ok: [openstack1] => (item=enable_skyline_False)
+ok: [openstack1] => (item=enable_swift_False)
+ok: [openstack1] => (item=enable_tacker_False)
+ok: [openstack1] => (item=enable_telegraf_False)
+ok: [openstack1] => (item=enable_trove_False)
+ok: [openstack1] => (item=enable_venus_False)
+ok: [openstack1] => (item=enable_watcher_False)
+ok: [openstack1] => (item=enable_zun_False)
+ok: [localhost] => (item=enable_aodh_False)
+ok: [localhost] => (item=enable_barbican_False)
+ok: [localhost] => (item=enable_blazar_False)
+ok: [localhost] => (item=enable_ceilometer_True)
+ok: [localhost] => (item=enable_ceph_rgw_False)
+ok: [localhost] => (item=enable_cinder_False)
+ok: [localhost] => (item=enable_cloudkitty_False)
+ok: [localhost] => (item=enable_collectd_False)
+ok: [localhost] => (item=enable_cyborg_False)
+ok: [localhost] => (item=enable_designate_False)
+ok: [localhost] => (item=enable_etcd_False)
+ok: [localhost] => (item=enable_glance_True)
+ok: [localhost] => (item=enable_gnocchi_False)
+ok: [localhost] => (item=enable_grafana_False)
+ok: [localhost] => (item=enable_hacluster_False)
+ok: [localhost] => (item=enable_heat_True)
+ok: [localhost] => (item=enable_horizon_False)
+ok: [localhost] => (item=enable_influxdb_False)
+ok: [localhost] => (item=enable_ironic_False)
+ok: [localhost] => (item=enable_iscsid_False)
+ok: [localhost] => (item=enable_keystone_True)
+ok: [localhost] => (item=enable_kuryr_False)
+ok: [localhost] => (item=enable_letsencrypt_False)
+ok: [localhost] => (item=enable_loadbalancer_True)
+ok: [localhost] => (item=enable_magnum_False)
+ok: [localhost] => (item=enable_manila_False)
+ok: [localhost] => (item=enable_mariadb_True)
+ok: [localhost] => (item=enable_masakari_False)
+ok: [localhost] => (item=enable_memcached_True)
+ok: [localhost] => (item=enable_mistral_False)
+ok: [localhost] => (item=enable_multipathd_False)
+ok: [localhost] => (item=enable_neutron_True)
+ok: [localhost] => (item=enable_nova_True)
+ok: [localhost] => (item=enable_octavia_True)
+ok: [localhost] => (item=enable_opensearch_False)
+ok: [localhost] => (item=enable_opensearch_dashboards_False)
+ok: [localhost] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [localhost] => (item=enable_ovn_False)
+ok: [localhost] => (item=enable_placement_True)
+ok: [localhost] => (item=enable_prometheus_False)
+ok: [localhost] => (item=enable_rabbitmq_True)
+ok: [localhost] => (item=enable_redis_False)
+ok: [localhost] => (item=enable_skyline_False)
+ok: [localhost] => (item=enable_swift_False)
+ok: [localhost] => (item=enable_tacker_False)
+ok: [localhost] => (item=enable_telegraf_False)
+ok: [localhost] => (item=enable_trove_False)
+ok: [localhost] => (item=enable_venus_False)
+ok: [localhost] => (item=enable_watcher_False)
+ok: [localhost] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role common] *******************************************************
+
+PLAY [Apply role loadbalancer] *************************************************
+
+TASK [include_role : octavia] **************************************************
+
+TASK [haproxy-config : Copying over octavia haproxy config] ********************
+ok: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}})
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}}) 
+
+TASK [haproxy-config : Add configuration for octavia when using single external frontend] ***
+skipping: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+
+TASK [haproxy-config : Configuring firewall for octavia] ***********************
+skipping: [openstack1] => (item={'key': 'octavia_api', 'value': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}) 
+skipping: [openstack1] => (item={'key': 'octavia_api_external', 'value': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}) 
+skipping: [openstack1]
+
+TASK [proxysql-config : Copying over octavia ProxySQL users config] ************
+skipping: [openstack1]
+
+TASK [proxysql-config : Copying over octavia ProxySQL rules config] ************
+skipping: [openstack1]
+
+PLAY [Apply role letsencrypt] **************************************************
+skipping: no hosts matched
+
+PLAY [Apply role collectd] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role influxdb] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role telegraf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role redis] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mariadb] ******************************************************
+
+PLAY [Restart mariadb services] ************************************************
+skipping: no hosts matched
+
+PLAY [Start mariadb services] **************************************************
+skipping: no hosts matched
+
+PLAY [Restart bootstrap mariadb service] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply mariadb post-configuration] ****************************************
+
+PLAY [Apply role memcached] ****************************************************
+
+PLAY [Apply role prometheus] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role iscsi] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role multipathd] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role rabbitmq] *****************************************************
+
+PLAY [Restart rabbitmq services] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply rabbitmq post-configuration] ***************************************
+
+PLAY [Apply role etcd] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role keystone] *****************************************************
+
+PLAY [Apply role opensearch] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role swift] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceph-rgw] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role glance] *******************************************************
+
+PLAY [Apply role ironic] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cinder] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role placement] ****************************************************
+
+PLAY [Bootstrap nova API databases] ********************************************
+
+PLAY [Bootstrap nova cell databases] *******************************************
+
+PLAY [Apply role nova] *********************************************************
+
+PLAY [Apply role nova-cell] ****************************************************
+
+PLAY [Refresh nova scheduler cell cache] ***************************************
+
+PLAY [Reload global Nova super conductor services] *****************************
+
+PLAY [Reload Nova cell services] ***********************************************
+
+PLAY [Reload global Nova API services] *****************************************
+
+PLAY [Run Nova API online data migrations] *************************************
+
+PLAY [Run Nova cell online data migrations] ************************************
+
+PLAY [Apply role openvswitch] **************************************************
+
+PLAY [Apply role ovs-dpdk] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-controller] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-db] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role neutron] ******************************************************
+
+PLAY [Apply role kuryr] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role hacluster] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role heat] *********************************************************
+
+PLAY [Apply role horizon] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role magnum] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mistral] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role manila] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role gnocchi] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceilometer] ***************************************************
+
+PLAY [Apply role aodh] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role barbican] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cyborg] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role designate] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role trove] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role watcher] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role grafana] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cloudkitty] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role tacker] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role octavia] ******************************************************
+
+TASK [octavia : include_tasks] *************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/octavia/tasks/deploy.yml for openstack1
+
+TASK [service-ks-register : octavia | Creating services] ***********************
+ok: [openstack1] => (item=octavia (load-balancer))
+
+TASK [service-ks-register : octavia | Creating endpoints] **********************
+ok: [openstack1] => (item=octavia -> http://192.168.99.200:9876 -> internal)
+ok: [openstack1] => (item=octavia -> http://192.168.99.200:9876 -> public)
+
+TASK [service-ks-register : octavia | Creating projects] ***********************
+ok: [openstack1] => (item=service)
+
+TASK [service-ks-register : octavia | Creating users] **************************
+changed: [openstack1] => (item=octavia -> service)
+changed: [openstack1] => (item=octavia -> service)
+
+TASK [service-ks-register : octavia | Creating roles] **************************
+ok: [openstack1] => (item=admin)
+
+TASK [service-ks-register : octavia | Granting user roles] *********************
+ok: [openstack1] => (item=octavia -> service -> admin)
+ok: [openstack1] => (item=octavia -> service -> admin)
+
+TASK [octavia : Adding octavia related roles] **********************************
+ok: [openstack1] => (item=load-balancer_observer)
+ok: [openstack1] => (item=load-balancer_global_observer)
+ok: [openstack1] => (item=load-balancer_member)
+ok: [openstack1] => (item=load-balancer_admin)
+ok: [openstack1] => (item=load-balancer_quota_admin)
+
+TASK [octavia : include_tasks] *************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/octavia/tasks/prepare.yml for openstack1
+
+TASK [octavia : Create amphora flavor] *****************************************
+ok: [openstack1]
+
+TASK [octavia : Create nova keypair for amphora] *******************************
+ok: [openstack1]
+
+TASK [octavia : Get service project id] ****************************************
+ok: [openstack1]
+
+TASK [octavia : Create security groups for octavia] ****************************
+ok: [openstack1] => (item=lb-mgmt-sec-grp)
+skipping: [openstack1] => (item=lb-health-mgr-sec-grp) 
+
+TASK [octavia : Add rules for security groups] *********************************
+ok: [openstack1] => (item=[{'name': 'lb-mgmt-sec-grp', 'enabled': True}, {'protocol': 'icmp'}])
+ok: [openstack1] => (item=[{'name': 'lb-mgmt-sec-grp', 'enabled': True}, {'protocol': 'tcp', 'src_port': 22, 'dst_port': 22}])
+ok: [openstack1] => (item=[{'name': 'lb-mgmt-sec-grp', 'enabled': True}, {'protocol': 'tcp', 'src_port': '9443', 'dst_port': '9443'}])
+skipping: [openstack1] => (item=[{'name': 'lb-health-mgr-sec-grp', 'enabled': False}, {'protocol': 'udp', 'src_port': '5555', 'dst_port': '5555'}]) 
+
+TASK [octavia : Create loadbalancer management network] ************************
+ok: [openstack1]
+
+TASK [octavia : Create loadbalancer management subnet] *************************
+changed: [openstack1]
+
+TASK [octavia : Create loadbalancer management router for IPv6] ****************
+skipping: [openstack1]
+
+TASK [octavia : include_tasks] *************************************************
+skipping: [openstack1]
+
+TASK [octavia : include_tasks] *************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/octavia/tasks/get_resources_info.yml for openstack1
+
+TASK [octavia : Get amphora flavor info] ***************************************
+ok: [openstack1]
+
+TASK [octavia : Get service project id] ****************************************
+ok: [openstack1]
+
+TASK [octavia : Get security groups for octavia] *******************************
+ok: [openstack1] => (item=lb-mgmt-sec-grp)
+ok: [openstack1] => (item=lb-health-mgr-sec-grp)
+
+TASK [octavia : Get loadbalancer management network] ***************************
+ok: [openstack1]
+
+TASK [octavia : Set octavia resources facts] ***********************************
+ok: [openstack1]
+
+TASK [octavia : Ensuring config directories exist] *****************************
+ok: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}})
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+ok: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}})
+
+TASK [octavia : Check if policies shall be overwritten] ************************
+skipping: [openstack1]
+
+TASK [octavia : Set octavia policy file] ***************************************
+skipping: [openstack1]
+
+TASK [octavia : Copying over existing policy file] *****************************
+skipping: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+
+TASK [octavia : include_tasks] *************************************************
+skipping: [openstack1]
+
+TASK [octavia : Copying over config.json files for services] *******************
+ok: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}})
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+ok: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}})
+
+TASK [octavia : Copying over octavia-wsgi.conf] ********************************
+ok: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/octavia/templates/octavia-wsgi.conf.j2)
+
+TASK [octavia : Copying over octavia.conf] *************************************
+ok: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}})
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+ok: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}})
+
+TASK [octavia : Copying over Octavia SSH key] **********************************
+ok: [openstack1]
+
+TASK [octavia : Copying certificate files for octavia-worker] ******************
+changed: [openstack1] => (item=client.cert-and-key.pem)
+changed: [openstack1] => (item=client_ca.cert.pem)
+changed: [openstack1] => (item=server_ca.cert.pem)
+changed: [openstack1] => (item=server_ca.key.pem)
+
+TASK [octavia : Copying certificate files for octavia-housekeeping] ************
+changed: [openstack1] => (item=client.cert-and-key.pem)
+changed: [openstack1] => (item=client_ca.cert.pem)
+changed: [openstack1] => (item=server_ca.cert.pem)
+changed: [openstack1] => (item=server_ca.key.pem)
+
+TASK [octavia : Copying certificate files for octavia-health-manager] **********
+changed: [openstack1] => (item=client.cert-and-key.pem)
+changed: [openstack1] => (item=client_ca.cert.pem)
+changed: [openstack1] => (item=server_ca.cert.pem)
+changed: [openstack1] => (item=server_ca.key.pem)
+
+TASK [octavia : Check octavia containers] **************************************
+changed: [openstack1] => (item={'key': 'octavia-api', 'value': {'container_name': 'octavia_api', 'group': 'octavia-api', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9876'], 'timeout': '30'}, 'haproxy': {'octavia_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}, 'octavia_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9876', 'listen_port': '9876', 'tls_backend': 'no'}}}})
+skipping: [openstack1] => (item={'key': 'octavia-driver-agent', 'value': {'container_name': 'octavia_driver_agent', 'group': 'octavia-driver-agent', 'enabled': False, 'image': 'quay.io/openstack.kolla/octavia-driver-agent:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-driver-agent/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', '', 'octavia_driver_agent:/var/run/octavia/'], 'dimensions': {}}}) 
+changed: [openstack1] => (item={'key': 'octavia-health-manager', 'value': {'container_name': 'octavia_health_manager', 'group': 'octavia-health-manager', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-health-manager/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-health-manager 3306'], 'timeout': '30'}}})
+changed: [openstack1] => (item={'key': 'octavia-housekeeping', 'value': {'container_name': 'octavia_housekeeping', 'group': 'octavia-housekeeping', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-housekeeping/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-housekeeping 3306'], 'timeout': '30'}}})
+changed: [openstack1] => (item={'key': 'octavia-worker', 'value': {'container_name': 'octavia_worker', 'group': 'octavia-worker', 'enabled': True, 'image': 'quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/octavia-worker/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port octavia-worker 5672'], 'timeout': '30'}}})
+
+TASK [octavia : include_tasks] *************************************************
+skipping: [openstack1]
+
+TASK [octavia : Creating Octavia database] *************************************
+changed: [openstack1]
+
+TASK [octavia : Creating Octavia persistence database] *************************
+changed: [openstack1]
+
+TASK [octavia : Creating Octavia database user and setting permissions] ********
+changed: [openstack1]
+
+TASK [octavia : Creating Octavia persistence database user and setting permissions] ***
+changed: [openstack1]
+
+TASK [octavia : Running Octavia bootstrap container] ***************************
+changed: [openstack1]
+
+TASK [octavia : Flush handlers] ************************************************
+
+RUNNING HANDLER [octavia : Restart octavia-api container] **********************
+changed: [openstack1]
+
+RUNNING HANDLER [octavia : Restart octavia-health-manager container] ***********
+changed: [openstack1]
+
+RUNNING HANDLER [octavia : Restart octavia-housekeeping container] *************
+changed: [openstack1]
+
+RUNNING HANDLER [octavia : Restart octavia-worker container] *******************
+changed: [openstack1]
+
+PLAY [Apply role zun] **********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role blazar] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role masakari] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role venus] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role skyline] ******************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+openstack1                 : ok=45   changed=15   unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+openstack2                 : ok=4    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+

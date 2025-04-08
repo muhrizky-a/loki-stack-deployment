@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver-service
+  labels:
+#    name: webserver
+    app: webserver
+spec:
+  ports:
+#  - port: 80
+  - nodePort: 30111
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: webserver
+  type: NodePort

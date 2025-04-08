@@ -1,0 +1,29 @@
+CONTAINER ID   IMAGE                                                                   COMMAND                  CREATED              STATUS                        PORTS     NAMES
+be38b3b9b17c   quay.io/openstack.kolla/heat-engine:2024.1-ubuntu-jammy                 "dumb-init --single-…"   About a minute ago   Up About a minute (healthy)             heat_engine
+cdb18c36dc6b   quay.io/openstack.kolla/heat-api-cfn:2024.1-ubuntu-jammy                "dumb-init --single-…"   2 minutes ago        Up 2 minutes (healthy)                  heat_api_cfn
+771965b8a844   quay.io/openstack.kolla/heat-api:2024.1-ubuntu-jammy                    "dumb-init --single-…"   2 minutes ago        Up 2 minutes (healthy)                  heat_api
+7304f1c6ea3f   quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy      "dumb-init --single-…"   3 minutes ago        Up 3 minutes (healthy)                  neutron_metadata_agent
+b562796f4f57   quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy            "dumb-init --single-…"   3 minutes ago        Up 3 minutes (healthy)                  neutron_l3_agent
+875bf387c0ae   quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy          "dumb-init --single-…"   3 minutes ago        Up 3 minutes (healthy)                  neutron_dhcp_agent
+7098a60fa002   quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy   "dumb-init --single-…"   4 minutes ago        Up 4 minutes (healthy)                  neutron_openvswitch_agent
+eda6defdac1c   quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy              "dumb-init --single-…"   4 minutes ago        Up 4 minutes (healthy)                  neutron_server
+2cf19f833b64   quay.io/openstack.kolla/openvswitch-vswitchd:2024.1-ubuntu-jammy        "dumb-init --single-…"   6 minutes ago        Up 6 minutes (healthy)                  openvswitch_vswitchd
+313fe00092fe   quay.io/openstack.kolla/openvswitch-db-server:2024.1-ubuntu-jammy       "dumb-init --single-…"   6 minutes ago        Up 6 minutes (healthy)                  openvswitch_db
+e07842fdcbbe   quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy             "dumb-init --single-…"   7 minutes ago        Up 7 minutes (healthy)                  nova_novncproxy
+84c6167385f1   quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy              "dumb-init --single-…"   7 minutes ago        Up 7 minutes (healthy)                  nova_conductor
+988ce6e301a0   quay.io/openstack.kolla/nova-api:2024.1-ubuntu-jammy                    "dumb-init --single-…"   7 minutes ago        Up 7 minutes (healthy)                  nova_api
+7195d4b6556f   quay.io/openstack.kolla/nova-scheduler:2024.1-ubuntu-jammy              "dumb-init --single-…"   7 minutes ago        Up 7 minutes (healthy)                  nova_scheduler
+05f9f7187219   quay.io/openstack.kolla/placement-api:2024.1-ubuntu-jammy               "dumb-init --single-…"   9 minutes ago        Up 9 minutes (healthy)                  placement_api
+9e1212ca2423   quay.io/openstack.kolla/glance-api:2024.1-ubuntu-jammy                  "dumb-init --single-…"   9 minutes ago        Up 9 minutes (healthy)                  glance_api
+b50f4141c4a1   quay.io/openstack.kolla/keystone:2024.1-ubuntu-jammy                    "dumb-init --single-…"   10 minutes ago       Up 10 minutes (healthy)                 keystone
+7ae851e7c1f6   quay.io/openstack.kolla/keystone-fernet:2024.1-ubuntu-jammy             "dumb-init --single-…"   10 minutes ago       Up 10 minutes (healthy)                 keystone_fernet
+cc1415201ced   quay.io/openstack.kolla/keystone-ssh:2024.1-ubuntu-jammy                "dumb-init --single-…"   10 minutes ago       Up 10 minutes (healthy)                 keystone_ssh
+5e1886d1c647   quay.io/openstack.kolla/rabbitmq:2024.1-ubuntu-jammy                    "dumb-init --single-…"   11 minutes ago       Up 11 minutes (healthy)                 rabbitmq
+785977bba962   quay.io/openstack.kolla/memcached:2024.1-ubuntu-jammy                   "dumb-init --single-…"   11 minutes ago       Up 11 minutes (healthy)                 memcached
+2b2bfdab2466   quay.io/openstack.kolla/mariadb-server:2024.1-ubuntu-jammy              "dumb-init -- kolla_…"   12 minutes ago       Up 12 minutes (healthy)                 mariadb
+a7095cadc401   quay.io/openstack.kolla/mariadb-clustercheck:2024.1-ubuntu-jammy        "dumb-init --single-…"   12 minutes ago       Up 12 minutes                           mariadb_clustercheck
+6742d206e35b   quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy                  "dumb-init --single-…"   12 minutes ago       Up 12 minutes                           keepalived
+445cee0808d5   quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy                     "dumb-init --single-…"   12 minutes ago       Up 12 minutes (healthy)                 haproxy
+52a70c7742e3   quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy                        "dumb-init --single-…"   13 minutes ago       Up 13 minutes                           cron
+9bf3858deef2   quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy               "dumb-init --single-…"   13 minutes ago       Up 13 minutes                           kolla_toolbox
+8ab74a8ec2a4   quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy                     "dumb-init --single-…"   13 minutes ago       Up 13 minutes                           fluentd

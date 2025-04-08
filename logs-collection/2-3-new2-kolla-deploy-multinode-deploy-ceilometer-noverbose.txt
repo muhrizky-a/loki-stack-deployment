@@ -1,0 +1,615 @@
+Deploying Playbooks : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  --tags ceilometer -e kolla_action=deploy /home/loki/kolla-venv/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [openstack1]
+ok: [localhost]
+ok: [openstack2]
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack1]
+skipping: [openstack2]
+skipping: [localhost]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [openstack1]
+ok: [openstack2]
+ok: [localhost]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+skipping: no hosts matched
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [openstack1]
+ok: [openstack2]
+ok: [localhost]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [openstack1] => (item=enable_aodh_False)
+ok: [openstack1] => (item=enable_barbican_False)
+ok: [openstack1] => (item=enable_blazar_False)
+ok: [openstack1] => (item=enable_ceilometer_True)
+ok: [openstack1] => (item=enable_ceph_rgw_False)
+ok: [openstack1] => (item=enable_cinder_False)
+ok: [openstack1] => (item=enable_cloudkitty_False)
+ok: [openstack1] => (item=enable_collectd_False)
+ok: [openstack1] => (item=enable_cyborg_False)
+ok: [openstack1] => (item=enable_designate_False)
+ok: [openstack1] => (item=enable_etcd_False)
+ok: [openstack1] => (item=enable_glance_True)
+ok: [openstack1] => (item=enable_gnocchi_False)
+ok: [openstack1] => (item=enable_grafana_False)
+ok: [openstack1] => (item=enable_hacluster_False)
+ok: [openstack1] => (item=enable_heat_True)
+ok: [openstack1] => (item=enable_horizon_False)
+ok: [openstack1] => (item=enable_influxdb_False)
+ok: [openstack1] => (item=enable_ironic_False)
+ok: [openstack1] => (item=enable_iscsid_False)
+ok: [openstack1] => (item=enable_keystone_True)
+ok: [openstack1] => (item=enable_kuryr_False)
+ok: [openstack1] => (item=enable_letsencrypt_False)
+ok: [openstack1] => (item=enable_loadbalancer_True)
+ok: [openstack1] => (item=enable_magnum_False)
+ok: [openstack1] => (item=enable_manila_False)
+ok: [openstack1] => (item=enable_mariadb_True)
+ok: [openstack1] => (item=enable_masakari_False)
+ok: [openstack1] => (item=enable_memcached_True)
+ok: [openstack1] => (item=enable_mistral_False)
+ok: [openstack1] => (item=enable_multipathd_False)
+ok: [openstack1] => (item=enable_neutron_True)
+ok: [openstack1] => (item=enable_nova_True)
+ok: [openstack1] => (item=enable_octavia_True)
+ok: [openstack1] => (item=enable_opensearch_False)
+ok: [openstack1] => (item=enable_opensearch_dashboards_False)
+ok: [openstack1] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack1] => (item=enable_ovn_False)
+ok: [openstack1] => (item=enable_placement_True)
+ok: [openstack1] => (item=enable_prometheus_True)
+ok: [openstack1] => (item=enable_rabbitmq_True)
+ok: [openstack1] => (item=enable_redis_True)
+ok: [openstack1] => (item=enable_skyline_False)
+ok: [openstack1] => (item=enable_swift_False)
+ok: [openstack1] => (item=enable_tacker_False)
+ok: [openstack1] => (item=enable_telegraf_False)
+ok: [openstack1] => (item=enable_trove_False)
+ok: [openstack1] => (item=enable_venus_False)
+ok: [openstack1] => (item=enable_watcher_False)
+ok: [openstack1] => (item=enable_zun_False)
+ok: [openstack2] => (item=enable_aodh_False)
+ok: [openstack2] => (item=enable_barbican_False)
+ok: [openstack2] => (item=enable_blazar_False)
+ok: [openstack2] => (item=enable_ceilometer_True)
+ok: [openstack2] => (item=enable_ceph_rgw_False)
+ok: [openstack2] => (item=enable_cinder_False)
+ok: [openstack2] => (item=enable_cloudkitty_False)
+ok: [openstack2] => (item=enable_collectd_False)
+ok: [openstack2] => (item=enable_cyborg_False)
+ok: [openstack2] => (item=enable_designate_False)
+ok: [openstack2] => (item=enable_etcd_False)
+ok: [openstack2] => (item=enable_glance_True)
+ok: [openstack2] => (item=enable_gnocchi_False)
+ok: [openstack2] => (item=enable_grafana_False)
+ok: [openstack2] => (item=enable_hacluster_False)
+ok: [openstack2] => (item=enable_heat_True)
+ok: [openstack2] => (item=enable_horizon_False)
+ok: [openstack2] => (item=enable_influxdb_False)
+ok: [openstack2] => (item=enable_ironic_False)
+ok: [openstack2] => (item=enable_iscsid_False)
+ok: [openstack2] => (item=enable_keystone_True)
+ok: [openstack2] => (item=enable_kuryr_False)
+ok: [openstack2] => (item=enable_letsencrypt_False)
+ok: [openstack2] => (item=enable_loadbalancer_True)
+ok: [openstack2] => (item=enable_magnum_False)
+ok: [openstack2] => (item=enable_manila_False)
+ok: [openstack2] => (item=enable_mariadb_True)
+ok: [openstack2] => (item=enable_masakari_False)
+ok: [openstack2] => (item=enable_memcached_True)
+ok: [openstack2] => (item=enable_mistral_False)
+ok: [openstack2] => (item=enable_multipathd_False)
+ok: [openstack2] => (item=enable_neutron_True)
+ok: [openstack2] => (item=enable_nova_True)
+ok: [openstack2] => (item=enable_octavia_True)
+ok: [openstack2] => (item=enable_opensearch_False)
+ok: [openstack2] => (item=enable_opensearch_dashboards_False)
+ok: [openstack2] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack2] => (item=enable_ovn_False)
+ok: [openstack2] => (item=enable_placement_True)
+ok: [openstack2] => (item=enable_prometheus_True)
+ok: [openstack2] => (item=enable_rabbitmq_True)
+ok: [openstack2] => (item=enable_redis_True)
+ok: [openstack2] => (item=enable_skyline_False)
+ok: [openstack2] => (item=enable_swift_False)
+ok: [openstack2] => (item=enable_tacker_False)
+ok: [openstack2] => (item=enable_telegraf_False)
+ok: [openstack2] => (item=enable_trove_False)
+ok: [openstack2] => (item=enable_venus_False)
+ok: [openstack2] => (item=enable_watcher_False)
+ok: [openstack2] => (item=enable_zun_False)
+ok: [localhost] => (item=enable_aodh_False)
+ok: [localhost] => (item=enable_barbican_False)
+ok: [localhost] => (item=enable_blazar_False)
+ok: [localhost] => (item=enable_ceilometer_True)
+ok: [localhost] => (item=enable_ceph_rgw_False)
+ok: [localhost] => (item=enable_cinder_False)
+ok: [localhost] => (item=enable_cloudkitty_False)
+ok: [localhost] => (item=enable_collectd_False)
+ok: [localhost] => (item=enable_cyborg_False)
+ok: [localhost] => (item=enable_designate_False)
+ok: [localhost] => (item=enable_etcd_False)
+ok: [localhost] => (item=enable_glance_True)
+ok: [localhost] => (item=enable_gnocchi_False)
+ok: [localhost] => (item=enable_grafana_False)
+ok: [localhost] => (item=enable_hacluster_False)
+ok: [localhost] => (item=enable_heat_True)
+ok: [localhost] => (item=enable_horizon_False)
+ok: [localhost] => (item=enable_influxdb_False)
+ok: [localhost] => (item=enable_ironic_False)
+ok: [localhost] => (item=enable_iscsid_False)
+ok: [localhost] => (item=enable_keystone_True)
+ok: [localhost] => (item=enable_kuryr_False)
+ok: [localhost] => (item=enable_letsencrypt_False)
+ok: [localhost] => (item=enable_loadbalancer_True)
+ok: [localhost] => (item=enable_magnum_False)
+ok: [localhost] => (item=enable_manila_False)
+ok: [localhost] => (item=enable_mariadb_True)
+ok: [localhost] => (item=enable_masakari_False)
+ok: [localhost] => (item=enable_memcached_True)
+ok: [localhost] => (item=enable_mistral_False)
+ok: [localhost] => (item=enable_multipathd_False)
+ok: [localhost] => (item=enable_neutron_True)
+ok: [localhost] => (item=enable_nova_True)
+ok: [localhost] => (item=enable_octavia_True)
+ok: [localhost] => (item=enable_opensearch_False)
+ok: [localhost] => (item=enable_opensearch_dashboards_False)
+ok: [localhost] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [localhost] => (item=enable_ovn_False)
+ok: [localhost] => (item=enable_placement_True)
+ok: [localhost] => (item=enable_prometheus_True)
+ok: [localhost] => (item=enable_rabbitmq_True)
+ok: [localhost] => (item=enable_redis_True)
+ok: [localhost] => (item=enable_skyline_False)
+ok: [localhost] => (item=enable_swift_False)
+ok: [localhost] => (item=enable_tacker_False)
+ok: [localhost] => (item=enable_telegraf_False)
+ok: [localhost] => (item=enable_trove_False)
+ok: [localhost] => (item=enable_venus_False)
+ok: [localhost] => (item=enable_watcher_False)
+ok: [localhost] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role common] *******************************************************
+
+PLAY [Apply role loadbalancer] *************************************************
+
+PLAY [Apply role letsencrypt] **************************************************
+skipping: no hosts matched
+
+PLAY [Apply role collectd] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role influxdb] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role telegraf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role redis] ********************************************************
+
+PLAY [Apply role mariadb] ******************************************************
+
+PLAY [Restart mariadb services] ************************************************
+skipping: no hosts matched
+
+PLAY [Start mariadb services] **************************************************
+skipping: no hosts matched
+
+PLAY [Restart bootstrap mariadb service] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply mariadb post-configuration] ****************************************
+
+PLAY [Apply role memcached] ****************************************************
+
+PLAY [Apply role prometheus] ***************************************************
+
+PLAY [Apply role iscsi] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role multipathd] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role rabbitmq] *****************************************************
+
+PLAY [Restart rabbitmq services] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply rabbitmq post-configuration] ***************************************
+
+PLAY [Apply role etcd] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role keystone] *****************************************************
+
+PLAY [Apply role opensearch] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role swift] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceph-rgw] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role glance] *******************************************************
+
+PLAY [Apply role ironic] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cinder] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role placement] ****************************************************
+
+PLAY [Bootstrap nova API databases] ********************************************
+
+PLAY [Bootstrap nova cell databases] *******************************************
+
+PLAY [Apply role nova] *********************************************************
+
+PLAY [Apply role nova-cell] ****************************************************
+
+PLAY [Refresh nova scheduler cell cache] ***************************************
+
+PLAY [Reload global Nova super conductor services] *****************************
+
+PLAY [Reload Nova cell services] ***********************************************
+
+PLAY [Reload global Nova API services] *****************************************
+
+PLAY [Run Nova API online data migrations] *************************************
+
+PLAY [Run Nova cell online data migrations] ************************************
+
+PLAY [Apply role openvswitch] **************************************************
+
+PLAY [Apply role ovs-dpdk] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-controller] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-db] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role neutron] ******************************************************
+
+PLAY [Apply role kuryr] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role hacluster] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role heat] *********************************************************
+
+PLAY [Apply role horizon] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role magnum] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mistral] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role manila] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role gnocchi] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceilometer] ***************************************************
+
+TASK [ceilometer : include_tasks] **********************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/ceilometer/tasks/deploy.yml for openstack1, openstack2
+
+TASK [service-ks-register : ceilometer | Creating services] ********************
+skipping: [openstack1]
+
+TASK [service-ks-register : ceilometer | Creating endpoints] *******************
+skipping: [openstack1]
+
+TASK [service-ks-register : ceilometer | Creating projects] ********************
+ok: [openstack1] => (item=service)
+
+TASK [service-ks-register : ceilometer | Creating users] ***********************
+changed: [openstack1] => (item=ceilometer -> service)
+
+TASK [service-ks-register : ceilometer | Creating roles] ***********************
+ok: [openstack1] => (item=admin)
+
+TASK [service-ks-register : ceilometer | Granting user roles] ******************
+ok: [openstack1] => (item=ceilometer -> service -> admin)
+
+TASK [ceilometer : Associate the ResellerAdmin role and ceilometer user] *******
+skipping: [openstack1]
+
+TASK [ceilometer : Ensuring config directories exist] **************************
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+ok: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+
+TASK [ceilometer : Check if the folder for custom meter definitions exist] *****
+ok: [openstack1 -> localhost]
+ok: [openstack2 -> localhost]
+
+TASK [ceilometer : Set variable that indicates if we have a folder for custom meter YAML files] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [ceilometer : Find all *.yaml files in custom meter definitions folder (if the folder exist)] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Set the variable that control the copy of custom meter definitions] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [ceilometer : Create default folder for custom meter definitions] *********
+skipping: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [ceilometer : Copying custom meter definitions to Ceilometer] *************
+skipping: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [ceilometer : Check if the folder ["/etc/kolla/config/ceilometer/pollsters.d"] for dynamic pollsters definitions exist] ***
+ok: [openstack1 -> localhost]
+
+TASK [ceilometer : Set the variable that control the copy of dynamic pollsters definitions] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [ceilometer : Clean default folder for dynamic pollsters definitions] *****
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [ceilometer : Create default folder for dynamic pollsters definitions] ****
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Copying dynamic pollsters definitions] **********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Check if custom polling.yaml exists] ************************
+ok: [openstack1 -> localhost]
+ok: [openstack2 -> localhost]
+
+TASK [ceilometer : Copying over polling.yaml] **********************************
+skipping: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [ceilometer : Set ceilometer polling file's path] *************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Check custom gnocchi_resources.yaml exists] *****************
+ok: [openstack1 -> localhost]
+ok: [openstack2 -> localhost]
+
+TASK [ceilometer : Copying over gnocchi_resources.yaml] ************************
+skipping: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [ceilometer : Set ceilometer gnocchi_resources file's path] ***************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Check if policies shall be overwritten] *********************
+skipping: [openstack1]
+
+TASK [ceilometer : Set ceilometer policy file] *********************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : include_tasks] **********************************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Copying over config.json files for services] ****************
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}})
+ok: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+
+TASK [ceilometer : Copying over ceilometer.conf] *******************************
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+ok: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}})
+ok: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+
+TASK [ceilometer : Check custom event_definitions.yaml exists] *****************
+ok: [openstack1 -> localhost]
+ok: [openstack2 -> localhost]
+
+TASK [ceilometer : Copying over event_definitions.yaml] ************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Copying over event_definitions.yaml for notification service] ***
+skipping: [openstack2]
+ok: [openstack1]
+
+TASK [ceilometer : Copying over event_pipeline.yaml] ***************************
+skipping: [openstack2]
+ok: [openstack1]
+
+TASK [ceilometer : Check custom pipeline.yaml exists] **************************
+ok: [openstack1 -> localhost]
+ok: [openstack2 -> localhost]
+
+TASK [ceilometer : Copying over pipeline.yaml] *********************************
+skipping: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [ceilometer : Copying over pipeline.yaml file] ****************************
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+changed: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+changed: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}})
+changed: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+
+TASK [ceilometer : Copying VMware vCenter CA file] *****************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Copying over existing policy file] **************************
+skipping: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1]
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [ceilometer : Check ceilometer containers] ********************************
+skipping: [openstack2] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+changed: [openstack2] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+changed: [openstack1] => (item={'key': 'ceilometer-notification', 'value': {'container_name': 'ceilometer_notification', 'group': 'ceilometer-notification', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-notification/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-agent-notification 5672'], 'timeout': '30'}}})
+changed: [openstack1] => (item={'key': 'ceilometer-central', 'value': {'container_name': 'ceilometer_central', 'group': 'ceilometer-central', 'enabled': True, 'image': 'quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-central/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'ceilometer-compute', 'value': {'container_name': 'ceilometer_compute', 'group': 'ceilometer-compute', 'enabled': True, 'privileged': True, 'image': 'quay.io/openstack.kolla/ceilometer-compute:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/run:/run:shared', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', 'nova_libvirt:/var/lib/libvirt', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'ceilometer-ipmi', 'value': {'container_name': 'ceilometer_ipmi', 'group': 'ceilometer-ipmi', 'enabled': 'no', 'image': 'quay.io/openstack.kolla/ceilometer-ipmi:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/ceilometer-ipmi/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'ceilometer:/var/lib/ceilometer/', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port ceilometer-polling 5672'], 'timeout': '30'}}}) 
+
+TASK [ceilometer : include_tasks] **********************************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [ceilometer : Running Ceilometer bootstrap container] *********************
+changed: [openstack1]
+
+TASK [ceilometer : Flush handlers] *********************************************
+
+TASK [ceilometer : Flush handlers] *********************************************
+
+RUNNING HANDLER [ceilometer : Restart ceilometer-notification container] *******
+changed: [openstack1]
+
+RUNNING HANDLER [ceilometer : Restart ceilometer-central container] ************
+changed: [openstack1]
+
+RUNNING HANDLER [ceilometer : Restart ceilometer-compute container] ************
+changed: [openstack2]
+
+PLAY [Apply role aodh] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role barbican] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cyborg] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role designate] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role trove] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role watcher] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role grafana] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cloudkitty] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role tacker] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role octavia] ******************************************************
+
+PLAY [Apply role zun] **********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role blazar] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role masakari] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role venus] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role skyline] ******************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+openstack1                 : ok=29   changed=6    unreachable=0    failed=0    skipped=21   rescued=0    ignored=0   
+openstack2                 : ok=20   changed=3    unreachable=0    failed=0    skipped=19   rescued=0    ignored=0   
+

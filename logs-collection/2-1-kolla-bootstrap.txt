@@ -1,0 +1,263 @@
+Bootstrapping servers : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  -e kolla_action=bootstrap-servers /home/loki/kolla-venv/share/kolla-ansible/ansible/kolla-host.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [localhost]
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack1]
+skipping: [localhost]
+skipping: [openstack2]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [openstack1]
+ok: [localhost]
+ok: [openstack2]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+skipping: no hosts matched
+
+PLAY [Apply role baremetal] ****************************************************
+
+TASK [openstack.kolla.etc_hosts : Include etc-hosts.yml] ***********************
+included: /home/loki/.ansible/collections/ansible_collections/openstack/kolla/roles/etc_hosts/tasks/etc-hosts.yml for openstack1, openstack2
+
+TASK [openstack.kolla.etc_hosts : Ensure localhost in /etc/hosts] **************
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.etc_hosts : Ensure hostname does not point to 127.0.1.1 in /etc/hosts] ***
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.etc_hosts : Generate /etc/hosts for all of the nodes] ****
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.etc_hosts : Check whether /etc/cloud/cloud.cfg exists] ***
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.etc_hosts : Disable cloud-init manage_etc_hosts] *********
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.baremetal : Ensure unprivileged users can use ping] ******
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.baremetal : Set firewall default policy] *****************
+fatal: [openstack2]: FAILED! => {"changed": false, "msg": "Failed to find required executable \"ufw\" in paths: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"}
+...ignoring
+ok: [openstack1]
+
+TASK [openstack.kolla.baremetal : Check if firewalld is installed] *************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.baremetal : Disable firewalld] ***************************
+skipping: [openstack1] => (item=firewalld) 
+skipping: [openstack1]
+skipping: [openstack2] => (item=firewalld) 
+skipping: [openstack2]
+
+TASK [openstack.kolla.packages : Install packages] *****************************
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.packages : Remove packages] ******************************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : include_tasks] **********************************
+included: /home/loki/.ansible/collections/ansible_collections/openstack/kolla/roles/docker/tasks/repo-Debian.yml for openstack1, openstack2
+
+TASK [openstack.kolla.docker : Install CA certificates and gnupg packages] *****
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.docker : Ensure apt sources list directory exists] *******
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure apt keyrings directory exists] ***********
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Install docker apt gpg key] *********************
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.docker : Install docker apt pin] *************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure old docker repository absent] ************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Enable docker apt repository] *******************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Update the apt cache] ***************************
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.docker : Check which containers are running] *************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Check if docker systemd unit exists] ************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Mask the docker systemd unit on Debian/Ubuntu] ***
+changed: [openstack2]
+changed: [openstack1]
+
+TASK [openstack.kolla.docker : Install packages] *******************************
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.docker : Start docker] ***********************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Wait for Docker to start] ***********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure containers are running after Docker upgrade] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure docker config directory exists] **********
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Write docker config] ****************************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Remove old docker options file] *****************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure docker service directory exists] *********
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Configure docker service] ***********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure the path for CA file for private registry exists] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Ensure the CA file for private registry exists] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker : Flush handlers] *********************************
+
+TASK [openstack.kolla.docker : Flush handlers] *********************************
+
+TASK [openstack.kolla.docker : Start and enable docker] ************************
+changed: [openstack1]
+changed: [openstack2]
+
+TASK [openstack.kolla.docker : include_tasks] **********************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.kolla_user : Ensure groups are present] ******************
+skipping: [openstack1] => (item=docker) 
+skipping: [openstack1] => (item=sudo) 
+skipping: [openstack1] => (item=kolla) 
+skipping: [openstack1]
+skipping: [openstack2] => (item=docker) 
+skipping: [openstack2] => (item=sudo) 
+skipping: [openstack2] => (item=kolla) 
+skipping: [openstack2]
+
+TASK [openstack.kolla.kolla_user : Create kolla user] **************************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.kolla_user : Add public key to kolla user authorized keys] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.kolla_user : Grant kolla user passwordless sudo] *********
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker_sdk : Get Python] *********************************
+ok: [openstack2]
+ok: [openstack1]
+
+TASK [openstack.kolla.docker_sdk : Check if Python environment is externally managed] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker_sdk : Set docker_sdk_python_externally_managed fact] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker_sdk : Install packages] ***************************
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.docker_sdk : Install latest pip in the virtualenv] *******
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.docker_sdk : Install docker SDK for python using pip] ****
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.baremetal : Ensure node_config_directory directory exists] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.apparmor_libvirt : include_tasks] ************************
+included: /home/loki/.ansible/collections/ansible_collections/openstack/kolla/roles/apparmor_libvirt/tasks/remove-profile.yml for openstack1, openstack2
+
+TASK [openstack.kolla.apparmor_libvirt : Get stat of libvirtd apparmor profile] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.apparmor_libvirt : Get stat of libvirtd apparmor disable profile] ***
+ok: [openstack1]
+ok: [openstack2]
+
+TASK [openstack.kolla.apparmor_libvirt : Remove apparmor profile for libvirt] ***
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.baremetal : Change state of selinux] *********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.baremetal : Set https proxy for git] *********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.baremetal : Set http proxy for git] **********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+TASK [openstack.kolla.baremetal : Configure ceph for zun] **********************
+skipping: [openstack1]
+skipping: [openstack2]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+openstack1                 : ok=35   changed=2    unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+openstack2                 : ok=35   changed=2    unreachable=0    failed=0    skipped=24   rescued=0    ignored=1   
+

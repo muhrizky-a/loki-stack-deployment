@@ -1,0 +1,101 @@
+Collecting python-ceilometerclient
+  Downloading python_ceilometerclient-2.9.0-py2.py3-none-any.whl.metadata (2.3 kB)
+Requirement already satisfied: PrettyTable<0.8,>=0.7 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (0.7.2)
+Requirement already satisfied: iso8601>=0.1.11 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (2.1.0)
+Requirement already satisfied: keystoneauth1>=2.1.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (5.8.0)
+Requirement already satisfied: oslo.i18n>=2.1.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (6.4.0)
+Requirement already satisfied: oslo.serialization>=1.10.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (5.5.0)
+Requirement already satisfied: oslo.utils>=3.17.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (7.3.0)
+Requirement already satisfied: pbr>=1.6 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (6.1.0)
+Requirement already satisfied: requests!=2.9.0,>=2.8.1 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (2.32.3)
+Requirement already satisfied: six>=1.9.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (1.16.0)
+Requirement already satisfied: stevedore>=1.10.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (5.3.0)
+Requirement already satisfied: os-service-types>=1.2.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from keystoneauth1>=2.1.0->python-ceilometerclient) (1.7.0)
+Requirement already satisfied: msgpack>=0.5.2 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.serialization>=1.10.0->python-ceilometerclient) (1.1.0)
+Requirement already satisfied: tzdata>=2022.4 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.serialization>=1.10.0->python-ceilometerclient) (2024.2)
+Requirement already satisfied: PyYAML>=3.13 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (6.0.2)
+Requirement already satisfied: debtcollector>=1.2.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (3.0.0)
+Requirement already satisfied: netaddr>=0.10.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (1.3.0)
+Requirement already satisfied: netifaces>=0.10.4 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (0.11.0)
+Requirement already satisfied: packaging>=20.4 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (24.1)
+Requirement already satisfied: pyparsing>=2.1.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (3.2.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (3.4.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (2.2.3)
+Requirement already satisfied: certifi>=2017.4.17 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (2024.8.30)
+Requirement already satisfied: wrapt>=1.7.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from debtcollector>=1.2.0->oslo.utils>=3.17.0->python-ceilometerclient) (1.16.0)
+Downloading python_ceilometerclient-2.9.0-py2.py3-none-any.whl (113 kB)
+Installing collected packages: python-ceilometerclient
+Successfully installed python-ceilometerclient-2.9.0
++----------------------------------+-----------+----------------+
+| ID                               | Name      | Type           |
++----------------------------------+-----------+----------------+
+| 2c2f910024e14c8e90d885a3ec3554bb | octavia   | load-balancer  |
+| 68ffb6fa9fef42909c4322b0f738465b | heat      | orchestration  |
+| 765310294c194e91bb6fbe1261b10920 | placement | placement      |
+| afa2349a54eb429abb1ca6ffb5f3fbaf | nova      | compute        |
+| b23a0ad15bba40b598a12524dbaa049b | neutron   | network        |
+| c293f3c0211f41b2a8da98e3b0a427b3 | keystone  | identity       |
+| c8c980fedc2842f6b670a151a2fb2284 | glance    | image          |
+| f01fb218b5194125962e7a6f7e4c1856 | heat-cfn  | cloudformation |
++----------------------------------+-----------+----------------+
+CONTAINER ID   IMAGE                                                                   COMMAND                  CREATED        STATUS                      PORTS     NAMES
+f77265808761   quay.io/openstack.kolla/octavia-worker:2024.1-ubuntu-jammy              "dumb-init --single-…"   3 months ago   Up 2 days (unhealthy)                 octavia_worker
+a658bf968351   quay.io/openstack.kolla/octavia-housekeeping:2024.1-ubuntu-jammy        "dumb-init --single-…"   3 months ago   Up 2 days (healthy)                   octavia_housekeeping
+624eb37bdaef   quay.io/openstack.kolla/octavia-health-manager:2024.1-ubuntu-jammy      "dumb-init --single-…"   3 months ago   Up 2 days (healthy)                   octavia_health_manager
+b8a4e99afa06   quay.io/openstack.kolla/octavia-api:2024.1-ubuntu-jammy                 "dumb-init --single-…"   3 months ago   Up 2 days (healthy)                   octavia_api
+5bfb2d2be06f   quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy                     "dumb-init --single-…"   3 months ago   Up 2 days (healthy)                   haproxy
+9eb858c606f5   quay.io/openstack.kolla/ceilometer-central:2024.1-ubuntu-jammy          "dumb-init --single-…"   3 months ago   Up 13 minutes (unhealthy)             ceilometer_central
+8751a3a1d496   quay.io/openstack.kolla/ceilometer-notification:2024.1-ubuntu-jammy     "dumb-init --single-…"   3 months ago   Up 2 days (healthy)                   ceilometer_notification
+3938303d0b73   quay.io/openstack.kolla/heat-engine:2024.1-ubuntu-jammy                 "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   heat_engine
+a3e274fe0a6d   quay.io/openstack.kolla/heat-api-cfn:2024.1-ubuntu-jammy                "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   heat_api_cfn
+74de570fb703   quay.io/openstack.kolla/heat-api:2024.1-ubuntu-jammy                    "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   heat_api
+c175328813e2   quay.io/openstack.kolla/neutron-metadata-agent:2024.1-ubuntu-jammy      "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   neutron_metadata_agent
+f3b82dfda926   quay.io/openstack.kolla/neutron-l3-agent:2024.1-ubuntu-jammy            "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   neutron_l3_agent
+51f549a86699   quay.io/openstack.kolla/neutron-dhcp-agent:2024.1-ubuntu-jammy          "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   neutron_dhcp_agent
+fdaf80d9bf6c   quay.io/openstack.kolla/neutron-openvswitch-agent:2024.1-ubuntu-jammy   "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   neutron_openvswitch_agent
+97ecefeafdfa   quay.io/openstack.kolla/neutron-server:2024.1-ubuntu-jammy              "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   neutron_server
+e2cf164da6e1   quay.io/openstack.kolla/openvswitch-vswitchd:2024.1-ubuntu-jammy        "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   openvswitch_vswitchd
+c637854aa6cb   quay.io/openstack.kolla/openvswitch-db-server:2024.1-ubuntu-jammy       "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   openvswitch_db
+d111caba174c   quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy             "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   nova_novncproxy
+1d3a94f25444   quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy              "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   nova_conductor
+86128af07cfa   quay.io/openstack.kolla/nova-api:2024.1-ubuntu-jammy                    "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   nova_api
+9a2c83e7803f   quay.io/openstack.kolla/nova-scheduler:2024.1-ubuntu-jammy              "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   nova_scheduler
+7ee678a76c94   quay.io/openstack.kolla/placement-api:2024.1-ubuntu-jammy               "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   placement_api
+4745c9df85f6   quay.io/openstack.kolla/glance-api:2024.1-ubuntu-jammy                  "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   glance_api
+844fa0a33636   quay.io/openstack.kolla/keystone:2024.1-ubuntu-jammy                    "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   keystone
+b31617156cf5   quay.io/openstack.kolla/keystone-fernet:2024.1-ubuntu-jammy             "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   keystone_fernet
+1f63aebe31de   quay.io/openstack.kolla/keystone-ssh:2024.1-ubuntu-jammy                "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   keystone_ssh
+e35e1c3afdce   quay.io/openstack.kolla/rabbitmq:2024.1-ubuntu-jammy                    "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   rabbitmq
+4fecbc75aa0d   quay.io/openstack.kolla/memcached:2024.1-ubuntu-jammy                   "dumb-init --single-…"   4 months ago   Up 2 days (healthy)                   memcached
+e5940285519b   quay.io/openstack.kolla/mariadb-server:2024.1-ubuntu-jammy              "dumb-init -- kolla_…"   4 months ago   Up 2 days (healthy)                   mariadb
+fc2440532b90   quay.io/openstack.kolla/mariadb-clustercheck:2024.1-ubuntu-jammy        "dumb-init --single-…"   4 months ago   Up 2 days                             mariadb_clustercheck
+577d53614d16   quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy                  "dumb-init --single-…"   4 months ago   Up 2 days                             keepalived
+02757f398ffa   quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy                        "dumb-init --single-…"   4 months ago   Up 2 days                             cron
+7721ea0aff32   quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy               "dumb-init --single-…"   4 months ago   Up 2 days                             kolla_toolbox
+00dd877d1eec   quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy                     "dumb-init --single-…"   4 months ago   Up 2 days                             fluentd
+Requirement already satisfied: python-ceilometerclient in /home/loki/kolla-venv/lib/python3.10/site-packages (2.9.0)
+Requirement already satisfied: PrettyTable<0.8,>=0.7 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (0.7.2)
+Requirement already satisfied: iso8601>=0.1.11 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (2.1.0)
+Requirement already satisfied: keystoneauth1>=2.1.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (5.8.0)
+Requirement already satisfied: oslo.i18n>=2.1.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (6.4.0)
+Requirement already satisfied: oslo.serialization>=1.10.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (5.5.0)
+Requirement already satisfied: oslo.utils>=3.17.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (7.3.0)
+Requirement already satisfied: pbr>=1.6 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (6.1.0)
+Requirement already satisfied: requests!=2.9.0,>=2.8.1 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (2.32.3)
+Requirement already satisfied: six>=1.9.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (1.16.0)
+Requirement already satisfied: stevedore>=1.10.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from python-ceilometerclient) (5.3.0)
+Requirement already satisfied: os-service-types>=1.2.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from keystoneauth1>=2.1.0->python-ceilometerclient) (1.7.0)
+Requirement already satisfied: msgpack>=0.5.2 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.serialization>=1.10.0->python-ceilometerclient) (1.1.0)
+Requirement already satisfied: tzdata>=2022.4 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.serialization>=1.10.0->python-ceilometerclient) (2024.2)
+Requirement already satisfied: PyYAML>=3.13 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (6.0.2)
+Requirement already satisfied: debtcollector>=1.2.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (3.0.0)
+Requirement already satisfied: netaddr>=0.10.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (1.3.0)
+Requirement already satisfied: netifaces>=0.10.4 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (0.11.0)
+Requirement already satisfied: packaging>=20.4 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (24.1)
+Requirement already satisfied: pyparsing>=2.1.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.17.0->python-ceilometerclient) (3.2.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (3.4.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (2.2.3)
+Requirement already satisfied: certifi>=2017.4.17 in /home/loki/kolla-venv/lib/python3.10/site-packages (from requests!=2.9.0,>=2.8.1->python-ceilometerclient) (2024.8.30)
+Requirement already satisfied: wrapt>=1.7.0 in /home/loki/kolla-venv/lib/python3.10/site-packages (from debtcollector>=1.2.0->oslo.utils>=3.17.0->python-ceilometerclient) (1.16.0)

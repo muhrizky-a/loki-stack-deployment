@@ -1,0 +1,7 @@
+CONTAINER ID   IMAGE                                                       COMMAND                  CREATED         STATUS                     PORTS     NAMES
+e05cbf8e8589   quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy    "dumb-init --single-…"   6 minutes ago   Up 6 minutes (unhealthy)             nova_compute
+6c75acbafd9c   quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy    "dumb-init --single-…"   7 minutes ago   Up 6 minutes (healthy)               nova_libvirt
+53b54463b66f   quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy        "dumb-init --single-…"   8 minutes ago   Up 7 minutes (healthy)               nova_ssh
+0ce488f26813   quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy            "dumb-init --single-…"   8 minutes ago   Up 8 minutes                         cron
+7d129f4ffcc2   quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy   "dumb-init --single-…"   9 minutes ago   Up 9 minutes                         kolla_toolbox
+fcdc2a612e29   quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy         "dumb-init --single-…"   9 minutes ago   Up 9 minutes                         fluentd

@@ -1,0 +1,4 @@
+CONTAINER ID   IMAGE                                                       COMMAND                  CREATED          STATUS          PORTS     NAMES
+bd64c0a9ecc8   quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy            "dumb-init --single-…"   20 minutes ago   Up 20 minutes             cron
+abc8958fd110   quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy   "dumb-init --single-…"   20 minutes ago   Up 20 minutes             kolla_toolbox
+12b12bd868c6   quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy         "dumb-init --single-…"   21 minutes ago   Up 21 minutes             fluentd

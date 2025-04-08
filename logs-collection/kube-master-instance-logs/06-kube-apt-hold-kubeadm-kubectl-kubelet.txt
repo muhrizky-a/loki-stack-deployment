@@ -1,0 +1,3 @@
+kubelet set on hold.
+kubeadm set on hold.
+kubectl set on hold.

@@ -1,0 +1,3 @@
+NAME                   CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
+kube-master-instance   1675m        83%    1076Mi          28%       
+worker-instance        609m         30%    781Mi           20%       

@@ -1,0 +1,405 @@
+Deploying Playbooks : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  --limit openstack2 -e kolla_action=deploy /home/loki/kolla-venv/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [openstack2]
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack2]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [openstack2]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+
+TASK [Gather facts] ************************************************************
+skipping: [openstack2] => (item=openstack2) 
+ok: [openstack2 -> openstack1] => (item=openstack1)
+ok: [openstack2 -> localhost] => (item=localhost)
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack2] => (item=openstack2) 
+skipping: [openstack2] => (item=openstack1) 
+skipping: [openstack2] => (item=localhost) 
+skipping: [openstack2]
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [openstack2]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [openstack2] => (item=enable_aodh_False)
+ok: [openstack2] => (item=enable_barbican_False)
+ok: [openstack2] => (item=enable_blazar_False)
+ok: [openstack2] => (item=enable_ceilometer_False)
+ok: [openstack2] => (item=enable_ceph_rgw_False)
+ok: [openstack2] => (item=enable_cinder_False)
+ok: [openstack2] => (item=enable_cloudkitty_False)
+ok: [openstack2] => (item=enable_collectd_False)
+ok: [openstack2] => (item=enable_cyborg_False)
+ok: [openstack2] => (item=enable_designate_False)
+ok: [openstack2] => (item=enable_etcd_False)
+ok: [openstack2] => (item=enable_glance_True)
+ok: [openstack2] => (item=enable_gnocchi_False)
+ok: [openstack2] => (item=enable_grafana_False)
+ok: [openstack2] => (item=enable_hacluster_False)
+ok: [openstack2] => (item=enable_heat_True)
+ok: [openstack2] => (item=enable_horizon_False)
+ok: [openstack2] => (item=enable_influxdb_False)
+ok: [openstack2] => (item=enable_ironic_False)
+ok: [openstack2] => (item=enable_iscsid_False)
+ok: [openstack2] => (item=enable_keystone_True)
+ok: [openstack2] => (item=enable_kuryr_False)
+ok: [openstack2] => (item=enable_letsencrypt_False)
+ok: [openstack2] => (item=enable_loadbalancer_True)
+ok: [openstack2] => (item=enable_magnum_False)
+ok: [openstack2] => (item=enable_manila_False)
+ok: [openstack2] => (item=enable_mariadb_True)
+ok: [openstack2] => (item=enable_masakari_False)
+ok: [openstack2] => (item=enable_memcached_True)
+ok: [openstack2] => (item=enable_mistral_False)
+ok: [openstack2] => (item=enable_multipathd_False)
+ok: [openstack2] => (item=enable_neutron_True)
+ok: [openstack2] => (item=enable_nova_True)
+ok: [openstack2] => (item=enable_octavia_False)
+ok: [openstack2] => (item=enable_opensearch_False)
+ok: [openstack2] => (item=enable_opensearch_dashboards_False)
+ok: [openstack2] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack2] => (item=enable_ovn_False)
+ok: [openstack2] => (item=enable_placement_True)
+ok: [openstack2] => (item=enable_prometheus_False)
+ok: [openstack2] => (item=enable_rabbitmq_True)
+ok: [openstack2] => (item=enable_redis_False)
+ok: [openstack2] => (item=enable_skyline_False)
+ok: [openstack2] => (item=enable_swift_False)
+ok: [openstack2] => (item=enable_tacker_False)
+ok: [openstack2] => (item=enable_telegraf_False)
+ok: [openstack2] => (item=enable_trove_False)
+ok: [openstack2] => (item=enable_venus_False)
+ok: [openstack2] => (item=enable_watcher_False)
+ok: [openstack2] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role common] *******************************************************
+
+TASK [common : include_tasks] **************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/tasks/deploy.yml for openstack2
+
+TASK [common : Ensuring config directories exist] ******************************
+ok: [openstack2] => (item=[{'service_name': 'cron'}, 'cron'])
+ok: [openstack2] => (item=[{'service_name': 'fluentd'}, 'fluentd'])
+ok: [openstack2] => (item=[{'service_name': 'kolla-toolbox'}, 'kolla-toolbox'])
+
+TASK [common : include_tasks] **************************************************
+skipping: [openstack2]
+
+TASK [common : Copying over /run subdirectories conf] **************************
+skipping: [openstack2]
+
+TASK [common : Restart systemd-tmpfiles] ***************************************
+skipping: [openstack2]
+
+TASK [common : Ensure fluentd image is present for label check] ****************
+ok: [openstack2]
+
+TASK [common : Fetch fluentd Docker image labels] ******************************
+ok: [openstack2]
+
+TASK [common : Set fluentd facts] **********************************************
+ok: [openstack2]
+
+TASK [common : Fetch fluentd Podman image labels] ******************************
+skipping: [openstack2]
+
+TASK [common : Set fluentd facts] **********************************************
+skipping: [openstack2]
+
+TASK [common : Copying over config.json files for services] ********************
+ok: [openstack2] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+ok: [openstack2] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible', 'REQUESTS_CA_BUNDLE': ''}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+ok: [openstack2] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Find custom fluentd input config files] *************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Find custom fluentd filter config files] ************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Find custom fluentd format config files] ************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Find custom fluentd output config files] ************************
+ok: [openstack2 -> localhost]
+
+TASK [common : Copying over td-agent.conf] *************************************
+ok: [openstack2]
+
+TASK [common : Copying over cron logrotate config file] ************************
+ok: [openstack2]
+
+TASK [common : Ensure RabbitMQ Erlang cookie exists] ***************************
+ok: [openstack2]
+
+TASK [common : Ensuring config directories have correct owner and permission] ***
+ok: [openstack2] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+skipping: [openstack2] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible', 'REQUESTS_CA_BUNDLE': ''}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+ok: [openstack2] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Copy rabbitmq-env.conf to kolla toolbox] ************************
+ok: [openstack2] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/templates/rabbitmq-env.conf.j2)
+
+TASK [common : Copy rabbitmq erl_inetrc to kolla toolbox] **********************
+ok: [openstack2] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/templates/erl_inetrc.j2)
+
+TASK [common : Check common containers] ****************************************
+ok: [openstack2] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+ok: [openstack2] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible', 'REQUESTS_CA_BUNDLE': ''}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+ok: [openstack2] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Creating log volume] ********************************************
+ok: [openstack2]
+
+TASK [common : Link kolla_logs volume to /var/log/kolla] ***********************
+ok: [openstack2]
+
+TASK [common : Flush handlers] *************************************************
+
+PLAY [Apply role loadbalancer] *************************************************
+skipping: no hosts matched
+
+PLAY [Apply role letsencrypt] **************************************************
+skipping: no hosts matched
+
+PLAY [Apply role collectd] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role influxdb] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role telegraf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role redis] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mariadb] ******************************************************
+skipping: no hosts matched
+
+PLAY [Restart mariadb services] ************************************************
+skipping: no hosts matched
+
+PLAY [Start mariadb services] **************************************************
+skipping: no hosts matched
+
+PLAY [Restart bootstrap mariadb service] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply mariadb post-configuration] ****************************************
+skipping: no hosts matched
+
+PLAY [Apply role memcached] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role prometheus] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role iscsi] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role multipathd] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role rabbitmq] *****************************************************
+skipping: no hosts matched
+
+PLAY [Restart rabbitmq services] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply rabbitmq post-configuration] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply role etcd] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role keystone] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role opensearch] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role swift] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceph-rgw] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role glance] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ironic] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cinder] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role placement] ****************************************************
+skipping: no hosts matched
+
+PLAY [Bootstrap nova API databases] ********************************************
+skipping: no hosts matched
+
+PLAY [Bootstrap nova cell databases] *******************************************
+skipping: no hosts matched
+
+PLAY [Apply role nova] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role nova-cell] ****************************************************
+
+TASK [nova-cell : include_tasks] ***********************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/nova-cell/tasks/deploy.yml for openstack2
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [Load and persist br_netfilter module] ************************************
+
+TASK [module-load : Load modules] **********************************************
+ok: [openstack2] => (item=br_netfilter)
+
+TASK [module-load : Persist modules via modules-load.d] ************************
+ok: [openstack2] => (item=br_netfilter)
+
+TASK [module-load : Drop module persistence] ***********************************
+skipping: [openstack2] => (item=br_netfilter) 
+skipping: [openstack2]
+
+TASK [nova-cell : Enable bridge-nf-call sysctl variables] **********************
+ok: [openstack2] => (item=net.bridge.bridge-nf-call-iptables)
+ok: [openstack2] => (item=net.bridge.bridge-nf-call-ip6tables)
+
+TASK [nova-cell : Install udev kolla kvm rules] ********************************
+ok: [openstack2]
+
+TASK [nova-cell : Mask qemu-kvm service] ***************************************
+ok: [openstack2]
+
+TASK [nova-cell : Ensuring config directories exist] ***************************
+ok: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}})
+ok: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+ok: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Check if policies shall be overwritten] **********************
+skipping: [openstack2]
+
+TASK [nova-cell : Set nova policy file] ****************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Check for vendordata file] ***********************************
+ok: [openstack2 -> localhost]
+
+TASK [nova-cell : Set vendordata file path] ************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over config.json files for services] *****************
+ok: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}})
+ok: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+ok: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : Copying over nova.conf] **************************************
+skipping: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+ok: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : Copying over Nova compute provider config] *******************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over libvirt configuration] **************************
+ok: [openstack2] => (item={'src': 'qemu.conf.j2', 'dest': 'qemu.conf'})
+ok: [openstack2] => (item={'src': 'libvirtd.conf.j2', 'dest': 'libvirtd.conf'})
+
+TASK [nova-cell : Copying over libvirt TLS keys] *******************************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over libvirt SASL configuration] *********************
+ok: [openstack2] => (item={'src': 'auth.conf.j2', 'dest': 'auth.conf', 'service': 'nova-compute'})
+ok: [openstack2] => (item={'src': 'auth.conf.j2', 'dest': 'auth.conf', 'service': 'nova-libvirt'})
+ok: [openstack2] => (item={'src': 'sasl.conf.j2', 'dest': 'sasl.conf', 'service': 'nova-libvirt'})
+
+TASK [nova-cell : Copying files for nova-ssh] **********************************
+ok: [openstack2] => (item={'src': 'sshd_config.j2', 'dest': 'sshd_config'})
+ok: [openstack2] => (item={'src': 'id_rsa', 'dest': 'id_rsa'})
+ok: [openstack2] => (item={'src': 'id_rsa.pub', 'dest': 'id_rsa.pub'})
+ok: [openstack2] => (item={'src': 'ssh_config.j2', 'dest': 'ssh_config'})
+
+TASK [nova-cell : Copying VMware vCenter CA file] ******************************
+skipping: [openstack2]
+
+TASK [nova-cell : Copying 'release' file for nova_compute] *********************
+skipping: [openstack2]
+
+TASK [nova-cell : Generating 'hostnqn' file for nova_compute] ******************
+ok: [openstack2]
+
+TASK [nova-cell : Copying over existing policy file] ***************************
+skipping: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+skipping: [openstack2]
+
+TASK [nova-cell : Copying over vendordata file to containers] ******************
+skipping: [openstack2] => (item=nova-compute) 
+skipping: [openstack2] => (item=nova-compute-ironic) 
+skipping: [openstack2]
+
+TASK [nova-cell : Check nova-cell containers] **********************************
+ok: [openstack2] => (item={'key': 'nova-libvirt', 'value': {'container_name': 'nova_libvirt', 'group': 'compute', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-libvirt:2024.1-ubuntu-jammy', 'pid_mode': 'host', 'cgroupns_mode': 'host', 'privileged': True, 'volumes': ['/etc/kolla/nova-libvirt/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', '', '/sys/fs/cgroup:/sys/fs/cgroup', 'kolla_logs:/var/log/kolla/', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', 'nova_libvirt_qemu:/etc/libvirt/qemu', 'nova_libvirt_secrets:/etc/libvirt/secrets', ''], 'dimensions': {'ulimits': {'memlock': {'soft': 67108864, 'hard': 67108864}}}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'virsh version --daemon'], 'timeout': '30'}}})
+ok: [openstack2] => (item={'key': 'nova-ssh', 'value': {'container_name': 'nova_ssh', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-ssh:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla', 'nova_compute:/var/lib/nova', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 8022'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-novncproxy', 'value': {'container_name': 'nova_novncproxy', 'group': 'nova-novncproxy', 'image': 'quay.io/openstack.kolla/nova-novncproxy:2024.1-ubuntu-jammy', 'enabled': True, 'volumes': ['/etc/kolla/nova-novncproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6080/vnc_lite.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-spicehtml5proxy', 'value': {'container_name': 'nova_spicehtml5proxy', 'group': 'nova-spicehtml5proxy', 'image': 'quay.io/openstack.kolla/nova-spicehtml5proxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-spicehtml5proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.92:6082/spice_auto.html'], 'timeout': '30'}}}) 
+skipping: [openstack2] => (item={'key': 'nova-serialproxy', 'value': {'container_name': 'nova_serialproxy', 'group': 'nova-serialproxy', 'image': 'quay.io/openstack.kolla/nova-serialproxy:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-serialproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}}}) 
+skipping: [openstack2] => (item={'key': 'nova-conductor', 'value': {'container_name': 'nova_conductor', 'group': 'nova-conductor', 'enabled': True, 'image': 'quay.io/openstack.kolla/nova-conductor:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/nova-conductor/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-conductor 5672'], 'timeout': '30'}}}) 
+ok: [openstack2] => (item={'key': 'nova-compute', 'value': {'container_name': 'nova_compute', 'group': 'compute', 'image': 'quay.io/openstack.kolla/nova-compute:2024.1-ubuntu-jammy', 'environment': {'LIBGUESTFS_BACKEND': 'direct'}, 'privileged': True, 'enabled': True, 'ipc_mode': 'host', 'volumes': ['/etc/kolla/nova-compute/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', '/run:/run:shared', '/dev:/dev', 'kolla_logs:/var/log/kolla/', '', 'libvirtd:/var/lib/libvirt', 'nova_compute:/var/lib/nova/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}})
+skipping: [openstack2] => (item={'key': 'nova-compute-ironic', 'value': {'container_name': 'nova_compute_ironic', 'group': 'nova-compute-ironic', 'image': 'quay.io/openstack.kolla/nova-compute-ironic:2024.1-ubuntu-jammy', 'enabled': False, 'volumes': ['/etc/kolla/nova-compute-ironic/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_port nova-compute 5672'], 'timeout': '30'}}}) 
+
+TASK [nova-cell : include_tasks] ***********************************************
+skipping: [openstack2]
+
+TASK [nova-cell : Flush handlers] **********************************************
+
+TASK [nova-cell : Waiting for nova-compute services to register themselves] ****
+fatal: [openstack2 -> openstack1]: FAILED! => {"msg": "The conditional check '(nova_compute_services.stdout | from_json | map(attribute='Host') | list) is superset(expected_compute_service_hosts)' failed. The error was: Expecting value: line 1 column 1 (char 0)"}
+
+PLAY RECAP *********************************************************************
+openstack2                 : ok=39   changed=0    unreachable=0    failed=1    skipped=21   rescued=0    ignored=0   
+

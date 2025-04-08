@@ -1,0 +1,36 @@
+Collecting ansible<9,>=8
+  Downloading ansible-8.7.0-py3-none-any.whl.metadata (7.9 kB)
+Collecting ansible-core~=2.15.7 (from ansible<9,>=8)
+  Downloading ansible_core-2.15.12-py3-none-any.whl.metadata (7.0 kB)
+Collecting jinja2>=3.0.0 (from ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading jinja2-3.1.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting PyYAML>=5.1 (from ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading PyYAML-6.0.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.1 kB)
+Collecting cryptography (from ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading cryptography-43.0.1-cp39-abi3-manylinux_2_28_x86_64.whl.metadata (5.4 kB)
+Collecting packaging (from ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading packaging-24.1-py3-none-any.whl.metadata (3.2 kB)
+Collecting resolvelib<1.1.0,>=0.5.3 (from ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading resolvelib-1.0.1-py2.py3-none-any.whl.metadata (4.0 kB)
+Collecting MarkupSafe>=2.0 (from jinja2>=3.0.0->ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading MarkupSafe-3.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting cffi>=1.12 (from cryptography->ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading cffi-1.17.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting pycparser (from cffi>=1.12->cryptography->ansible-core~=2.15.7->ansible<9,>=8)
+  Downloading pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+Downloading ansible-8.7.0-py3-none-any.whl (48.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.4/48.4 MB 34.8 MB/s eta 0:00:00
+Downloading ansible_core-2.15.12-py3-none-any.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 31.8 MB/s eta 0:00:00
+Downloading jinja2-3.1.4-py3-none-any.whl (133 kB)
+Downloading PyYAML-6.0.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (751 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 751.2/751.2 kB 25.0 MB/s eta 0:00:00
+Downloading resolvelib-1.0.1-py2.py3-none-any.whl (17 kB)
+Downloading cryptography-43.0.1-cp39-abi3-manylinux_2_28_x86_64.whl (4.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.0/4.0 MB 35.9 MB/s eta 0:00:00
+Downloading packaging-24.1-py3-none-any.whl (53 kB)
+Downloading cffi-1.17.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (446 kB)
+Downloading MarkupSafe-3.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (20 kB)
+Downloading pycparser-2.22-py3-none-any.whl (117 kB)
+Installing collected packages: resolvelib, PyYAML, pycparser, packaging, MarkupSafe, jinja2, cffi, cryptography, ansible-core, ansible
+Successfully installed MarkupSafe-3.0.1 PyYAML-6.0.2 ansible-8.7.0 ansible-core-2.15.12 cffi-1.17.1 cryptography-43.0.1 jinja2-3.1.4 packaging-24.1 pycparser-2.22 resolvelib-1.0.1

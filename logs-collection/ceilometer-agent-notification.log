@@ -1,0 +1,11 @@
+2025-03-16 16:01:09.071 19 ERROR stevedore.extension [-] Could not load 'event': Pipeline {'name': 'event_sink', 'publishers': None}: No publisher specified: ceilometer.pipeline.base.PipelineException: Pipeline {'name': 'event_sink', 'publishers': None}: No publisher specified
+2025-03-16 16:01:09.087 19 ERROR ceilometer.notification [-] Could not load the following pipelines: {'event'}
+2025-03-16 18:14:01.065 7 INFO cotyledon._service_manager [-] Caught SIGTERM signal, graceful exiting of master process
+2025-03-16 18:14:01.166 19 INFO cotyledon._service [-] Caught SIGTERM signal, graceful exiting of service NotificationService(0) [19]
+2025-03-16 18:14:05.940 19 ERROR stevedore.extension [-] Could not load 'event': Pipeline {'name': 'event_sink', 'publishers': None}: No publisher specified: ceilometer.pipeline.base.PipelineException: Pipeline {'name': 'event_sink', 'publishers': None}: No publisher specified
+2025-03-16 18:14:05.945 19 ERROR stevedore.extension [-] Could not load 'meter': Pipeline {'name': 'meter_source', 'meters': ['*'], 'sinks': ['meter_sink', 'event_sink']}: Dangling sink event_sink from source meter_source: ceilometer.pipeline.base.PipelineException: Pipeline {'name': 'meter_source', 'meters': ['*'], 'sinks': ['meter_sink', 'event_sink']}: Dangling sink event_sink from source meter_source
+2025-03-16 18:14:05.946 19 ERROR ceilometer.notification [-] Could not load the following pipelines: {'meter', 'event'}
+2025-03-16 18:19:11.322 7 INFO cotyledon._service_manager [-] Caught SIGTERM signal, graceful exiting of master process
+2025-03-16 18:19:11.424 19 INFO cotyledon._service [-] Caught SIGTERM signal, graceful exiting of service NotificationService(0) [19]
+2025-03-16 18:19:17.840 18 ERROR stevedore.extension [-] Could not load 'event': Pipeline {'name': 'event_sink', 'publishers': None}: No publisher specified: ceilometer.pipeline.base.PipelineException: Pipeline {'name': 'event_sink', 'publishers': None}: No publisher specified
+2025-03-16 18:19:17.847 18 ERROR ceilometer.notification [-] Could not load the following pipelines: {'event'}

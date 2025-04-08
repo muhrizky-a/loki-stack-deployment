@@ -1,0 +1,20 @@
+--2025-03-20 09:52:21--  https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml
+Resolving github.com (github.com)... 20.205.243.166
+Connecting to github.com (github.com)|20.205.243.166|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.7.2/high-availability-1.21+.yaml [following]
+--2025-03-20 09:52:22--  https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.7.2/high-availability-1.21+.yaml
+Reusing existing connection to github.com:443.
+HTTP request sent, awaiting response... 302 Found
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/92132038/5f271381-37f9-4615-a6b8-ce8aa8164945?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250320%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250320T095222Z&X-Amz-Expires=300&X-Amz-Signature=e4b6d0990730815b9ea241fb7b44f942a3eccc76e62ab2e7df7c3dacdd0f4dc9&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dhigh-availability-1.21%2B.yaml&response-content-type=application%2Foctet-stream [following]
+--2025-03-20 09:52:22--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/92132038/5f271381-37f9-4615-a6b8-ce8aa8164945?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250320%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250320T095222Z&X-Amz-Expires=300&X-Amz-Signature=e4b6d0990730815b9ea241fb7b44f942a3eccc76e62ab2e7df7c3dacdd0f4dc9&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dhigh-availability-1.21%2B.yaml&response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.111.133, 185.199.110.133, 185.199.108.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4843 (4.7K) [application/octet-stream]
+Saving to: ‘high-availability-1.21+.yaml’
+
+     0K ....                                                  100%  456K=0.01s
+
+2025-03-20 09:52:24 (456 KB/s) - ‘high-availability-1.21+.yaml’ saved [4843/4843]
+

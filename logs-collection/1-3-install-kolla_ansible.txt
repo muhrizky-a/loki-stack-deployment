@@ -1,0 +1,92 @@
+Collecting kolla-ansible
+  Downloading kolla_ansible-18.2.0-py3-none-any.whl.metadata (7.7 kB)
+Requirement already satisfied: Jinja2>=3 in ./kolla-venv/lib/python3.10/site-packages (from kolla-ansible) (3.1.4)
+Requirement already satisfied: PyYAML>=3.12 in ./kolla-venv/lib/python3.10/site-packages (from kolla-ansible) (6.0.2)
+Collecting bcrypt>=3.0.0 (from kolla-ansible)
+  Downloading bcrypt-4.2.0-cp39-abi3-manylinux_2_28_x86_64.whl.metadata (9.6 kB)
+Requirement already satisfied: cryptography>=2.1 in ./kolla-venv/lib/python3.10/site-packages (from kolla-ansible) (43.0.1)
+Collecting hvac>=0.10.1 (from kolla-ansible)
+  Downloading hvac-2.3.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting jmespath>=0.9.3 (from kolla-ansible)
+  Downloading jmespath-1.0.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting oslo.config>=5.2.0 (from kolla-ansible)
+  Downloading oslo.config-9.6.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting oslo.utils>=3.33.0 (from kolla-ansible)
+  Downloading oslo.utils-7.3.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting passlib>=1.0.0 (from passlib[bcrypt]>=1.0.0->kolla-ansible)
+  Downloading passlib-1.7.4-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting pbr!=2.1.0,>=2.0.0 (from kolla-ansible)
+  Downloading pbr-6.1.0-py2.py3-none-any.whl.metadata (3.4 kB)
+Requirement already satisfied: cffi>=1.12 in ./kolla-venv/lib/python3.10/site-packages (from cryptography>=2.1->kolla-ansible) (1.17.1)
+Collecting requests<3.0.0,>=2.27.1 (from hvac>=0.10.1->kolla-ansible)
+  Downloading requests-2.32.3-py3-none-any.whl.metadata (4.6 kB)
+Requirement already satisfied: MarkupSafe>=2.0 in ./kolla-venv/lib/python3.10/site-packages (from Jinja2>=3->kolla-ansible) (3.0.1)
+Collecting debtcollector>=1.2.0 (from oslo.config>=5.2.0->kolla-ansible)
+  Downloading debtcollector-3.0.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting netaddr>=0.7.18 (from oslo.config>=5.2.0->kolla-ansible)
+  Downloading netaddr-1.3.0-py3-none-any.whl.metadata (5.0 kB)
+Collecting oslo.i18n>=3.15.3 (from oslo.config>=5.2.0->kolla-ansible)
+  Downloading oslo.i18n-6.4.0-py3-none-any.whl.metadata (2.1 kB)
+Collecting rfc3986>=1.2.0 (from oslo.config>=5.2.0->kolla-ansible)
+  Downloading rfc3986-2.0.0-py2.py3-none-any.whl.metadata (6.6 kB)
+Collecting stevedore>=1.20.0 (from oslo.config>=5.2.0->kolla-ansible)
+  Downloading stevedore-5.3.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting iso8601>=0.1.11 (from oslo.utils>=3.33.0->kolla-ansible)
+  Downloading iso8601-2.1.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting netifaces>=0.10.4 (from oslo.utils>=3.33.0->kolla-ansible)
+  Downloading netifaces-0.11.0.tar.gz (30 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: packaging>=20.4 in ./kolla-venv/lib/python3.10/site-packages (from oslo.utils>=3.33.0->kolla-ansible) (24.1)
+Collecting pyparsing>=2.1.0 (from oslo.utils>=3.33.0->kolla-ansible)
+  Downloading pyparsing-3.2.0-py3-none-any.whl.metadata (5.0 kB)
+Collecting tzdata>=2022.4 (from oslo.utils>=3.33.0->kolla-ansible)
+  Downloading tzdata-2024.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Requirement already satisfied: pycparser in ./kolla-venv/lib/python3.10/site-packages (from cffi>=1.12->cryptography>=2.1->kolla-ansible) (2.22)
+Collecting wrapt>=1.7.0 (from debtcollector>=1.2.0->oslo.config>=5.2.0->kolla-ansible)
+  Downloading wrapt-1.16.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+Collecting charset-normalizer<4,>=2 (from requests<3.0.0,>=2.27.1->hvac>=0.10.1->kolla-ansible)
+  Downloading charset_normalizer-3.4.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (34 kB)
+Collecting idna<4,>=2.5 (from requests<3.0.0,>=2.27.1->hvac>=0.10.1->kolla-ansible)
+  Downloading idna-3.10-py3-none-any.whl.metadata (10 kB)
+Collecting urllib3<3,>=1.21.1 (from requests<3.0.0,>=2.27.1->hvac>=0.10.1->kolla-ansible)
+  Downloading urllib3-2.2.3-py3-none-any.whl.metadata (6.5 kB)
+Collecting certifi>=2017.4.17 (from requests<3.0.0,>=2.27.1->hvac>=0.10.1->kolla-ansible)
+  Downloading certifi-2024.8.30-py3-none-any.whl.metadata (2.2 kB)
+Downloading kolla_ansible-18.2.0-py3-none-any.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 13.8 MB/s eta 0:00:00
+Downloading bcrypt-4.2.0-cp39-abi3-manylinux_2_28_x86_64.whl (273 kB)
+Downloading hvac-2.3.0-py3-none-any.whl (155 kB)
+Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)
+Downloading oslo.config-9.6.0-py3-none-any.whl (132 kB)
+Downloading oslo.utils-7.3.0-py3-none-any.whl (129 kB)
+Downloading passlib-1.7.4-py2.py3-none-any.whl (525 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 525.6/525.6 kB 20.8 MB/s eta 0:00:00
+Downloading pbr-6.1.0-py2.py3-none-any.whl (108 kB)
+Downloading debtcollector-3.0.0-py3-none-any.whl (23 kB)
+Downloading iso8601-2.1.0-py3-none-any.whl (7.5 kB)
+Downloading netaddr-1.3.0-py3-none-any.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 9.0 MB/s eta 0:00:00
+Downloading oslo.i18n-6.4.0-py3-none-any.whl (46 kB)
+Downloading pyparsing-3.2.0-py3-none-any.whl (106 kB)
+Downloading requests-2.32.3-py3-none-any.whl (64 kB)
+Downloading rfc3986-2.0.0-py2.py3-none-any.whl (31 kB)
+Downloading stevedore-5.3.0-py3-none-any.whl (49 kB)
+Downloading tzdata-2024.2-py2.py3-none-any.whl (346 kB)
+Downloading certifi-2024.8.30-py3-none-any.whl (167 kB)
+Downloading charset_normalizer-3.4.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (144 kB)
+Downloading idna-3.10-py3-none-any.whl (70 kB)
+Downloading urllib3-2.2.3-py3-none-any.whl (126 kB)
+Downloading wrapt-1.16.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (80 kB)
+Building wheels for collected packages: netifaces
+  Building wheel for netifaces (pyproject.toml): started
+  Building wheel for netifaces (pyproject.toml): finished with status 'done'
+  Created wheel for netifaces: filename=netifaces-0.11.0-cp310-cp310-linux_x86_64.whl size=35011 sha256=18c5d022b54fe8da3e0fb53b9ca510dfa8fc09bcc1e5290974152f3bca7eefd1
+  Stored in directory: /home/loki/.cache/pip/wheels/48/65/b3/4c4cc6038b81ff21cc9df69f2b6774f5f52e23d3c275ed15aa
+Successfully built netifaces
+Installing collected packages: passlib, netifaces, wrapt, urllib3, tzdata, rfc3986, pyparsing, pbr, netaddr, jmespath, iso8601, idna, charset-normalizer, certifi, bcrypt, stevedore, requests, oslo.i18n, debtcollector, oslo.utils, oslo.config, hvac, kolla-ansible
+Successfully installed bcrypt-4.2.0 certifi-2024.8.30 charset-normalizer-3.4.0 debtcollector-3.0.0 hvac-2.3.0 idna-3.10 iso8601-2.1.0 jmespath-1.0.1 kolla-ansible-18.2.0 netaddr-1.3.0 netifaces-0.11.0 oslo.config-9.6.0 oslo.i18n-6.4.0 oslo.utils-7.3.0 passlib-1.7.4 pbr-6.1.0 pyparsing-3.2.0 requests-2.32.3 rfc3986-2.0.0 stevedore-5.3.0 tzdata-2024.2 urllib3-2.2.3 wrapt-1.16.0

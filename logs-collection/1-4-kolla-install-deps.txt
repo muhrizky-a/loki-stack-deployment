@@ -1,0 +1,18 @@
+Installing Ansible Galaxy dependencies
+Name: ansible
+Version: 8.7.0
+Summary: Radically simple IT automation
+Home-page: https://ansible.com/
+Author: Ansible, Inc.
+Author-email: info@ansible.com
+License: GPLv3+
+Location: /home/loki/kolla-venv/lib/python3.10/site-packages
+Requires: ansible-core
+Required-by: 
+Branch 'stable/2024.1' set up to track remote branch 'stable/2024.1' from 'origin'.
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Installing 'openstack.kolla:1.0.0' to '/home/loki/.ansible/collections/ansible_collections/openstack/kolla'
+Created collection for openstack.kolla:1.0.0 at /home/loki/.ansible/collections/ansible_collections/openstack/kolla
+openstack.kolla:1.0.0 was installed successfully

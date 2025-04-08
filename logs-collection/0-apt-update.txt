@@ -1,0 +1,9 @@
+Hit:1 http://id.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Hit:3 http://id.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Get:4 http://id.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Fetched 257 kB in 2s (120 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+27 packages can be upgraded. Run 'apt list --upgradable' to see them.

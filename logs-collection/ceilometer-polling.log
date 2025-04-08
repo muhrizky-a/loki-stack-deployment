@@ -1,0 +1,422 @@
+2025-03-16 16:01:10.940 19 INFO ceilometer.polling.manager [-] Looking for dynamic pollsters configurations at [['/etc/ceilometer/pollsters.d']].
+2025-03-16 16:01:10.943 19 INFO ceilometer.polling.manager [-] No dynamic pollsters found in folder [/etc/ceilometer/pollsters.d].
+2025-03-16 16:01:10.944 19 INFO ceilometer.polling.manager [-] No dynamic pollsters file found in dirs [['/etc/ceilometer/pollsters.d']].
+2025-03-16 16:01:11.693 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:01:12.068 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:01:12.499 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:06:11.207 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:06:11.208 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:06:11.209 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:11:11.208 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:11:11.209 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:11:11.209 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:16:11.208 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:16:11.210 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:16:11.211 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:21:11.209 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:21:11.210 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:21:11.211 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:26:11.209 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:26:11.210 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:26:11.210 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:31:11.210 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:31:11.211 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:31:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:36:11.210 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:36:11.211 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:36:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:41:11.211 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:41:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:41:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:46:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:46:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:46:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:51:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:51:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:51:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:56:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:56:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 16:56:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:01:11.212 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:01:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:01:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:06:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:06:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:06:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:11:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:11:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:11:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:16:11.213 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:16:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:16:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:21:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:21:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:21:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:26:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:26:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:26:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:31:11.214 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:31:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:31:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:36:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:36:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:36:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:41:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:41:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:41:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:46:11.215 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:46:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:46:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:51:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:51:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:51:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:56:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:56:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 17:56:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:01:11.216 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:01:11.218 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:01:11.218 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:06:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:06:11.218 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:06:11.218 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:11:11.217 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:11:11.218 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:11:11.219 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:14:07.139 7 INFO cotyledon._service_manager [-] Caught SIGTERM signal, graceful exiting of master process
+2025-03-16 18:14:07.241 19 INFO cotyledon._service [-] Caught SIGTERM signal, graceful exiting of service AgentManager(0) [19]
+2025-03-16 18:14:09.072 19 INFO ceilometer.polling.manager [-] Looking for dynamic pollsters configurations at [['/etc/ceilometer/pollsters.d']].
+2025-03-16 18:14:09.075 19 INFO ceilometer.polling.manager [-] No dynamic pollsters found in folder [/etc/ceilometer/pollsters.d].
+2025-03-16 18:14:09.075 19 INFO ceilometer.polling.manager [-] No dynamic pollsters file found in dirs [['/etc/ceilometer/pollsters.d']].
+2025-03-16 18:14:09.705 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:14:10.057 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:14:10.402 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:19:09.279 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:19:09.280 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:19:09.281 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:19:22.522 7 INFO cotyledon._service_manager [-] Caught SIGTERM signal, graceful exiting of master process
+2025-03-16 18:19:22.624 19 INFO cotyledon._service [-] Caught SIGTERM signal, graceful exiting of service AgentManager(0) [19]
+2025-03-16 18:19:24.557 19 INFO ceilometer.polling.manager [-] Looking for dynamic pollsters configurations at [['/etc/ceilometer/pollsters.d']].
+2025-03-16 18:19:24.560 19 INFO ceilometer.polling.manager [-] No dynamic pollsters found in folder [/etc/ceilometer/pollsters.d].
+2025-03-16 18:19:24.560 19 INFO ceilometer.polling.manager [-] No dynamic pollsters file found in dirs [['/etc/ceilometer/pollsters.d']].
+2025-03-16 18:19:25.162 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:19:25.508 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:19:25.897 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:23:04.738 130 INFO ceilometer.polling.manager [-] Looking for dynamic pollsters configurations at [['/etc/ceilometer/pollsters.d']].
+2025-03-16 18:23:04.742 130 INFO ceilometer.polling.manager [-] No dynamic pollsters found in folder [/etc/ceilometer/pollsters.d].
+2025-03-16 18:23:04.743 130 INFO ceilometer.polling.manager [-] No dynamic pollsters file found in dirs [['/etc/ceilometer/pollsters.d']].
+2025-03-16 18:23:04.776 130 ERROR ceilometer.compute.virt.inspector [-] Unable to load the hypervisor inspector: python-libvirt module is missing
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.145 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.510 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.511 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.859 130 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.860 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.861 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.862 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager [-] Unable to discover resources: python-libvirt module is missing: ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager Traceback (most recent call last):
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/polling/manager.py", line 623, in discover
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     discovered = discoverer.discover(self, param)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 119, in discover
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return self.discover_libvirt_polling(manager, param=None)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 289, in wrapped_f
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return self(f, *args, **kw)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 379, in __call__
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     do = self.iter(retry_state=retry_state)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 314, in iter
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return fut.result()
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return self.__get_result()
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     raise self._exception
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/tenacity/__init__.py", line 382, in __call__
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     result = fn(*args, **kwargs)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 139, in discover_libvirt_polling
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     for domain in self.connection.listAllDomains():
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/discovery.py", line 112, in connection
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     return libvirt_utils.refresh_libvirt_connection(self.conf, self)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 100, in refresh_libvirt_connection
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     connection = new_libvirt_connection(conf)
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager   File "/var/lib/kolla/venv/lib/python3.10/site-packages/ceilometer/compute/virt/libvirt/utils.py", line 90, in new_libvirt_connection
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager     raise ImportError("python-libvirt module is missing")
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager ImportError: python-libvirt module is missing
+2025-03-16 18:23:05.863 130 ERROR ceilometer.polling.manager 
+2025-03-16 18:23:06.210 130 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:23:09.093 128 INFO cotyledon._service_manager [-] Caught SIGINT signal, instantaneous exiting
+2025-03-16 18:24:24.781 19 ERROR ceilometer.polling.manager [-] Skipping volumes, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:24:24.782 19 ERROR ceilometer.polling.manager [-] Skipping volume_backups, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found
+2025-03-16 18:24:24.783 19 ERROR ceilometer.polling.manager [-] Skipping volume_snapshots, keystone issue: internal endpoint for volumev3 service in RegionOne region not found: keystoneauth1.exceptions.catalog.EndpointNotFound: internal endpoint for volumev3 service in RegionOne region not found

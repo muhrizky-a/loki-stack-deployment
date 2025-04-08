@@ -1,0 +1,331 @@
+Deploying Playbooks : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  --limit openstack1 -e kolla_action=deploy /home/loki/kolla-venv/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [openstack1]
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack1]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [openstack1]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+
+TASK [Gather facts] ************************************************************
+skipping: [openstack1] => (item=openstack1) 
+ok: [openstack1 -> openstack2] => (item=openstack2)
+ok: [openstack1 -> localhost] => (item=localhost)
+
+TASK [Gather package facts] ****************************************************
+skipping: [openstack1] => (item=openstack1) 
+skipping: [openstack1] => (item=openstack2) 
+skipping: [openstack1] => (item=localhost) 
+skipping: [openstack1]
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [openstack1]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [openstack1] => (item=enable_aodh_False)
+ok: [openstack1] => (item=enable_barbican_False)
+ok: [openstack1] => (item=enable_blazar_False)
+ok: [openstack1] => (item=enable_ceilometer_False)
+ok: [openstack1] => (item=enable_ceph_rgw_False)
+ok: [openstack1] => (item=enable_cinder_False)
+ok: [openstack1] => (item=enable_cloudkitty_False)
+ok: [openstack1] => (item=enable_collectd_False)
+ok: [openstack1] => (item=enable_cyborg_False)
+ok: [openstack1] => (item=enable_designate_False)
+ok: [openstack1] => (item=enable_etcd_False)
+ok: [openstack1] => (item=enable_glance_True)
+ok: [openstack1] => (item=enable_gnocchi_False)
+ok: [openstack1] => (item=enable_grafana_False)
+ok: [openstack1] => (item=enable_hacluster_False)
+ok: [openstack1] => (item=enable_heat_True)
+ok: [openstack1] => (item=enable_horizon_False)
+ok: [openstack1] => (item=enable_influxdb_False)
+ok: [openstack1] => (item=enable_ironic_False)
+ok: [openstack1] => (item=enable_iscsid_False)
+ok: [openstack1] => (item=enable_keystone_True)
+ok: [openstack1] => (item=enable_kuryr_False)
+ok: [openstack1] => (item=enable_letsencrypt_False)
+ok: [openstack1] => (item=enable_loadbalancer_True)
+ok: [openstack1] => (item=enable_magnum_False)
+ok: [openstack1] => (item=enable_manila_False)
+ok: [openstack1] => (item=enable_mariadb_True)
+ok: [openstack1] => (item=enable_masakari_False)
+ok: [openstack1] => (item=enable_memcached_True)
+ok: [openstack1] => (item=enable_mistral_False)
+ok: [openstack1] => (item=enable_multipathd_False)
+ok: [openstack1] => (item=enable_neutron_True)
+ok: [openstack1] => (item=enable_nova_True)
+ok: [openstack1] => (item=enable_octavia_False)
+ok: [openstack1] => (item=enable_opensearch_False)
+ok: [openstack1] => (item=enable_opensearch_dashboards_False)
+ok: [openstack1] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [openstack1] => (item=enable_ovn_False)
+ok: [openstack1] => (item=enable_placement_True)
+ok: [openstack1] => (item=enable_prometheus_False)
+ok: [openstack1] => (item=enable_rabbitmq_True)
+ok: [openstack1] => (item=enable_redis_False)
+ok: [openstack1] => (item=enable_skyline_False)
+ok: [openstack1] => (item=enable_swift_False)
+ok: [openstack1] => (item=enable_tacker_False)
+ok: [openstack1] => (item=enable_telegraf_False)
+ok: [openstack1] => (item=enable_trove_False)
+ok: [openstack1] => (item=enable_venus_False)
+ok: [openstack1] => (item=enable_watcher_False)
+ok: [openstack1] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role common] *******************************************************
+
+TASK [common : include_tasks] **************************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/tasks/deploy.yml for openstack1
+
+TASK [common : Ensuring config directories exist] ******************************
+ok: [openstack1] => (item=[{'service_name': 'cron'}, 'cron'])
+ok: [openstack1] => (item=[{'service_name': 'fluentd'}, 'fluentd'])
+ok: [openstack1] => (item=[{'service_name': 'kolla-toolbox'}, 'kolla-toolbox'])
+
+TASK [common : include_tasks] **************************************************
+skipping: [openstack1]
+
+TASK [common : Copying over /run subdirectories conf] **************************
+skipping: [openstack1]
+
+TASK [common : Restart systemd-tmpfiles] ***************************************
+skipping: [openstack1]
+
+TASK [common : Ensure fluentd image is present for label check] ****************
+ok: [openstack1]
+
+TASK [common : Fetch fluentd Docker image labels] ******************************
+ok: [openstack1]
+
+TASK [common : Set fluentd facts] **********************************************
+ok: [openstack1]
+
+TASK [common : Fetch fluentd Podman image labels] ******************************
+skipping: [openstack1]
+
+TASK [common : Set fluentd facts] **********************************************
+skipping: [openstack1]
+
+TASK [common : Copying over config.json files for services] ********************
+ok: [openstack1] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+ok: [openstack1] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible'}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+ok: [openstack1] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Find custom fluentd input config files] *************************
+ok: [openstack1 -> localhost]
+
+TASK [common : Find custom fluentd filter config files] ************************
+ok: [openstack1 -> localhost]
+
+TASK [common : Find custom fluentd format config files] ************************
+ok: [openstack1 -> localhost]
+
+TASK [common : Find custom fluentd output config files] ************************
+ok: [openstack1 -> localhost]
+
+TASK [common : Copying over td-agent.conf] *************************************
+ok: [openstack1]
+
+TASK [common : Copying over cron logrotate config file] ************************
+ok: [openstack1]
+
+TASK [common : Ensure RabbitMQ Erlang cookie exists] ***************************
+ok: [openstack1]
+
+TASK [common : Ensuring config directories have correct owner and permission] ***
+ok: [openstack1] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+skipping: [openstack1] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible'}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}}) 
+ok: [openstack1] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Copy rabbitmq-env.conf to kolla toolbox] ************************
+ok: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/templates/rabbitmq-env.conf.j2)
+
+TASK [common : Copy rabbitmq erl_inetrc to kolla toolbox] **********************
+ok: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/common/templates/erl_inetrc.j2)
+
+TASK [common : Check common containers] ****************************************
+changed: [openstack1] => (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:2024.1-ubuntu-jammy', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/var/lib/fluentd/data/', '/var/log/journal:/var/log/journal:ro'], 'dimensions': {}}})
+changed: [openstack1] => (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:2024.1-ubuntu-jammy', 'environment': {'ANSIBLE_NOCOLOR': '1', 'ANSIBLE_LIBRARY': '/usr/share/ansible'}, 'privileged': True, 'volumes': ['/etc/kolla/kolla-toolbox/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/dev/:/dev/', '/run/:/run/:shared', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+changed: [openstack1] => (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:2024.1-ubuntu-jammy', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': ['/etc/kolla/cron/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}}})
+
+TASK [common : Creating log volume] ********************************************
+ok: [openstack1]
+
+TASK [common : Link kolla_logs volume to /var/log/kolla] ***********************
+ok: [openstack1]
+
+TASK [common : Flush handlers] *************************************************
+
+RUNNING HANDLER [common : Restart fluentd container] ***************************
+changed: [openstack1]
+
+RUNNING HANDLER [common : Restart kolla-toolbox container] *********************
+changed: [openstack1]
+
+RUNNING HANDLER [common : Initializing toolbox container using normal user] ****
+ok: [openstack1]
+
+RUNNING HANDLER [common : Restart cron container] ******************************
+changed: [openstack1]
+
+PLAY [Apply role loadbalancer] *************************************************
+
+TASK [loadbalancer : include_tasks] ********************************************
+included: /home/loki/kolla-venv/share/kolla-ansible/ansible/roles/loadbalancer/tasks/deploy.yml for openstack1
+
+TASK [loadbalancer : Check IPv6 support] ***************************************
+ok: [openstack1]
+
+TASK [Setting sysctl values] ***************************************************
+
+TASK [sysctl : Check IPv6 support] *********************************************
+ok: [openstack1]
+
+TASK [sysctl : Setting sysctl values] ******************************************
+ok: [openstack1] => (item={'name': 'net.ipv6.ip_nonlocal_bind', 'value': 1})
+ok: [openstack1] => (item={'name': 'net.ipv4.ip_nonlocal_bind', 'value': 1})
+ok: [openstack1] => (item={'name': 'net.ipv4.tcp_retries2', 'value': 'KOLLA_UNSET'})
+ok: [openstack1] => (item={'name': 'net.unix.max_dgram_qlen', 'value': 128})
+
+TASK [module-load : Load modules] **********************************************
+ok: [openstack1] => (item=ip_vs)
+
+TASK [module-load : Persist modules via modules-load.d] ************************
+ok: [openstack1] => (item=ip_vs)
+
+TASK [module-load : Drop module persistence] ***********************************
+skipping: [openstack1] => (item=ip_vs) 
+skipping: [openstack1]
+
+TASK [loadbalancer : Ensuring config directories exist] ************************
+ok: [openstack1] => (item={'key': 'haproxy', 'value': {'container_name': 'haproxy', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/haproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', 'letsencrypt_certificates:/etc/haproxy/certificates'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:61313'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'proxysql', 'value': {'container_name': 'proxysql', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/proxysql:2024.1-ubuntu-jammy', 'privileged': False, 'volumes': ['/etc/kolla/proxysql/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'proxysql:/var/lib/proxysql/', 'proxysql_socket:/var/lib/kolla/proxysql/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen proxysql 6032'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'keepalived', 'value': {'container_name': 'keepalived', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/keepalived/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', ''], 'dimensions': {}}})
+skipping: [openstack1] => (item={'key': 'haproxy-ssh', 'value': {'container_name': 'haproxy_ssh', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/haproxy-ssh:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/haproxy-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 2985'], 'timeout': '30'}}}) 
+
+TASK [loadbalancer : Ensuring haproxy service config subdir exists] ************
+ok: [openstack1]
+
+TASK [loadbalancer : Ensuring proxysql service config subdirectories exist] ****
+skipping: [openstack1] => (item=users) 
+skipping: [openstack1] => (item=rules) 
+skipping: [openstack1]
+
+TASK [loadbalancer : Ensuring keepalived checks subdir exists] *****************
+ok: [openstack1]
+
+TASK [loadbalancer : Remove mariadb.cfg if proxysql enabled] *******************
+skipping: [openstack1]
+
+TASK [loadbalancer : Removing checks for services which are disabled] **********
+skipping: [openstack1] => (item={'key': 'haproxy', 'value': {'container_name': 'haproxy', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/haproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', 'letsencrypt_certificates:/etc/haproxy/certificates'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:61313'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'proxysql', 'value': {'container_name': 'proxysql', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/proxysql:2024.1-ubuntu-jammy', 'privileged': False, 'volumes': ['/etc/kolla/proxysql/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'proxysql:/var/lib/proxysql/', 'proxysql_socket:/var/lib/kolla/proxysql/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen proxysql 6032'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'keepalived', 'value': {'container_name': 'keepalived', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/keepalived/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', ''], 'dimensions': {}}}) 
+skipping: [openstack1] => (item={'key': 'haproxy-ssh', 'value': {'container_name': 'haproxy_ssh', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/haproxy-ssh:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/haproxy-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 2985'], 'timeout': '30'}}}) 
+
+TASK [loadbalancer : Copying checks for services which are enabled] ************
+ok: [openstack1] => (item={'key': 'haproxy', 'value': {'container_name': 'haproxy', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/haproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', 'letsencrypt_certificates:/etc/haproxy/certificates'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:61313'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'proxysql', 'value': {'container_name': 'proxysql', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/proxysql:2024.1-ubuntu-jammy', 'privileged': False, 'volumes': ['/etc/kolla/proxysql/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'proxysql:/var/lib/proxysql/', 'proxysql_socket:/var/lib/kolla/proxysql/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen proxysql 6032'], 'timeout': '30'}}}) 
+skipping: [openstack1] => (item={'key': 'keepalived', 'value': {'container_name': 'keepalived', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/keepalived/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', ''], 'dimensions': {}}}) 
+skipping: [openstack1] => (item={'key': 'haproxy-ssh', 'value': {'container_name': 'haproxy_ssh', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/haproxy-ssh:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/haproxy-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 2985'], 'timeout': '30'}}}) 
+
+TASK [loadbalancer : Copying over config.json files for services] **************
+ok: [openstack1] => (item={'key': 'haproxy', 'value': {'container_name': 'haproxy', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/haproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', 'letsencrypt_certificates:/etc/haproxy/certificates'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:61313'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'proxysql', 'value': {'container_name': 'proxysql', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/proxysql:2024.1-ubuntu-jammy', 'privileged': False, 'volumes': ['/etc/kolla/proxysql/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'proxysql:/var/lib/proxysql/', 'proxysql_socket:/var/lib/kolla/proxysql/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen proxysql 6032'], 'timeout': '30'}}}) 
+ok: [openstack1] => (item={'key': 'keepalived', 'value': {'container_name': 'keepalived', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/keepalived/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', ''], 'dimensions': {}}})
+skipping: [openstack1] => (item={'key': 'haproxy-ssh', 'value': {'container_name': 'haproxy_ssh', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/haproxy-ssh:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/haproxy-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 2985'], 'timeout': '30'}}}) 
+
+TASK [loadbalancer : Copying over haproxy.cfg] *********************************
+ok: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/loadbalancer/templates/haproxy/haproxy_main.cfg.j2)
+
+TASK [loadbalancer : Copying over proxysql config] *****************************
+skipping: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/loadbalancer/templates/proxysql/proxysql.yaml.j2) 
+skipping: [openstack1]
+
+TASK [loadbalancer : Copying over haproxy single external frontend config] *****
+skipping: [openstack1]
+
+TASK [loadbalancer : Copying over custom haproxy services configuration] *******
+skipping: [openstack1]
+
+TASK [loadbalancer : Copying over keepalived.conf] *****************************
+ok: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/loadbalancer/templates/keepalived/keepalived.conf.j2)
+
+TASK [loadbalancer : Copying over haproxy.pem] *********************************
+skipping: [openstack1] => (item=haproxy.pem) 
+skipping: [openstack1]
+
+TASK [loadbalancer : Copying over haproxy-internal.pem] ************************
+skipping: [openstack1] => (item=haproxy-internal.pem) 
+skipping: [openstack1]
+
+TASK [loadbalancer : include_tasks] ********************************************
+skipping: [openstack1]
+
+TASK [loadbalancer : Copying over haproxy start script] ************************
+ok: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/loadbalancer/templates/haproxy/haproxy_run.sh.j2)
+
+TASK [loadbalancer : Copying over proxysql start script] ***********************
+skipping: [openstack1] => (item=/home/loki/kolla-venv/share/kolla-ansible/ansible/roles/loadbalancer/templates/proxysql/proxysql_run.sh.j2) 
+skipping: [openstack1]
+
+TASK [loadbalancer : Copying files for haproxy-ssh] ****************************
+skipping: [openstack1] => (item={'src': 'haproxy-ssh/sshd_config.j2', 'dest': 'sshd_config'}) 
+skipping: [openstack1] => (item={'src': 'haproxy-ssh/id_rsa.pub', 'dest': 'id_rsa.pub'}) 
+skipping: [openstack1]
+
+TASK [loadbalancer : Check loadbalancer containers] ****************************
+changed: [openstack1] => (item={'key': 'haproxy', 'value': {'container_name': 'haproxy', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/haproxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', 'letsencrypt_certificates:/etc/haproxy/certificates'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:61313'], 'timeout': '30'}}})
+skipping: [openstack1] => (item={'key': 'proxysql', 'value': {'container_name': 'proxysql', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/proxysql:2024.1-ubuntu-jammy', 'privileged': False, 'volumes': ['/etc/kolla/proxysql/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'proxysql:/var/lib/proxysql/', 'proxysql_socket:/var/lib/kolla/proxysql/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen proxysql 6032'], 'timeout': '30'}}}) 
+changed: [openstack1] => (item={'key': 'keepalived', 'value': {'container_name': 'keepalived', 'group': 'loadbalancer', 'enabled': True, 'image': 'quay.io/openstack.kolla/keepalived:2024.1-ubuntu-jammy', 'privileged': True, 'volumes': ['/etc/kolla/keepalived/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', '/lib/modules:/lib/modules:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', ''], 'dimensions': {}}})
+skipping: [openstack1] => (item={'key': 'haproxy-ssh', 'value': {'container_name': 'haproxy_ssh', 'group': 'loadbalancer', 'enabled': False, 'image': 'quay.io/openstack.kolla/haproxy-ssh:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/haproxy-ssh/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'haproxy_socket:/var/lib/kolla/haproxy/', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb', '__omit_place_holder__61635ecf8d9a18739e2a81533d613fba2c3356eb'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_listen sshd 2985'], 'timeout': '30'}}}) 
+
+TASK [include_role : aodh] *****************************************************
+skipping: [openstack1]
+
+TASK [include_role : barbican] *************************************************
+skipping: [openstack1]
+
+TASK [include_role : blazar] ***************************************************
+skipping: [openstack1]
+
+TASK [include_role : ceph-rgw] *************************************************
+skipping: [openstack1]
+
+TASK [include_role : cinder] ***************************************************
+skipping: [openstack1]
+
+TASK [include_role : cloudkitty] ***********************************************
+skipping: [openstack1]
+
+TASK [include_role : cyborg] ***************************************************
+skipping: [openstack1]
+
+TASK [include_role : designate] ************************************************
+skipping: [openstack1]
+
+TASK [include_role : etcd] *****************************************************
+skipping: [openstack1]
+
+TASK [include_role : glance] ***************************************************
+
+TASK [haproxy-config : Copying over glance haproxy config] *********************
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: SystemError: <built-in function _escape_inner> returned NULL without setting an exception
+failed: [openstack1] (item={'key': 'glance-api', 'value': {'container_name': 'glance_api', 'group': 'glance-api', 'host_in_groups': True, 'enabled': True, 'image': 'quay.io/openstack.kolla/glance-api:2024.1-ubuntu-jammy', 'environment': {'http_proxy': '', 'https_proxy': '', 'no_proxy': 'localhost,127.0.0.1,192.168.99.91,192.168.99.200'}, 'privileged': False, 'volumes': ['/etc/kolla/glance-api/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'glance:/var/lib/glance/', '', 'kolla_logs:/var/log/kolla/', '', ''], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl http://192.168.99.91:9292'], 'timeout': '30'}, 'haproxy': {'glance_api': {'enabled': True, 'mode': 'http', 'external': False, 'port': '9292', 'frontend_http_extra': ['timeout client 6h'], 'backend_http_extra': ['timeout server 6h'], 'custom_member_list': ['server openstack1 192.168.99.91:9292 check inter 2000 rise 2 fall 5', '']}, 'glance_api_external': {'enabled': True, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9292', 'frontend_http_extra': ['timeout client 6h'], 'backend_http_extra': ['timeout server 6h'], 'custom_member_list': ['server openstack1 192.168.99.91:9292 check inter 2000 rise 2 fall 5', '']}}}}) => {"ansible_loop_var": "item", "changed": false, "item": {"key": "glance-api", "value": {"container_name": "glance_api", "dimensions": {}, "enabled": true, "environment": {"http_proxy": "", "https_proxy": "", "no_proxy": "localhost,127.0.0.1,192.168.99.91,192.168.99.200"}, "group": "glance-api", "haproxy": {"glance_api": {"backend_http_extra": ["timeout server 6h"], "custom_member_list": ["server openstack1 192.168.99.91:9292 check inter 2000 rise 2 fall 5", ""], "enabled": true, "external": false, "frontend_http_extra": ["timeout client 6h"], "mode": "http", "port": "9292"}, "glance_api_external": {"backend_http_extra": ["timeout server 6h"], "custom_member_list": ["server openstack1 192.168.99.91:9292 check inter 2000 rise 2 fall 5", ""], "enabled": true, "external": true, "external_fqdn": "192.168.99.200", "frontend_http_extra": ["timeout client 6h"], "mode": "http", "port": "9292"}}, "healthcheck": {"interval": "30", "retries": "3", "start_period": "5", "test": ["CMD-SHELL", "healthcheck_curl http://192.168.99.91:9292"], "timeout": "30"}, "host_in_groups": true, "image": "quay.io/openstack.kolla/glance-api:2024.1-ubuntu-jammy", "privileged": false, "volumes": ["/etc/kolla/glance-api/:/var/lib/kolla/config_files/:ro", "/etc/localtime:/etc/localtime:ro", "/etc/timezone:/etc/timezone:ro", "glance:/var/lib/glance/", "", "kolla_logs:/var/log/kolla/", "", ""]}}, "msg": "SystemError: <built-in function _escape_inner> returned NULL without setting an exception"}
+skipping: [openstack1] => (item={'key': 'glance-tls-proxy', 'value': {'container_name': 'glance_tls_proxy', 'group': 'glance-api', 'host_in_groups': True, 'enabled': 'no', 'image': 'quay.io/openstack.kolla/haproxy:2024.1-ubuntu-jammy', 'volumes': ['/etc/kolla/glance-tls-proxy/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/'], 'dimensions': {}, 'healthcheck': {'interval': '30', 'retries': '3', 'start_period': '5', 'test': ['CMD-SHELL', 'healthcheck_curl -u openstack:nYrCgIXy1CjLNrAt8N2HJnhGhQjbPB2GH6sIIvl1 192.168.99.91:9293'], 'timeout': '30'}, 'haproxy': {'glance_tls_proxy': {'enabled': False, 'mode': 'http', 'external': False, 'port': '9292', 'frontend_http_extra': ['timeout client 6h'], 'backend_http_extra': ['timeout server 6h'], 'custom_member_list': ['server openstack1 192.168.99.91:9292 check inter 2000 rise 2 fall 5 ssl verify required ca-file ca-certificates.crt', ''], 'tls_backend': 'yes'}, 'glance_tls_proxy_external': {'enabled': False, 'mode': 'http', 'external': True, 'external_fqdn': '192.168.99.200', 'port': '9292', 'frontend_http_extra': ['timeout client 6h'], 'backend_http_extra': ['timeout server 6h'], 'custom_member_list': ['server openstack1 192.168.99.91:9292 check inter 2000 rise 2 fall 5 ssl verify required ca-file ca-certificates.crt', ''], 'tls_backend': 'yes'}}}}) 
+
+PLAY RECAP *********************************************************************
+openstack1                 : ok=44   changed=5    unreachable=0    failed=1    skipped=27   rescued=0    ignored=0   
+

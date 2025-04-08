@@ -1,0 +1,5 @@
+NAME                     SERVICE                      AVAILABLE   AGE
+v1beta1.metrics.k8s.io   kube-system/metrics-server   True        66m
+NAME                   CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
+kube-master-instance   1742m        87%    1093Mi          28%       
+worker-instance        618m         30%    796Mi           20%       
