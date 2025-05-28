@@ -1,0 +1,175 @@
+heat_template_version: 2021-04-16
+#heat_template_version: 2014-10-16
+
+parameters:
+  instance_group:
+    type: string
+    default: 6ac95639-083d-4ee3-9e97-64a1fd8e77f2
+
+resources:
+  scaleup_policy:
+    type: OS::Heat::ScalingPolicy
+    properties:
+      adjustment_type: change_in_capacity
+      auto_scaling_group_id: { get_param: instance_group }
+      cooldown: 60
+      scaling_adjustment: 1
+
+
+  scaledown_policy:
+    type: OS::Heat::ScalingPolicy
+    properties:
+      adjustment_type: change_in_capacity
+      auto_scaling_group_id: { get_param: instance_group }
+      cooldown: 60
+      scaling_adjustment: -1
+
+  cpuutil_server_group_stackid_alarm_high:
+    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+    properties:
+      description: Scale up if CPU > 80%
+      metric: cpu_util
+      aggregation_method: mean
+      granularity: 300
+      evaluation_periods: 1
+      threshold: 0.5
+      resource_type: instance
+      comparison_operator: gt
+      alarm_actions:
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaleup_policy, signal_url]}
+      query:
+        list_join:
+          - ''
+          - - {'=': {server_group: {get_param: "OS::stack_id"}}}
+
+  cpu_server_group_stackid_alarm_high:
+    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+    properties:
+      description: Scale up if CPU > 80%
+      metric: cpu
+      aggregation_method: mean
+      granularity: 300
+      evaluation_periods: 1
+      threshold: 0.5
+      resource_type: instance
+      comparison_operator: gt
+      alarm_actions:
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaleup_policy, signal_url]}
+      query:
+        list_join:
+          - ''
+          - - {'=': {server_group: {get_param: "OS::stack_id"}}}
+
+
+#  cpuutil_stack_stackid_alarm_high:
+#    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+#    properties:
+#      description: Scale up if CPU > 80%
+#      metric: cpu_util
+#      aggregation_method: mean
+#      granularity: 300
+#      evaluation_periods: 1
+#      threshold: 0.5
+#      resource_type: instance
+#      comparison_operator: gt
+#      alarm_actions:
+#        - str_replace:
+#            template: trust+url
+#            params:
+#              url: {get_attr: [scaleup_policy, signal_url]}
+#      query:
+#        list_join:
+#          - ''
+#          - - {'=': {stack: {get_param: "OS::stack_id"}}}
+
+#  cpu_stack_stackid_alarm_high:
+#    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+#    properties:
+#      description: Scale up if CPU > 80%
+#      metric: cpu
+#      aggregation_method: mean
+#      granularity: 300
+#      evaluation_periods: 1
+#      threshold: 0.5
+#      resource_type: instance
+#      comparison_operator: gt
+#      alarm_actions:
+#        - str_replace:
+#            template: trust+url
+#            params:
+#              url: {get_attr: [scaleup_policy, signal_url]}
+#      query:
+#        list_join:
+#          - ''
+#          - - {'=': {stack: {get_param: "OS::stack_id"}}}
+
+  cpuutil_server_group_instance_group_alarm_high:
+    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+    properties:
+      description: Scale up if CPU > 80%
+      metric: cpu_util
+      aggregation_method: mean
+      granularity: 300
+      evaluation_periods: 1
+      threshold: 0.5
+      resource_type: instance
+      comparison_operator: gt
+      alarm_actions:
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaleup_policy, signal_url]}
+      query:
+        list_join:
+          - ''
+          - - {'=': {server_group: {get_param: instance_group}}}
+
+  cpu_server_group_instance_group_alarm_high:
+    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+    properties:
+      description: Scale up if CPU > 80%
+      metric: cpu
+      aggregation_method: mean
+      granularity: 300
+      evaluation_periods: 1
+      threshold: 0.5
+      resource_type: instance
+      comparison_operator: gt
+      alarm_actions:
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaleup_policy, signal_url]}
+      query:
+        list_join:
+          - ''
+          - - {'=': {server_group: {get_param: instance_group}}}
+
+
+  cpu_nginx_alarm_high:
+    type: OS::Aodh::GnocchiResourcesAlarm
+    properties:
+      alarm_actions:
+        - {get_attr: [scaleup_policy, alarm_url]}
+      aggregation_method: mean
+      evaluation_periods: 1
+      granularity: 300
+      metric: cpu
+      ok_actions:
+        - 'log:'
+      threshold: 1
+      resource_type: instance
+      resource_id: 501041c7-67cf-431d-bc50-8b4443f265ac
+      comparison_operator: gt
+
+outputs:
+  stackid:
+    value: {get_param: "OS::stack_id"}
+  instancegroupid:
+    value: {get_param: instance_group}

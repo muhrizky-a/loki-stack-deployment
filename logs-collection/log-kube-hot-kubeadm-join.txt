@@ -1,0 +1,12 @@
+kube 09:50
+cirros 10:08:36
+
+kube raw sh 11:01:48 11:05
+kube join 11:07:34 11:12
+registered 11:16 
+ready 11:17
+
+ ssh-keygen -f "/home/loki/.ssh/known_hosts" -R "192.168.33.237"
+openstack server add floating ip kube-stack-kube-worker-instance-3hziikzbzdu2 192.168.33.237
+
+ssh -o 'PubkeyAcceptedKeyTypes +ssh-rsa' ubuntu@192.168.33.237

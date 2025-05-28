@@ -1,0 +1,346 @@
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #check jumlah instance pada jam  00:31
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| c090536b-8793-4789-ba9d-         | se-km4n-gpfd2f4e2jnz-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| 289b3af077d5                     | sjd6h6p4jof2-server-nswqjpqv6nbx |        | loki=192.168.100.233,            |                             |                |
+|                                  |                                  |        | 192.168.33.231                   |                             |                |
+| 4c8ed9e8-7844-42ad-              | se-km4n-whckaaca52ct-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| ab59-1aaa344b0703                | rn4qjyveyjbs-server-hg3isl6kv37m |        | loki=192.168.100.241,            |                             |                |
+|                                  |                                  |        | 192.168.33.233                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-whckaaca52ct-rn4qjyveyjbs-server-hg3isl6kv37m
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-whckaaca52ct-rn4qjyveyjbs-server-hg3isl6kv37m
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-whckaaca52ct-rn4qjyveyjbs-server-hg3isl6kv37m
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+
+
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 15401 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+^[[A^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 2 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 1 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 1 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 1 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 1 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ ping 192.168.33231
+PING 192.168.33231 (192.168.129.207) 56(84) bytes of data.
+From 192.168.10.1 icmp_seq=1 Destination Net Unreachable
+^C
+--- 192.168.33231 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ ping 192.168.33.231
+PING 192.168.33.231 (192.168.33.231) 56(84) bytes of data.
+64 bytes from 192.168.33.231: icmp_seq=1 ttl=63 time=1.80 ms
+64 bytes from 192.168.33.231: icmp_seq=2 ttl=63 time=2.93 ms
+^C
+--- 192.168.33.231 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.803/2.365/2.928/0.562 ms
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ ping 192.168.33.232
+PING 192.168.33.232 (192.168.33.232) 56(84) bytes of data.
+64 bytes from 192.168.33.232: icmp_seq=1 ttl=64 time=0.665 ms
+64 bytes from 192.168.33.232: icmp_seq=2 ttl=64 time=0.303 ms
+^C
+--- 192.168.33.232 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1032ms
+rtt min/avg/max/mdev = 0.303/0.484/0.665/0.181 ms
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ ping 192.168.33.232
+PING 192.168.33.232 (192.168.33.232) 56(84) bytes of data.
+64 bytes from 192.168.33.232: icmp_seq=1 ttl=64 time=0.313 ms
+64 bytes from 192.168.33.232: icmp_seq=2 ttl=64 time=0.302 ms
+^C
+--- 192.168.33.232 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1028ms
+rtt min/avg/max/mdev = 0.302/0.307/0.313/0.005 ms
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack port list
++--------------------------------------+---------------------------------------------+-------------------+---------------------------------------------+--------+
+| ID                                   | Name                                        | MAC Address       | Fixed IP Addresses                          | Status |
++--------------------------------------+---------------------------------------------+-------------------+---------------------------------------------+--------+
+| 06e9644f-c3f3-4834-aba2-76a42387a0c4 |                                             | fa:16:3e:f8:72:5d | ip_address='10.1.0.2', subnet_id='47521d1d- | ACTIVE |
+|                                      |                                             |                   | c588-4ce3-a2ad-6b2909be39c6'                |        |
+| 17623242-f3a6-4afd-a53d-20af6dfcf5a4 |                                             | fa:16:3e:45:1e:7d | ip_address='192.168.100.200', subnet_id='d4 | ACTIVE |
+|                                      |                                             |                   | 89356b-b42f-4290-80d4-25cfa7061384'         |        |
+| 55cfa82a-21b2-4c70-a391-fe03ca1fdad8 |                                             | fa:16:3e:0a:74:43 | ip_address='192.168.33.233', subnet_id='db1 | N/A    |
+|                                      |                                             |                   | cd602-39d8-4c1a-8414-a3ee0f15d82d'          |        |
+| 5a228099-7e9c-4fcb-a9a2-034f9188b852 |                                             | fa:16:3e:26:9a:74 | ip_address='192.168.100.1', subnet_id='d489 | ACTIVE |
+|                                      |                                             |                   | 356b-b42f-4290-80d4-25cfa7061384'           |        |
+| 65ebe961-09e9-48dd-b5b0-2be2a2568c4a | servergroupstack-instance_group-            | fa:16:3e:ca:00:d3 | ip_address='192.168.100.241', subnet_id='d4 | ACTIVE |
+|                                      | vqyh5sqmkm4n-whckaaca52ct-rn4qjyveyjbs-     |                   | 89356b-b42f-4290-80d4-25cfa7061384'         |        |
+|                                      | port-2inuoqc6khvs                           |                   |                                             |        |
+| 68d74d98-cf92-41a3-8ee8-1f18d0274386 |                                             | fa:16:3e:25:12:4d | ip_address='192.168.33.231', subnet_id='db1 | N/A    |
+|                                      |                                             |                   | cd602-39d8-4c1a-8414-a3ee0f15d82d'          |        |
+| 7dcfd378-8663-4efd-a7d0-24b3a2d631ea |                                             | fa:16:3e:72:3d:83 | ip_address='192.168.100.208', subnet_id='d4 | ACTIVE |
+|                                      |                                             |                   | 89356b-b42f-4290-80d4-25cfa7061384'         |        |
+| ae793807-c443-4046-9752-d3a107062257 |                                             | fa:16:3e:cc:b8:a6 | ip_address='192.168.33.232', subnet_id='db1 | ACTIVE |
+|                                      |                                             |                   | cd602-39d8-4c1a-8414-a3ee0f15d82d'          |        |
+| fcc7a89d-d1bd-44d1-ab6e-56668a5591c1 | servergroupstack-instance_group-            | fa:16:3e:08:bf:83 | ip_address='192.168.100.233', subnet_id='d4 | ACTIVE |
+|                                      | vqyh5sqmkm4n-gpfd2f4e2jnz-                  |                   | 89356b-b42f-4290-80d4-25cfa7061384'         |        |
+|                                      | sjd6h6p4jof2-port-isglnmfocdcn              |                   |                                             |        |
++--------------------------------------+---------------------------------------------+-------------------+---------------------------------------------+--------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack port list | grep 192.168.33
+| 55cfa82a-21b2-4c70-a391-fe03ca1fdad8 |                                                                                          | fa:16:3e:0a:74:43 | ip_address='192.168.33.233', subnet_id='db1cd602-39d8-4c1a-8414-a3ee0f15d82d'  | N/A    |
+| 68d74d98-cf92-41a3-8ee8-1f18d0274386 |                                                                                          | fa:16:3e:25:12:4d | ip_address='192.168.33.231', subnet_id='db1cd602-39d8-4c1a-8414-a3ee0f15d82d'  | N/A    |
+| ae793807-c443-4046-9752-d3a107062257 |                                                                                          | fa:16:3e:cc:b8:a6 | ip_address='192.168.33.232', subnet_id='db1cd602-39d8-4c1a-8414-a3ee0f15d82d'  | ACTIVE |
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack floating ip list
++------------------------------+---------------------+------------------+------------------------------+------------------------------+--------------------------------+
+| ID                           | Floating IP Address | Fixed IP Address | Port                         | Floating Network             | Project                        |
++------------------------------+---------------------+------------------+------------------------------+------------------------------+--------------------------------+
+| 1bc4274f-d68d-4b90-b5eb-     | 192.168.33.231      | 192.168.100.233  | fcc7a89d-d1bd-44d1-ab6e-     | 2453ebc9-7bf3-4f9f-8435-     | a05158e129424d839f618ac2c0312a |
+| 1f5bd292b212                 |                     |                  | 56668a5591c1                 | 08591cc948ff                 | 8d                             |
+| cec44be1-aa10-4ad6-9b5a-     | 192.168.33.233      | 192.168.100.241  | 65ebe961-09e9-48dd-b5b0-     | 2453ebc9-7bf3-4f9f-8435-     | a05158e129424d839f618ac2c0312a |
+| 0340b38bba70                 |                     |                  | 2be2a2568c4a                 | 08591cc948ff                 | 8d                             |
++------------------------------+---------------------+------------------+------------------------------+------------------------------+--------------------------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ ping 192.168.33.231
+PING 192.168.33.231 (192.168.33.231) 56(84) bytes of data.
+64 bytes from 192.168.33.231: icmp_seq=1 ttl=63 time=2.97 ms
+^C
+--- 192.168.33.231 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 2.972/2.972/2.972/0.000 ms
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+curl: (7) Failed to connect to 192.168.33.231 port 80 after 2 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| c090536b-8793-4789-ba9d-         | se-km4n-gpfd2f4e2jnz-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| 289b3af077d5                     | sjd6h6p4jof2-server-nswqjpqv6nbx |        | loki=192.168.100.233,            |                             |                |
+|                                  |                                  |        | 192.168.33.231                   |                             |                |
+| 4c8ed9e8-7844-42ad-              | se-km4n-whckaaca52ct-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| ab59-1aaa344b0703                | rn4qjyveyjbs-server-hg3isl6kv37m |        | loki=192.168.100.241,            |                             |                |
+|                                  |                                  |        | 192.168.33.233                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.231
+
+
+
+
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.233
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek pada 00:36
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| c090536b-8793-4789-ba9d-         | se-km4n-gpfd2f4e2jnz-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| 289b3af077d5                     | sjd6h6p4jof2-server-nswqjpqv6nbx |        | loki=192.168.100.233,            |                             |                |
+|                                  |                                  |        | 192.168.33.231                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #scaling down
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek 00:41
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek pada 00:36
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek 00:41
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| 09c83c57-e12d-426e-b8f2-         | se-km4n-uheimr3rf6sy-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| ddc0d171786a                     | ij2kn24epklf-server-gyzhkdznoohq |        | loki=192.168.100.220,            |                             |                |
+|                                  |                                  |        | 192.168.33.234                   |                             |                |
+| c090536b-8793-4789-ba9d-         | se-km4n-gpfd2f4e2jnz-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| 289b3af077d5                     | sjd6h6p4jof2-server-nswqjpqv6nbx |        | loki=192.168.100.233,            |                             |                |
+|                                  |                                  |        | 192.168.33.231                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo nano /etc/haproxy/haproxy.cfg
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo service haproxy restart
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.234
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek scaling 00:45
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.234
+curl: (7) Failed to connect to 192.168.33.234 port 80 after 1 ms: Connection refused
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| 6b96bdc9-3375-4348-9718-         | se-                              | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| c543b2fc5079                     | km4n-mr6tuim32tt6-wf6monof3ivn-  |        | loki=192.168.100.219,            |                             |                |
+|                                  | server-6fhddtpdd6p4              |        | 192.168.33.233                   |                             |                |
+| 09c83c57-e12d-426e-b8f2-         | se-km4n-uheimr3rf6sy-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| ddc0d171786a                     | ij2kn24epklf-server-gyzhkdznoohq |        | loki=192.168.100.220,            |                             |                |
+|                                  |                                  |        | 192.168.33.234                   |                             |                |
+| c090536b-8793-4789-ba9d-         | se-km4n-gpfd2f4e2jnz-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| 289b3af077d5                     | sjd6h6p4jof2-server-nswqjpqv6nbx |        | loki=192.168.100.233,            |                             |                |
+|                                  |                                  |        | 192.168.33.231                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #pastikan scaledown jadi 2 instance
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.234
+se-km4n-uheimr3rf6sy-ij2kn24epklf-server-gyzhkdznoohq
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-uheimr3rf6sy-ij2kn24epklf-server-gyzhkdznoohq
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-uheimr3rf6sy-ij2kn24epklf-server-gyzhkdznoohq
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-uheimr3rf6sy-ij2kn24epklf-server-gyzhkdznoohq
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-gpfd2f4e2jnz-sjd6h6p4jof2-server-nswqjpqv6nbx
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.91:8081
+se-km4n-uheimr3rf6sy-ij2kn24epklf-server-gyzhkdznoohq
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ curl 192.168.33.233
+^C
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek 00:51. haproxy hit 192.168.33.234 dan 192.168.33.231
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #cek 00:51
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| 6b96bdc9-3375-4348-9718-         | se-                              | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| c543b2fc5079                     | km4n-mr6tuim32tt6-wf6monof3ivn-  |        | loki=192.168.100.219,            |                             |                |
+|                                  | server-6fhddtpdd6p4              |        | 192.168.33.233                   |                             |                |
+| 09c83c57-e12d-426e-b8f2-         | se-km4n-uheimr3rf6sy-            | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| ddc0d171786a                     | ij2kn24epklf-server-gyzhkdznoohq |        | loki=192.168.100.220,            |                             |                |
+|                                  |                                  |        | 192.168.33.234                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ #pendinginan.
+(kolla-venv) loki@openstack1:~$ openstack alarm list; openstack server list
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| alarm_id                             | type                                       | name                                        | state | severity | enabled |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
+| 3833923c-9568-4d7f-a2f0-52688918f7b8 | gnocchi_aggregation_by_resources_threshold | servergroupstack-cpu_stack_stackid_alarm_hi | alarm | low      | True    |
+|                                      |                                            | gh10_hit-y4tyrwmgielh                       |       |          |         |
+| 4fe09922-6379-48b4-a593-1ac62012d3d3 | gnocchi_aggregation_by_resources_threshold | servergroupstack-                           | alarm | low      | True    |
+|                                      |                                            | cpu_stack_stackid_alarm_low-cxczkbztwfo3    |       |          |         |
++--------------------------------------+--------------------------------------------+---------------------------------------------+-------+----------+---------+
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| ID                               | Name                             | Status | Networks                         | Image                       | Flavor         |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+| 6b96bdc9-3375-4348-9718-         | se-                              | ACTIVE | internal-net-                    | jammy-nginx-snapshot        | m1.small       |
+| c543b2fc5079                     | km4n-mr6tuim32tt6-wf6monof3ivn-  |        | loki=192.168.100.219,            |                             |                |
+|                                  | server-6fhddtpdd6p4              |        | 192.168.33.233                   |                             |                |
+| cd1e26a5-d934-41c9-9cab-         | kube-master-instance             | ACTIVE | internal-net-                    | jammy-server-cloudimg-amd64 | m1.medium.kube |
+| 72912d14aa71                     |                                  |        | loki=192.168.100.208             |                             |                |
++----------------------------------+----------------------------------+--------+----------------------------------+-----------------------------+----------------+
+(kolla-venv) loki@openstack1:~$ date
+Sun Apr 13 17:00:30 UTC 2025
+(kolla-venv) loki@openstack1:~$

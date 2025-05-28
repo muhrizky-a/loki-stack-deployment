@@ -1,0 +1,75 @@
+heat_template_version: 2021-04-16
+description: >
+  This template create nginx instance
+parameters:
+  key:
+    type: string
+    description: key publik ssh untuk instance
+    default: controller-key
+
+  image:
+    type: string
+    description: image OS untuk instance
+    default: jammy-kubeadm-snapshot
+
+  network-internal:
+    type: string
+    description: network internal untuk instance
+    default: internal-net-loki
+
+  subnet-internal:
+    description: Neutron SUB-Network
+    default: internal-subnet-loki
+    type: string
+
+  network-external:
+    type: string
+    default: external-net-loki
+
+  flavor:
+    type: string
+    default: m1.medium.kube
+
+  sg:
+    type: string
+    default: security-group-allow-ssh-icmp-kube
+
+  metadata:
+   type: json
+
+resources:
+  server:
+    type: OS::Nova::Server
+    properties:
+      image: {get_param: image}
+      flavor: {get_param: flavor}
+      metadata: {get_param: metadata}
+      key_name: { get_param: key }
+      networks:
+        - port: {get_resource: port}
+      user_data_format: RAW
+      user_data: |
+        #!/bin/sh
+        cat /proc/cpuinfo > /tmp/1-start.txt
+        swapon -s
+        sudo swapoff -a
+        sudo kubeadm join 192.168.100.227:6443 --token qcz8y9.xy0g1lo57686vstl --discovery-token-ca-cert-hash sha256:314114e0bfb3a2fe7f484df5b9ca62c36cadec5132f45ada603e98922bab1d85 | tee 2-kubeadm-join-log.txt
+        cat /proc/cpuinfo > /tmp/3-end.txt
+
+  port:
+    type: OS::Neutron::Port
+    properties:
+      network: {get_param: network-internal}
+      security_groups: [{get_param: sg}]
+
+  floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: { get_param: network-external }
+
+  association:
+    type: OS::Neutron::FloatingIPAssociation
+    properties:
+      floatingip_id: { get_resource: floating_ip }
+      port_id:  { get_resource: port }
+

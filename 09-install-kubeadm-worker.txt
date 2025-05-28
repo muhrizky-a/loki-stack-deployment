@@ -3,3 +3,6 @@ swapon -s
 sudo swapoff -a
 sudo apt install socat -y
 sudo kubeadm join [MASTER_IP]:6443 --token [MASTER_TOKEN] --discovery-token-ca-cert-hash sha256:[TOKEN-CA-CERT-HASH]
+
+kubeadm join 192.168.100.227:6443 --token 99szwg.y9qnpgdzp998s208 \
+        --discovery-token-ca-cert-hash sha256:314114e0bfb3a2fe7f484df5b9ca62c36cadec5132f45ada603e98922bab1d85

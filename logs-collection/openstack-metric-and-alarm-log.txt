@@ -1,0 +1,90 @@
+openstack alarm create --alarm-action 'log://' \
+              --ok-action 'log://' \
+              --comparison-operator ge \
+              --evaluation-periods 1 \
+              --granularity 300 \
+              --aggregation-method mean \
+              --metric cpu \
+              --resource-id d182a9d2-b223-4baf-885a-0229525dd406 \
+              --name ephemeral-nginxstackid \
+              -t gnocchi_resources_threshold \
+              --resource-type instance \
+              --threshold 1
+
+openstack alarm create --alarm-action 'http://192.168.99.200:8000/v1/signal/arn:openstack:heat::a05158e129424d839f618ac2c0312a8d:stacks/alarmstack/d182a9d2-b223-4baf-885a-0229525dd406/resources/scaleup_policy?SignatureMethod=HmacSHA256&SignatureVersion=2&AWSAccessKeyId=bff3e2e495e04ebfb1906c01def940a2&Signature=kG4KIDiYuSt6HEveL9Sd0zvg8lKFJnYUa6RDDYqwHLw%3D' \
+              --ok-action 'log://' \
+              --comparison-operator ge \
+              --evaluation-periods 1 \
+              --granularity 300 \
+              --aggregation-method mean \
+              --metric cpu \
+              --resource-id 501041c7-67cf-431d-bc50-8b4443f265ac \
+              --name ephemeral-nginx-scale2 \
+              -t gnocchi_resources_threshold \
+              --resource-type instance \
+              --threshold 1
+
+
+openstack metric measures show --start 2025-04-13T12:00:00 \
+                               --stop 2025-04-13T16:00:00 \
+                               --aggregation mean 5a1d4941-5a23-49e6-b8e3-709520953c71
+
+
+
+openstack stack resource show alarmstack scaleup_policy
++------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+| Field                  | Value                                                                                                                                       |
++------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+'http://192.168.99.200:8000/v1/a05158e129424d839f618ac2c0312a8d/Astacks/alarmstack/d182a9d2-b223-4baf-885a-0229525dd406/resources/scaleup_policy?SignatureMethod=HmacSHA256&SignatureVersion=2&AWSAccessKeyId=bff3e2e495e04ebfb1906c01def940a2&Signature=kG4KIDiYuSt6HEveL9Sd0zvg8lKFJnYUa6RDDYqwHLw%3D
+http://192.168.99.200:8004/v1/a05158e129424d839f618ac2c0312a8d/stacks/alarmstack/d182a9d2-b223-4baf-885a-0229525dd406/resources/scaleup_policy/signal
+http://192.168.99.200:8004/v1/a05158e129424d839f618ac2c0312a8d/stacks/alarmstack/d182a9d2-b223-4baf-885a-0229525dd406/resources/scaleup_policy
+http://192.168.99.200:8004/v1/a05158e129424d839f618ac2c0312a8d/stacks/alarmstack/d182a9d2-b223-4baf-885a-0229525dd406', 'rel': 'stack'}]   |
+| logical_resource_id    | scaleup_policy                                                                                                                              |
+| physical_resource_id   | 90db8a80dd534b879983655815825cd1                                                                                                            |
+| required_by            | ['cpu_server_group_stackid_alarm_high', 'cpuutil_server_group_instance_group_alarm_high', 'cpu_server_group_instance_group_alarm_high',     |
+|                        | 'cpuutil_server_group_stackid_alarm_high']                                                                                                  |
+| resource_name          | scaleup_policy                                                                                                                              |
+| resource_status        | CREATE_COMPLETE                                                                                                                             |
+| resource_status_reason | state changed                                                                                                                               |
+| resource_type          | OS::Heat::ScalingPolicy                                                                                                                     |
+| updated_time           | 2025-04-11T17:06:26Z                                                                                                                        |
++------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+| aggregation_method        | mean                                                                                                                                     |
+| alarm_actions             | ['http://192.168.99.200:8000/v1/signal/arn%3Aopenstack%3Aheat%3A%3Aa05158e129424d839f618ac2c0312a8d%3Astacks/alarmstack/d182a9d2-b223-   |
+|                           | 4baf-885a-                                                                                                                               |
+|                           | 0229525dd406/resources/scaleup_policy?SignatureMethod=HmacSHA256&SignatureVersion=2&AWSAccessKeyId=bff3e2e495e04ebfb1906c01def940a2&Sign |
+|                           | ature=kG4KIDiYuSt6HEveL9Sd0zvg8lKFJnYUa6RDDYqwHLw%3D']                                                                                   |
+| alarm_id                  | f4290ffe-bd45-42b4-9695-73ac368d481e                                                                                                     |
+| comparison_operator       | ge                                                                                                                                       |
+| description               | gnocchi_resources_threshold alarm rule                                                                                                   |
+| enabled                   | True                                                                                                                                     |
+| evaluate_timestamp        | 2025-04-13T14:20:52                                                                                                                      |
+| evaluation_periods        | 1                                                                                                                                        |
+| granularity               | 300                                                                                                                                      |
+| insufficient_data_actions | []                                                                                                                                       |
+| metric                    | cpu                                                                                                                                      |
+| name                      | ephemeral-nginx-scale                                                                                                                    |
+| ok_actions                | ['log:']                                                                                                                                 |
+| project_id                | a05158e129424d839f618ac2c0312a8d                                                                                                         |
+| repeat_actions            | False                                                                                                                                    |
+| resource_id               | 501041c7-67cf-431d-bc50-8b4443f265ac                                                                                                     |
+| resource_type             | instance                                                                                                                                 |
+| severity                  | low                                                                                                                                      |
+| state                     | alarm                                                                                                                                    |
+| state_reason              | Transition to alarm due to 1 samples outside threshold, most recent: 15119810000000.0                                                    |
+| state_timestamp           | 2025-04-13T14:04:21.037792                                                                                                               |
+| threshold                 | 1.0                                                                                                                                      |
+| time_constraints          | []                                                                                                                                       |
+| timestamp                 | 2025-04-13T14:04:21.037792                                                                                                               |
+| type                      | gnocchi_resources_threshold                                                                                                              |
+| user_id                   | 8425e95f596f4cd38cf14c7ad0eb3618     
+
+
+
+
+
+
+openstack metric resource show resource_id
+openstack metric measures show cpu_id

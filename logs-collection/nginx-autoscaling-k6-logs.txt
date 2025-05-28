@@ -1,0 +1,1365 @@
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ nano script.js
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ k6 run script.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: script.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 500 max VUs, 30m30s max duration (incl. graceful stop):
+              * default: Up to 500 looping VUs for 30m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+^C
+
+  █ TOTAL RESULTS
+
+    checks_total.......................: 59428  140.170554/s
+    checks_succeeded...................: 84.14% 50004 out of 59428
+    checks_failed......................: 15.85% 9424 out of 59428
+
+    ✗ status is 200
+      ↳  84% — ✓ 50004 / ✗ 9424
+
+    HTTP
+    http_req_duration.......................................................: avg=2.29s min=2.02ms med=683.87ms max=53.03s p(90)=3.01s p(95)=10.03s
+      { expected_response:true }............................................: avg=1.1s  min=2.02ms med=586.51ms max=51.47s p(90)=1.18s p(95)=1.32s
+    http_req_failed.........................................................: 15.85% 9424 out of 59428
+    http_reqs...............................................................: 59428  140.170554/s
+
+    EXECUTION
+    iteration_duration......................................................: avg=3.3s  min=1s     med=1.68s    max=54.03s p(90)=4.01s p(95)=11.04s
+    iterations..............................................................: 59198  139.628062/s
+    vus.....................................................................: 500    min=8             max=500
+    vus_max.................................................................: 500    min=500           max=500
+
+    NETWORK
+    data_received...........................................................: 28 MB  65 kB/s
+    data_sent...............................................................: 5.2 MB 12 kB/s
+
+
+
+
+running (07m04.0s), 000/500 VUs, 59198 complete and 500 interrupted iterations
+default ✗ [=======>------------------------------] 075/500 VUs  07m04.0s/30m00.0s
+ERRO[0424] test run was aborted because k6 received a 'interrupt' signal
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo nano /etc/haproxy/haproxy.cfg
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo haproxy restart
+HAProxy version 2.4.24-0ubuntu0.22.04.2 2025/04/09 - https://haproxy.org/
+Status: long-term supported branch - will stop receiving fixes around Q2 2026.
+Known bugs: http://www.haproxy.org/bugs/bugs-2.4.24.html
+Running on: Linux 5.15.0-134-generic #145-Ubuntu SMP Wed Feb 12 20:08:39 UTC 2025 x86_64
+Usage : haproxy [-f <cfgfile|cfgdir>]* [ -vdVD ] [ -n <maxconn> ] [ -N <maxpconn> ]
+        [ -p <pidfile> ] [ -m <max megs> ] [ -C <dir> ] [-- <cfgfile>*]
+        -v displays version ; -vv shows known build options.
+        -d enters debug mode ; -db only disables background mode.
+        -dM[<byte>] poisons memory with <byte> (defaults to 0x50)
+        -V enters verbose mode (disables quiet mode)
+        -D goes daemon ; -C changes to <dir> before loading files.
+        -W master-worker mode.
+        -Ws master-worker mode with systemd notify support.
+        -q quiet mode : don't display messages
+        -c check mode : only check config files and exit
+        -n sets the maximum total # of connections (uses ulimit -n)
+        -m limits the usable amount of memory (in MB)
+        -N sets the default, per-proxy maximum # of connections (0)
+        -L set local peer name (default to hostname)
+        -p writes pids of all children to this file
+        -de disables epoll() usage even when available
+        -dp disables poll() usage even when available
+        -dS disables splice usage (broken on old kernels)
+        -dG disables getaddrinfo() usage
+        -dR disables SO_REUSEPORT usage
+        -dL dumps loaded object files after config checks
+        -dr ignores server address resolution failures
+        -dV disables SSL verify on servers side
+        -dW fails if any warning is emitted
+        -dD diagnostic mode : warn about suspicious configuration statements
+        -sf/-st [pid ]* finishes/terminates old pids.
+        -x <unix_socket> get listening sockets from a unix socket
+        -S <bind>[,<bind options>...] new master CLI
+
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo service haproxy restart
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ nano script.js
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ k6 run script.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: script.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1000 max VUs, 30m30s max duration (incl. graceful stop):
+              * default: Up to 1000 looping VUs for 30m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+WARN[0189] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0189] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0190] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0190] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0191] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0192] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0192] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0192] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0192] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0192] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0192] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0195] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0196] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0197] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+
+
+^C
+
+  █ TOTAL RESULTS
+
+    checks_total.......................: 43153  187.361111/s
+    checks_succeeded...................: 74.96% 32350 out of 43153
+    checks_failed......................: 25.03% 10803 out of 43153
+
+    ✗ status is 200
+      ↳  74% — ✓ 32350 / ✗ 10803
+
+    HTTP
+    http_req_duration.......................................................: avg=3.26s min=2.22ms med=1.11s    max=1m0s   p(90)=5.64s p(95)=14.08s
+      { expected_response:true }............................................: avg=2.12s min=2.22ms med=302.08ms max=50.77s p(90)=5.21s p(95)=7.67s
+    http_req_failed.........................................................: 25.03% 10803 out of 43153
+    http_reqs...............................................................: 43153  187.361111/s
+
+    EXECUTION
+    iteration_duration......................................................: avg=4.25s min=1s     med=2.11s    max=1m1s   p(90)=6.63s p(95)=15.01s
+    iterations..............................................................: 43062  186.966008/s
+    vus.....................................................................: 1000   min=15             max=1000
+    vus_max.................................................................: 1000   min=1000           max=1000
+
+    NETWORK
+    data_received...........................................................: 17 MB  75 kB/s
+    data_sent...............................................................: 4.0 MB 17 kB/s
+
+
+
+
+running (03m50.3s), 0000/1000 VUs, 43062 complete and 1000 interrupted iterations
+default ✗ [===>----------------------------------] 0572/1000 VUs  03m50.3s/30m00.0s
+ERRO[0230] test run was aborted because k6 received a 'interrupt' signal
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo nano /etc/haproxy/haproxy.cfg
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo haproxy restart
+HAProxy version 2.4.24-0ubuntu0.22.04.2 2025/04/09 - https://haproxy.org/
+Status: long-term supported branch - will stop receiving fixes around Q2 2026.
+Known bugs: http://www.haproxy.org/bugs/bugs-2.4.24.html
+Running on: Linux 5.15.0-134-generic #145-Ubuntu SMP Wed Feb 12 20:08:39 UTC 2025 x86_64
+Usage : haproxy [-f <cfgfile|cfgdir>]* [ -vdVD ] [ -n <maxconn> ] [ -N <maxpconn> ]
+        [ -p <pidfile> ] [ -m <max megs> ] [ -C <dir> ] [-- <cfgfile>*]
+        -v displays version ; -vv shows known build options.
+        -d enters debug mode ; -db only disables background mode.
+        -dM[<byte>] poisons memory with <byte> (defaults to 0x50)
+        -V enters verbose mode (disables quiet mode)
+        -D goes daemon ; -C changes to <dir> before loading files.
+        -W master-worker mode.
+        -Ws master-worker mode with systemd notify support.
+        -q quiet mode : don't display messages
+        -c check mode : only check config files and exit
+        -n sets the maximum total # of connections (uses ulimit -n)
+        -m limits the usable amount of memory (in MB)
+        -N sets the default, per-proxy maximum # of connections (0)
+        -L set local peer name (default to hostname)
+        -p writes pids of all children to this file
+        -de disables epoll() usage even when available
+        -dp disables poll() usage even when available
+        -dS disables splice usage (broken on old kernels)
+        -dG disables getaddrinfo() usage
+        -dR disables SO_REUSEPORT usage
+        -dL dumps loaded object files after config checks
+        -dr ignores server address resolution failures
+        -dV disables SSL verify on servers side
+        -dW fails if any warning is emitted
+        -dD diagnostic mode : warn about suspicious configuration statements
+        -sf/-st [pid ]* finishes/terminates old pids.
+        -x <unix_socket> get listening sockets from a unix socket
+        -S <bind>[,<bind options>...] new master CLI
+
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo service haproxy restart
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ k6 run script.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: script.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1000 max VUs, 30m30s max duration (incl. graceful stop):
+              * default: Up to 1000 looping VUs for 30m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+^C
+
+  █ TOTAL RESULTS
+
+    EXECUTION
+    vus..........................: 49     min=15   max=49
+    vus_max......................: 1000   min=1000 max=1000
+
+    NETWORK
+    data_received................: 0 B    0 B/s
+    data_sent....................: 5.5 kB 1.5 kB/s
+
+
+
+
+running (00m03.8s), 0000/1000 VUs, 0 complete and 63 interrupted iterations
+default ✗ [--------------------------------------] 0063/1000 VUs  00m03.8s/30m00.0s
+ERRO[0004] test run was aborted because k6 received a 'interrupt' signal
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo nano /etc/haproxy/haproxy.cfg
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ sudo service haproxy restart
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ k6 run script.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: script.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1000 max VUs, 30m30s max duration (incl. graceful stop):
+              * default: Up to 1000 looping VUs for 30m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+WARN[0096] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0096] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0097] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0097] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0097] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0097] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0098] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0098] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0098] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0098] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0099] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0101] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0101] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0101] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0102] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0102] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0102] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0103] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0103] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0103] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0104] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0104] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0104] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0104] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0104] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0104] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0105] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0105] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0105] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0105] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0106] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0107] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0108] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0108] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0109] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0109] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0110] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0111] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0111] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0112] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0113] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0113] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0113] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0114] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0114] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0115] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0116] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0117] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0117] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0117] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0118] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0118] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0119] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0119] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0119] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0119] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0119] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0120] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0120] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0122] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0124] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0125] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0125] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0127] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0129] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0132] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0134] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0146] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0146] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0146] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0149] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0151] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0151] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0151] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0153] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0157] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0157] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0159] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0161] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0161] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0162] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0162] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0163] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0166] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0167] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0168] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0169] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0170] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0171] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0171] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0171] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0171] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0172] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0173] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0174] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0175] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0175] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0176] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0176] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0177] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0177] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0177] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0177] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0177] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0177] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0178] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0179] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0179] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0179] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0179] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0179] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0180] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0180] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0180] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0180] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0181] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0183] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0183] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0183] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0183] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0187] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0188] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0188] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0188] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0190] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0193] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0202] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0204] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0212] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0212] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0222] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0225] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0225] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0230] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0230] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0233] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0234] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0234] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0239] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0242] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0243] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0244] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0244] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0244] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0248] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0250] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0250] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0250] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0255] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0255] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0255] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0259] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0260] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0261] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0261] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0261] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0261] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0261] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0261] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0264] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0264] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0264] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0264] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0269] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0270] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0270] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0272] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0272] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0272] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0272] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0275] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0275] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0275] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0275] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0275] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0275] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0276] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0276] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0276] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0276] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0276] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39514->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39498->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39488->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39472->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39436->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39458->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39702->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40066->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39422->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39642->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39656->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40026->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39620->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39860->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39686->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40020->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39852->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39560->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39844->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39538->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39568->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39530->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39836->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39528->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39800->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39810->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39984->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39856->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41060->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39592->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41046->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39776->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41734->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41016->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39732->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41724->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41042->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41708->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40974->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40940->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40964->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39668->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41742->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39784->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39708->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40956->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40054->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41646->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42094->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41388->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42052->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42168->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41640->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41966->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42152->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41874->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41962->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42136->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41694->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41958->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42134->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41626->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41680->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42128->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41620->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42142->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41570->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42112->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41940->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42098->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41560->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41924->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41842->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41662->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41932->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41824->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41492->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41810->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41918->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41488->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41776->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41888->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41484->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42004->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41998->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40454->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41440->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41468->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41762->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40798->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41458->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41430->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40790->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41418->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40776->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40910->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40182->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40764->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40194->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40812->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40152->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40874->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40372->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40138->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40744->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40918->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40332->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40836->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40714->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40104->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40326->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40708->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40090->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41398->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40116->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40302->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40672->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41354->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40296->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40328->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40484->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40508->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40630->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40476->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40234->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41334->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40474->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40646->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40256->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40220->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40578->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40584->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40348->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40552->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40688->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40540->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40462->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40594->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41318->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41268->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41214->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41218->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41306->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40356->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41296->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40444->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41212->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41252->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40422->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40442->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42200->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41160->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40932->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40434->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40814->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40650->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41362->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41134->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40168->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40306->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40392->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41904->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40126->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40746->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42084->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41204->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41342->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40496->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41000->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39998->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39862->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39720->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41596->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39866->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40058->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40728->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40286->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41780->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41228->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41604->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41652->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42018->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40792->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40124->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42024->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40984->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41832->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40338->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42048->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41996->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42030->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40616->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39442->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39976->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39960->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39394->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40010->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39946->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41092->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41758->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42162->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41156->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40208->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41174->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40310->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40396->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41140->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41408->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41246->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41586->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40692->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41368->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42232->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39524->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39922->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41794->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41524->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42132->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41952->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40938->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41858->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39916->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39548->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39932->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39820->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39832->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39900->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39890->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41128->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39880->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41122->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40004->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39616->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39594->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39586->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39414->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39580->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39682->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40048->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40040->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39382->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39636->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39408->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39402->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39690->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39748->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41026->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41076->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39782->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40406->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41022->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39760->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:39868->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41706->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41702->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40074->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40184->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41836->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41284->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40524->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40662->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40822->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40530->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41538->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41526->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40206->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41670->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40196->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41552->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41564->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42036->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40756->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42022->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42060->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41748->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42006->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40894->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41452->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40178->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40804->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40878->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41434->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42206->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42054->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41376->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42192->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42178->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40270->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41274->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41188->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40242->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41272->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40618->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40600->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40566->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40376->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41288->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": write tcp 192.168.33.91:41234->192.168.33.91:8081: write: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40854->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40862->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:40848->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41106->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:42068->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41982->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": EOF"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": read tcp 192.168.33.91:41508->192.168.33.91:8081: read: connection reset by peer"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0277] Request Failed                                error="Get \"http://192.168.33.91:8081\": dial tcp 192.168.33.91:8081: connect: connection refused"
+WARN[0488] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0489] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0489] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0489] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0490] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0490] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0491] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0492] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0494] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0495] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0496] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0496] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0496] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0496] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+WARN[0497] Request Failed                                error="Get \"http://192.168.33.91:8081\": request timeout"
+
+
+  █ TOTAL RESULTS
+
+    checks_total.......................: 113853 209.175826/s
+    checks_succeeded...................: 86.23% 98183 out of 113853
+    checks_failed......................: 13.76% 15670 out of 113853
+
+    ✗ status is 200
+      ↳  86% — ✓ 98183 / ✗ 15670
+
+    HTTP
+    http_req_duration.......................................................: avg=3.38s min=0s     med=526.94ms max=1m0s   p(90)=5.78s p(95)=20s
+      { expected_response:true }............................................: avg=1.34s min=2.29ms med=434.79ms max=59.72s p(90)=1.54s p(95)=5.14s
+    http_req_failed.........................................................: 13.76% 15670 out of 113853
+    http_reqs...............................................................: 113853 209.175826/s
+
+    EXECUTION
+    iteration_duration......................................................: avg=4.38s min=1s     med=1.52s    max=1m1s   p(90)=6.78s p(95)=21s
+    iterations..............................................................: 113640 208.784493/s
+    vus.....................................................................: 1000   min=16              max=1000
+    vus_max.................................................................: 1000   min=1000            max=1000
+
+    NETWORK
+    data_received...........................................................: 38 MB  69 kB/s
+    data_sent...............................................................: 10 MB  19 kB/s
+
+
+
+
+running (09m04.3s), 0000/1000 VUs, 113640 complete and 1000 interrupted iterations
+default ✗ [==========>---------------------------] 0168/1000 VUs  09m04.3s/30m00.0s
+ERRO[0544] test run was aborted because k6 received a 'interrupt' signal
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ nano script.js
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$ k6 run script.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: script.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 500 max VUs, 30m30s max duration (incl. graceful stop):
+              * default: Up to 500 looping VUs for 30m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+^C
+
+  █ TOTAL RESULTS
+
+    checks_total.......................: 64176  250.423995/s
+    checks_succeeded...................: 99.87% 64097 out of 64176
+    checks_failed......................: 0.12%  79 out of 64176
+
+    ✗ status is 200
+      ↳  99% — ✓ 64097 / ✗ 79
+
+    HTTP
+    http_req_duration.......................................................: avg=624.12ms min=2.08ms med=83.52ms max=50.01s p(90)=704.82ms p(95)=893.61ms
+      { expected_response:true }............................................: avg=563.26ms min=2.08ms med=83.08ms max=49.28s p(90)=702.19ms p(95)=887.14ms
+    http_req_failed.........................................................: 0.12%  79 out of 64176
+    http_reqs...............................................................: 64176  250.423995/s
+
+    EXECUTION
+    iteration_duration......................................................: avg=1.62s    min=1s     med=1.08s   max=51.01s p(90)=1.7s     p(95)=1.89s
+    iterations..............................................................: 64176  250.423995/s
+    vus.....................................................................: 500    min=8           max=500
+    vus_max.................................................................: 500    min=500         max=500
+
+    NETWORK
+    data_received...........................................................: 18 MB  69 kB/s
+    data_sent...............................................................: 5.6 MB 22 kB/s
+
+
+
+
+running (04m16.3s), 000/500 VUs, 64176 complete and 500 interrupted iterations
+default ✗ [====>---------------------------------] 275/500 VUs  04m16.3s/30m00.0s
+ERRO[0256] test run was aborted because k6 received a 'interrupt' signal
+loki@openstack1:~/loki-stack-deployment/hot-autoscaling-cirros$

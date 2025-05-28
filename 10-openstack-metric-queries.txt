@@ -1,0 +1,2 @@
+openstack metric measures show --utc --aggregation mean -r <instance_uuid> cpu
+openstack metric measures show --utc --aggregation rate:mean -r <instance_uuid> cpu

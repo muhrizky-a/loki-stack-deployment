@@ -1,0 +1,17 @@
+openstack metric resource show -c metrics -t instance <instance_uuid>
+Resource 809151dc-b44b-5544-a254-dbe9f98f6a2e does not exist (HTTP 404)
+(kolla-venv) loki@openstack1:~$ openstack metric resource show -c metrics -t instance d85d7882-0e39-492e-90eb-78e40ab2f5eb
++---------+---------------------------------------------------------------------+
+| Field   | Value                                                               |
++---------+---------------------------------------------------------------------+
+| metrics | compute.instance.booting.time: 4c779b32-de29-4b88-b6ec-2c32c09b3562 |
+|         | cpu: 19037ad1-404f-459d-ae74-c43b10da7a34                           |
+|         | disk.ephemeral.size: 696a3ee9-4153-4224-a3bc-415cf5fcef4f           |
+|         | disk.root.size: bda4a82f-02ed-48d0-91cc-9f0480b0907d                |
+|         | memory.usage: fb3ed1e6-5560-4b8c-94d2-df6b97fe9c5f                  |
+|         | memory: 374de617-32f2-4d9a-8c01-37bed856ce63                        |
+|         | vcpus: 444fa55a-7cec-4a22-abf1-a5ad01ad71a9                         |
++---------+---------------------------------------------------------------------+
+
+
+openstack metric measures show --utc --aggregation mean -r <instance_uuid> cpu

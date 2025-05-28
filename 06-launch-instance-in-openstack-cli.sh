@@ -84,6 +84,21 @@ openstack subnet create --network external-net-loki \
   --dns-nameserver 8.8.8.8 \
   external-subnet-loki-lab
 
+openstack subnet create --network external-net-loki \
+  --allocation-pool start=192.168.33.236,end=192.168.33.239 \
+  --dns-nameserver 8.8.8.8 --gateway  192.168.33.1 --no-dhcp \
+  --subnet-range 192.168.33.0/24 external-subnet-loki
+
+openstack subnet create --network external-net-loki \
+  --allocation-pool start=192.168.33.231,end=192.168.33.234 \
+  --dns-nameserver 8.8.8.8 --gateway  192.168.33.1 --no-dhcp \
+  --subnet-range 192.168.33.0/24 external-subnet-loki
+
+openstack subnet set external-subnet-loki \
+  --allocation-pool start=192.168.33.231,end=192.168.33.234
+openstack subnet set external-subnet-loki \
+  --allocation-pool start=192.168.33.236,end=192.168.33.236
+
 openstack network list
 openstack network show external-net-loki
 openstack subnet show external-subnet-loki
@@ -114,11 +129,23 @@ openstack router show router-loki
 openstack security group create security-group-allow-ssh-icmp-kube --description 'Allow SSH, ICMP, and Kubernetes Ports'
 openstack security group rule create --protocol icmp security-group-allow-ssh-icmp-kube
 openstack security group rule create --protocol tcp --ingress --dst-port 22 security-group-allow-ssh-icmp-kube
+openstack security group rule create --protocol tcp --ingress --dst-port 80 security-group-allow-ssh-icmp-kube
 openstack security group rule create --protocol tcp --ingress --dst-port 3000 security-group-allow-ssh-icmp-kube
 openstack security group rule create --protocol tcp --ingress --dst-port 443 security-group-allow-ssh-icmp-kube
 openstack security group rule create --protocol tcp --ingress --dst-port 6443 security-group-allow-ssh-icmp-kube
 openstack security group rule create --protocol tcp --ingress --dst-port 30000:32767 security-group-allow-ssh-icmp-kube
 
+
+# Allow whatever ports for Metrics Server
+openstack security group rule create --protocol udp --ingress --dst-port 8472 security-group-allow-ssh-icmp-kube
+openstack security group rule create --protocol udp --ingress --dst-port 8470:8475 security-group-allow-ssh-icmp-kube
+
+
+
+#openstack security group rule create --protocol tcp --ingress security-group-allow-ssh-icmp-kube
+#openstack security group rule create --protocol tcp --egress security-group-allow-ssh-icmp-kube
+openstack security group rule create --protocol udp --ingress security-group-allow-ssh-icmp-kube
+#openstack security group rule create --protocol udp --egress security-group-allow-ssh-icmp-kube
 
 openstack security group list
 openstack security group rule list security-group-allow-ssh-icmp
@@ -130,8 +157,8 @@ openstack keypair list
 openstack keypair show controller-key
 
 #Creating Flavor
-openstack flavor create --ram 512 --disk 8 --vcpus 1 --public c1-small-loki
 openstack flavor create --id m1.tiny --ram 512 --disk 8 --vcpus 1 --public m1.tiny
+openstack flavor create --id m1.small --ram 1024 --disk 10 --vcpus 1 --public m1.small
 openstack flavor create --id m1.medium --ram 4096 --disk 40 --vcpus 2 --public m1.medium
 openstack flavor create --id m1.medium.kube --ram 4096 --disk 20 --vcpus 2 --public m1.medium.kube
 
@@ -147,24 +174,17 @@ openstack server create --flavor <flavor> --image <image> --availability-zone no
 openstack server create --flavor <flavor> --image <image> --availability-zone <aggregate_name> <instance_name>
 
 #Launching an Instance
-openstack server create --flavor c1-small-loki \
-  --image cirros-0.5.2-loki \
-  --key-name controller-key \
-  --security-group security-group-allow-ssh-icmp \
-  --network internal-net-loki \
-  cirros-instance
-
 openstack server create --flavor m1.tiny \
   --image cirros-0.5.2-loki \
   --key-name controller-key \
   --security-group security-group-allow-ssh-icmp-kube \
   --network internal-net-loki \
-  cirros-instance-2
+  cirros-instance
 
-openstack server create --flavor m1.medium \
+openstack server create --flavor m1.small \
   --image jammy-server-cloudimg-amd64  \
   --key-name controller-key \
-  --security-group security-group-allow-ssh-icmp \
+  --security-group security-group-allow-ssh-icmp-kube \
   --network internal-net-loki \
   jammy-instance
 
@@ -198,7 +218,8 @@ openstack server remove floating ip master-instance 192.168.137.12
 openstack server list
 
 #create snapshot
- openstack server image create kube-master-instance --name jammy-kubeadm-snapshot
+openstack server image create jammy-instance  --name jammy-nginx-snapshot
+openstack server image create kube-master-instance --name jammy-kubeadm-snapshot
 
 #create instance with snapshot
 openstack server create --flavor m1.medium.kube \
@@ -212,12 +233,21 @@ openstack server create --flavor m1.medium.kube \
 ssh -o 'PubkeyAcceptedKeyTypes +ssh-rsa' cirros@20.20.20.100
 ssh -o 'PubkeyAcceptedKeyTypes +ssh-rsa' cirros@20.20.20.101
 
- ssh-keygen -f "/home/loki/.ssh/known_hosts" -R "192.168.33.236"
+ssh-keygen -f "/home/loki/.ssh/known_hosts" -R "192.168.33.236"
+
+pcsp loki@103.187.89.91:/home/loki/jammy-server-cloudimg-amd64.img .
 
 cat /etc/os-release 
 ping -c 4 google.com
-ChallengeResponseAuthentication yes
 
+sudo nano /etc/ssh/sshd_config
+.
+.
+.
+ChallengeResponseAuthentication yes
+.
+.
+.
 
 # Delete
 openstack server delete cirros-instance

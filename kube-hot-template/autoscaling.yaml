@@ -1,0 +1,119 @@
+heat_template_version: 2021-04-16
+
+#heat_template_version: 2014-10-16
+description: Autoscaling Kubernetes Worker Node
+
+parameters:
+  network-internal:
+    type: string
+    description: network internal untuk instance
+    default: internal-net-loki
+
+  subnet-internal:
+    description: Neutron SUB-Network
+    default: internal-subnet-loki
+    type: string
+
+  network-external:
+    type: string
+    default: external-net-loki
+
+  desired_instance_count:
+    type: number
+    default: 1
+
+  min_instance_count:
+    type: number
+    default: 1
+
+  max_instance_count:
+    type: number
+    default: 3
+
+  sg:
+    type: string
+    default: security-group-allow-ssh-icmp-kube
+
+resources:
+  instance_group:
+    type: OS::Heat::AutoScalingGroup
+    properties:
+      cooldown: 60
+      desired_capacity: {get_param: desired_instance_count}
+      max_size: {get_param: max_instance_count}
+      min_size: {get_param: min_instance_count}
+      resource:
+        type: OS::Nova::Server::KubernetesWorkerNode
+        properties:
+          metadata: {"metering.server_group": {get_param: "OS::stack_id"}}
+
+  scaleup_policy:
+    type: OS::Heat::ScalingPolicy
+    properties:
+      adjustment_type: change_in_capacity
+      auto_scaling_group_id: { get_resource: instance_group }
+      cooldown: 60
+      scaling_adjustment: 1
+
+  scaledown_policy:
+    type: OS::Heat::ScalingPolicy
+    properties:
+      adjustment_type: change_in_capacity
+      auto_scaling_group_id: { get_resource: instance_group }
+      cooldown: 60
+      scaling_adjustment: -1
+
+  cpu_alarm_high:
+    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+    properties:
+      description: Scale up if CPU > 70%
+      enabled: false
+      metric: cpu
+      aggregation_method: rate:mean
+      granularity: 300
+      evaluation_periods: 2
+      threshold: 420000000000.0 #70% of 2vCPU for granularity 300 seconds
+      resource_type: instance
+      comparison_operator: gt
+      alarm_actions:
+        - {get_attr: [scaleup_policy, alarm_url]}
+        - {get_attr: [scaleup_policy, signal_url]}
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaleup_policy, alarm_url]}
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaleup_policy, signal_url]}
+      query:
+        list_join:
+          - ''
+          - - {'=': {server_group: {get_param: "OS::stack_id"}}}
+
+  cpu_alarm_low:
+    type: OS::Aodh::GnocchiAggregationByResourcesAlarm
+    properties:
+      description: Scale down if CPU < 15%
+      metric: cpu
+      aggregation_method: rate:mean
+      granularity: 300
+      evaluation_periods: 1
+      threshold: 90000000000.0 #15% of 2vCPU for granularity 300 seconds
+      resource_type: instance
+      comparison_operator: lt
+      alarm_actions:
+        - {get_attr: [scaledown_policy, alarm_url]}
+        - {get_attr: [scaledown_policy, signal_url]}
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaledown_policy, alarm_url]}
+        - str_replace:
+            template: trust+url
+            params:
+              url: {get_attr: [scaledown_policy, signal_url]}
+      query:
+        list_join:
+          - ''
+          - - {'=': {server_group: {get_param: "OS::stack_id"}}}

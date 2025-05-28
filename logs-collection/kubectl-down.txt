@@ -1,0 +1,188 @@
+kolla-ansible -i ./multinode deploy --limit openstack1 | tee logs-collection/2-3-kolla-deploy-multinode-controller-noverbose.txt
+
+    - name: "{{ project_name }} | Creating services"
+      kolla_toolbox:
+        container_engine: "{{ kolla_container_engine }}"
+        module_name: "os_keystone_service"
+        module_args:
+          name: "{{ item.name }}"
+          service_type: "{{ item.type }}"
+          description: "{{ item.description }}"
+          region_name: "{{ service_ks_register_region_name }}"
+          auth: "{{ service_ks_register_auth }}"
+          interface: "{{ service_ks_register_interface }}"
+          cacert: "{{ service_ks_cacert }}"
+      loop: "{{ service_ks_register_services }}"
+      loop_control:
+        label: "{{ item.name }} ({{ item.type }})"
+      register: service_ks_register_result
+      until: service_ks_register_result is success
+      retries: "{{ service_ks_register_retries }}"
+      delay: "{{ service_ks_register_delay }}"
+      when: item.enabled | default(True) | bool
+
+    - name: "{{ project_name }} | Creating endpoints"
+      kolla_toolbox:
+        container_engine: "{{ kolla_container_engine }}"
+        module_name: "os_keystone_endpoint"
+        module_args:
+          service: "{{ item.0.name }}"
+          url: "{{ item.1.url }}"
+          endpoint_interface: "{{ item.1.interface }}"
+          region: "{{ service_ks_register_endpoint_region }}"
+          region_name: "{{ service_ks_register_region_name }}"
+          auth: "{{ service_ks_register_auth }}"
+          interface: "{{ service_ks_register_interface }}"
+          cacert: "{{ service_ks_cacert }}"
+      with_subelements:
+        - "{{ service_ks_register_services }}"
+        - endpoints
+      loop_control:
+        label: "{{ item.0.name }} -> {{ item.1.url }} -> {{ item.1.interface }}"
+      register: service_ks_register_result
+      until: service_ks_register_result is success
+      retries: "{{ service_ks_register_retries }}"
+      delay: "{{ service_ks_register_delay }}"
+      when: item.0.enabled | default(True) | bool
+
+openstack service create \
+    --name metric \
+    --description "Openstack Metering Service" \
+    --enable \
+    metric 
+
+
+openstack endpoint create --region RegionOne \
+    --enable \
+    metric \
+    internal \
+    http://192.168.99.200:8777
+
+9198
+9093
+
+
+apt-get install gnocchi-api gnocchi-metricd python3-gnocchiclient
+apt-get install uwsgi-plugin-python3 uwsgi
+
+kolla-ansible -i ./multinode bootstrap-servers > logs-collection/2-1-new-kolla-bootstrap.txt
+kolla-ansible -i ./multinode prechecks > logs-collection/2-2-new-kolla-prechecks-multinode.txt
+kolla-ansible -i ./multinode deploy --limit openstack1 | tee logs-collection/2-3-new-kolla-deploy-multinode-controller-noverbose.txt
+kolla-ansible -i ./multinode post-deploy | tee logs-collection/2-4-new-kolla-post-deploy-multinode.txt
+
+
+ubuntu@kube-master-instance:~$ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.3/components.yaml
+
+
+10250:10255
+4443
+
+# Generate a private key
+openssl genpkey -algorithm RSA -out metrics-server.key -pkeyopt rsa_keygen_bits:2048
+
+# Generate a certificate signing request (CSR)
+openssl req -new -key metrics-server.key -out metrics-server.csr -subj "/CN=metrics-server.OIDC.svc.cluster.local"
+
+# Generate the certificate (self-signed)
+openssl x509 -req -in metrics-server.csr -signkey metrics-server.key -out metrics-server.crt -days 365
+
+
+7
+11-28
+30
+
+93-120
+231-234
+236-239
+241-244
+246-249
+251
+254
+
+ps aux --sort=-%cpu | head -n 10 | awk '{print $3}'
+
+ubuntu@kube-master-instance:~$ kubectl describe pod  metrics-server-547f46bb8c-m2kwh -n kube-system
+
+kubectl get deployment
+Name:                 metrics-server-547f46bb8c-m2kwh
+Namespace:            kube-system
+Priority:             2000000000
+Priority Class Name:  system-cluster-critical
+Service Account:      metrics-server
+Node:                 worker-instance/192.168.100.206
+Start Time:           Fri, 21 Mar 2025 00:48:32 +0000
+Labels:               k8s-app=metrics-server
+                      pod-template-hash=547f46bb8c
+Annotations:          <none>
+Status:               Running
+IP:                   10.244.1.89
+IPs:
+  IP:           10.244.1.89
+Controlled By:  ReplicaSet/metrics-server-547f46bb8c
+Containers:
+  metrics-server:
+    Container ID:    containerd://95678cc727b758a6876dca4be7b026a86ca4172d75535269d41b20955783f0c2
+    Image:           registry.k8s.io/metrics-server/metrics-server:v0.7.2
+    Image ID:        registry.k8s.io/metrics-server/metrics-server@sha256:ffcb2bf004d6aa0a17d90e0247cf94f2865c8901dcab4427034c341951c239f9
+    Port:            10250/TCP
+    Host Port:       0/TCP
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --cert-dir=/tmp
+      --secure-port=10250
+      --kubelet-insecure-tls
+      --kubelet-preferred-address-types=InternalIP
+      --kubelet-use-node-status-port
+      --metric-resolution=15s
+    State:          Running
+      Started:      Sat, 22 Mar 2025 16:33:12 +0000
+    Ready:          False
+    Restart Count:  2
+    Requests:
+      cpu:        100m
+      memory:     200Mi
+    Liveness:     http-get https://:https/livez delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get https://:https/readyz delay=20s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /tmp from tmp-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dlbx6 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
+Volumes:
+  tmp-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  kube-api-access-dlbx6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                  Age                 From     Message
+  ----     ------                  ----                ----     -------
+  Warning  Unhealthy               15h (x12 over 37h)  kubelet  Readiness probe failed: Get "https://10.244.1.12:10250/readyz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Warning  Unhealthy               14h (x21 over 39h)  kubelet  Readiness probe failed: Get "https://10.244.1.12:10250/readyz": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+  Warning  Unhealthy               14h (x25 over 39h)  kubelet  Liveness probe failed: Get "https://10.244.1.12:10250/livez": net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+  Warning  FailedCreatePodSandBox  27m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "c5c257de7deddef4c2f74e11986a7b3b67e967e79c9cd2847c3da86f872983fc": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  27m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "578fcd823679ad29a28cf4669ece2a57ec0ac4d4c54afb6ce9681eb8bb7f2d13": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  27m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "f80f72a8fc7aedc9344d4bf12a7106e5e3a2027e203782de89aef17b85521663": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  26m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "ad692724f3ac9ee1ca8fdb89b2d01be75a34d2abdc4230731a1a2a9d99e92097": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  25m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "bcdf9b221b3a639d283282277b8f8b4604c352245a433362eca330534af9d6b8": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  25m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "36b0e6bb0974ab27c7fd4c6f0447c9a78d72350c8ac8a04163f7e8066c6aacd0": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  25m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "e0c6addeb96d5691793ec285765c3669d190ffbe7cc080cdd480084bb315c6a4": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  24m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "d9cc2bf0beb53b360e47e8af693045cd16b29a4c38d5849e19b59550eba177e6": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  24m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "36fcb9189e244ae0de0f416d6f1e3f525a26d82ea8a2995f6bbeae4a54650649": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  23m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "d00e61003bc2ff7926a52815fefcd4e6ef92fb8fc8fc5ec9c6de203fc586ab14": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Warning  FailedCreatePodSandBox  23m                 kubelet  Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "47ba3d5a466e144019ff0e3ee842f214387b8ffbf625485bef83b51bc5b02273": plugin type="flannel" failed (add): loadFlannelSubnetEnv failed: open /run/flannel/subnet.env: no such file or directory
+  Normal   SandboxChanged          23m (x12 over 27m)  kubelet  Pod sandbox changed, it will be killed and re-created.
